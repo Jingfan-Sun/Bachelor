@@ -523,6 +523,9 @@ def GetTCard(bpa_file, bpa_str_ar):
             else:   
                 TypTr.utrn_l = float(line[62-chinese_count_from-chinese_count_to:67-chinese_count_from-chinese_count_to].strip().rstrip('.'))
                 TypTr.utrn_h = float(line[67-chinese_count_from-chinese_count_to:72-chinese_count_from-chinese_count_to].strip().rstrip('.'))
+            TypTr.strn = MVABASE
+            TypTr.uktr = float(line[44-chinese_count_from-chinese_count_to:50-chinese_count_from-chinese_count_to].strip().rstrip('.')) * 100
+
             transformers.typ_id = TypTr
                 		
 # ----------------------------------------------------------------------------------------------------
