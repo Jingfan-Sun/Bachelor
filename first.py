@@ -6,7 +6,6 @@ import math
 # Add powerfactory.pyd path to python path.
 # This is an example for 32 bit PowerFactory architecture.
 import sys
-import imp
 
 sys.path.append("D:\\Program Files\\DIgSILENT\\PowerFactory 15.2\\Python\\3.4\\")
 #import PowerFactory module
@@ -21,7 +20,7 @@ app.ClearOutputWindow()
 # ---------------------------------------------------------------------------------------------------
 def OpenFile():
     """Opens the BPA file."""
-    path = 'C:\\Users\\Outrace\\Downloads\\2013年夏低_华东.dat' 
+    path = 'E:\\Bachelor\\2013年夏低_华东.dat' 
     bpa_file = open(path, 'r')
     app.PrintPlain("Open Successfully!")
 
@@ -120,18 +119,18 @@ def GetBCard(bpa_file, bpa_str_ar):
                 if line[i] >= u'\u4e00' and line[i] <= u'\u9fa5':
                     chinese_count = chinese_count + 1
             name = line[6:14-chinese_count].strip()
-            base = float(line[14-chinese_count:19-chinese_count])
+            base = float(line[14-chinese_count:18-chinese_count])
             #名称+电压
             Variable_name = name + '   ' + str(base)
 
             #Zone
-            zone = Zones.SearchObject(str(line[18-chinese_count:21-chinese_count].strip()))
+            zone = Zones.SearchObject(str(line[18-chinese_count:20-chinese_count].strip()))
             zone = zone[0]
                 
             if zone == None: 
                 zone = Zones.CreateObject('ElmZone', 'Zone')
                 zone = zone[0]
-                zone.loc_name = line[18-chinese_count:21-chinese_count]
+                zone.loc_name = line[18-chinese_count:20-chinese_count]
             
             if line[1] == ' ' or line[1] == 'T' or line[1] == 'C' or line[1] == 'V' or line[1] == 'F' or line[1] == 'J' or line [1] == 'X':
                 #The bus type code for a PQ bus
@@ -239,8 +238,10 @@ def GetBCard(bpa_file, bpa_str_ar):
                 generator.typ_id = Typgen
                 generator.ip_ctrl = 0;  #PV
                 generator.iv_mode = 1;
+                generator.Pmax_uc = float(line[38-chinese_count:42-chinese_count])
                 generator.pgini = float(line[42-chinese_count:47-chinese_count])
-                generator.q_max = float(line[47-chinese_count:52-chinese_count]) / MVABASE
+                generator.q_max = float(line[47-chinese_count:52-chinese_count]) / MVABASE  #无功出力最大值
+                generator.q_min = float(line[53-chinese_count:57-chinese_count]) / MVABASE  #无功出力最小值
                 generator.usetp = float(line[57-chinese_count:61-chinese_count])
 
                 #load
@@ -581,7 +582,6 @@ if bpa_file:					#If the file opened successfully
     global MVABASE
     MVABASE = 100
 
-    imp.reload(sys)
     bpa_str = bpa_file.read()            #The string containing the text file, to use the find() function
     bpa_file.seek(0)        #To position back at the beginning
     bpa_str_ar = bpa_file.readlines()        #The array that is containing all the lines of the BPA file
