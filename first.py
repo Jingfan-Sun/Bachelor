@@ -68,7 +68,8 @@ def getfloatvalue(str_line,num):
 # ----------------------------------------------------------------------------------------------------
 def GetBCard(bpa_file, bpa_str_ar):
     #B卡 
-    
+    global MVABASE
+
     global bus_name_cn
     global bus_name
     global bus_index
@@ -128,15 +129,15 @@ def GetBCard(bpa_file, bpa_str_ar):
             base = float(line[14-chinese_count:19-chinese_count])
             #名称+电压
             Variable_name = name + '_' + str(base)
-            
-            #新建typeLoad
-            TypLod_name = 'TypeLoad'
-            TypLod = Library.SearchObject(TypLod_name)
-            TypLod = TypLod[0]
-            if TypLod == None:
-            	TypLod = Library.CreateObject('TypLod',TypLod_name)
-            	TypLod = TypLod[0]
-            
+
+            #Zone
+            zone = Zones.SearchObject(str(line[18-chinese_count:21-chinese_count].strip()))
+            zone = zone[0]
+                
+            if zone == None: 
+                zone = Zones.CreateObject('ElmZone', 'Zone')
+                zone = zone[0]
+                zone.loc_name = line[18-chinese_count:21-chinese_count]
             
             if line[1] == ' ' or line[1] == 'T' or line[1] == 'C' or line[1] == 'V' or line[1] == 'F' or line[1] == 'J' or line [1] == 'X':
                 #The bus type code for a PQ bus
@@ -149,18 +150,8 @@ def GetBCard(bpa_file, bpa_str_ar):
                 	bus = bus[0]
                 bus_name_cn.append(Variable_name)
                 bus_name.append('bus' + str(bus_index))
-                bus.uknom = base
 
-                #Zone
-                zone = Zones.SearchObject(str(line[18-chinese_count:21-chinese_count].strip()))
-                # app.PrintInfo(zone)
-                zone = zone[0]
-                
-                if zone == None: 
-                    zone = Zones.CreateObject('ElmZone', 'Zone')
-                    zone = zone[0]
-                    zone.loc_name = line[18-chinese_count:21-chinese_count]
-                    
+                bus.uknom = base
                 bus.cpZone = zone
                 
                 load = line[20-chinese_count:25-chinese_count]
@@ -178,6 +169,13 @@ def GetBCard(bpa_file, bpa_str_ar):
                     if cubic == None:
                         cubic = bus.CreateObject('StaCubic', 'Cubic_load' + str(load_index))
                         cubic = cubic[0]
+                    #新建typeLoad
+                    TypLod_name = 'TypeLoad' + str(load_index)
+                    TypLod = Library.SearchObject(TypLod_name)
+                    TypLod = TypLod[0]
+                    if TypLod == None:
+                        TypLod = Library.CreateObject('TypLod',TypLod_name)
+                        TypLod = TypLod[0]
                     load.bus1 = cubic
                     load.typ_id = TypLod
 					
@@ -224,8 +222,11 @@ def GetBCard(bpa_file, bpa_str_ar):
                 generator_name.append('generator' + str(generator_index))
                 bus_name_cn.append(Variable_name)
                 bus_name.append('bus_generator' + str(generator_index))
+                Typgen.sgn = MVABASE
+                Typgen.ugn = base
 
                 g_bus.uknom = base
+                g_bus.cpZone = zone
                 
                 generator.bus1 = cubic
                 generator.typ_id = Typgen
@@ -254,12 +255,15 @@ def GetBCard(bpa_file, bpa_str_ar):
                 cubic = cubic[0]
                 Typgen = Library.SearchObject('TypeGenerator' + str(generator_index))
                 Typgen = Typgen[0]
+                Typgen.sgn = MVABASE
+                Typgen.ugn = base
                 generator_name_cn.append(Variable_name)
                 generator_name.append('generator' + str(generator_index))
                 bus_name_cn.append(Variable_name)
                 bus_name.append('bus_generator' + str(generator_index))
 
                 g_bus.uknom = base
+                g_bus.cpZone = zone
 
                 generator.bus1 = cubic
                 generator.typ_id = Typgen
