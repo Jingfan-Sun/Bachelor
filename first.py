@@ -195,6 +195,15 @@ def GetBCard(bpa_file, bpa_str_ar):
                         cubic = bus.CreateObject('StaCubic', 'Cubic_shunt' + str(shunt_index))
                         cubic = cubic[0]
                     shunt.bus1 = cubic
+                    shunt.ushnm = base
+                    value = float(line[34-chinese_count:38-chinese_count].strip().rstrip('.'))
+                    if value > 0:
+                        shunt.shtype = 2
+                        shunt.qcapn = value
+                    else:
+                        shunt.shtype = 1
+                        shunt.qrean = value
+
                 
             elif line[1] == 'E' or line[1] == 'Q' or line[1] == 'G' or line[1] == 'K' or line[1] == 'L':
                 #The bus type code for a PV bus
