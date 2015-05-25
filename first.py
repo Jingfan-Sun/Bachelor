@@ -205,10 +205,6 @@ def GetBCard(bpa_file, bpa_str_ar):
                 generator_index = generator_index + 1
                 generator = Net.SearchObject('generator' + str(generator_index))
                 generator = generator[0]
-                g_bus = Net.SearchObject('bus_generator' + str(generator_index))
-                g_bus = g_bus[0]
-                cubic = g_bus.SearchObject('Cubic_generator' + str(generator_index))
-                cubic = cubic[0]
                 if generator == None:
                     generator = Net.CreateObject('ElmSym', 'generator' + str(generator_index))
                     generator = generator[0]
@@ -216,6 +212,14 @@ def GetBCard(bpa_file, bpa_str_ar):
                     g_bus = g_bus[0]
                     cubic = g_bus.CreateObject('StaCubic', 'Cubic_generator' + str(generator_index))
                     cubic = cubic[0]
+                    Typgen = Library.CreateObject('TypSym', 'TypeGenerator' + str(generator_index))
+                    Typgen = Typgen[0]
+                g_bus = Net.SearchObject('bus_generator' + str(generator_index))
+                g_bus = g_bus[0]
+                cubic = g_bus.SearchObject('Cubic_generator' + str(generator_index))
+                cubic = cubic[0]
+                Typgen = Library.SearchObject('TypeGenerator' + str(generator_index))
+                Typgen = Typgen[0]
                 generator_name_cn.append(Variable_name)
                 generator_name.append('generator' + str(generator_index))
                 bus_name_cn.append(Variable_name)
@@ -224,6 +228,7 @@ def GetBCard(bpa_file, bpa_str_ar):
                 g_bus.uknom = base
                 
                 generator.bus1 = cubic
+                generator.typ_id = Typgen
                 generator.ip_ctrl = 0;  #PV
                 generator.iv_mode = 1;
                 generator.pgini = float(line[42-chinese_count:47-chinese_count])
@@ -234,10 +239,6 @@ def GetBCard(bpa_file, bpa_str_ar):
                 generator_index = generator_index + 1
                 generator = Net.SearchObject('generator' + str(generator_index))
                 generator = generator[0]
-                g_bus = Net.SearchObject('bus_generator' + str(generator_index))
-                g_bus = g_bus[0]
-                cubic = g_bus.SearchObject('Cubic_generator' + str(generator_index))
-                cubic = cubic[0]
                 if generator == None:
                     generator = Net.CreateObject('ElmSym', 'generator' + str(generator_index))
                     generator = generator[0]
@@ -245,6 +246,14 @@ def GetBCard(bpa_file, bpa_str_ar):
                     g_bus = g_bus[0]
                     cubic = g_bus.CreateObject('StaCubic', 'Cubic_generator' + str(generator_index))
                     cubic = cubic[0]
+                    Typgen = Library.CreateObject('TypSym', 'TypeGenerator' + str(generator_index))
+                    Typgen = Typgen[0]
+                g_bus = Net.SearchObject('bus_generator' + str(generator_index))
+                g_bus = g_bus[0]
+                cubic = g_bus.SearchObject('Cubic_generator' + str(generator_index))
+                cubic = cubic[0]
+                Typgen = Library.SearchObject('TypeGenerator' + str(generator_index))
+                Typgen = Typgen[0]
                 generator_name_cn.append(Variable_name)
                 generator_name.append('generator' + str(generator_index))
                 bus_name_cn.append(Variable_name)
@@ -253,6 +262,7 @@ def GetBCard(bpa_file, bpa_str_ar):
                 g_bus.uknom = base
 
                 generator.bus1 = cubic
+                generator.typ_id = Typgen
                 generator.ip_ctrl = 1; #reference
                 generator.iv_mode = 1;
                 generator.pgini = float(line[42-chinese_count:47-chinese_count])
