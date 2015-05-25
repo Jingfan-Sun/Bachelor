@@ -400,9 +400,10 @@ def GetLCard(bpa_file, bpa_str_ar):
             if TypLne == None:
             	TypLne = Library.CreateObject('TypLne',TypLne_name)
             	TypLne = TypLne[0]
+            TypLne.uline = base_from
             TypLne.rline = base_from * base_from / MVABASE * float('0' + line[38-chinese_count_from-chinese_count_to:44-chinese_count_from-chinese_count_to].strip().rstrip('.'))	#电阻
             TypLne.xline = base_from * base_from / MVABASE * float('0' + line[44-chinese_count_from-chinese_count_to:50-chinese_count_from-chinese_count_to].strip().rstrip('.'))	#电抗
-            TypLne.bline = MVABASE / base_from / base_from * float('0' + line[56-chinese_count_from-chinese_count_to:62-chinese_count_from-chinese_count_to].strip().rstrip('.'))	#电纳
+            TypLne.bline = 2 * pow(10, 6) * MVABASE / base_from / base_from * float('0' + line[56-chinese_count_from-chinese_count_to:62-chinese_count_from-chinese_count_to].strip().rstrip('.'))	#电纳
             transLine.typ_id = TypLne
                 		
 # ----------------------------------------------------------------------------------------------------
