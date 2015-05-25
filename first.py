@@ -6,6 +6,8 @@ import math
 # Add powerfactory.pyd path to python path.
 # This is an example for 32 bit PowerFactory architecture.
 import sys
+import imp
+
 sys.path.append("D:\\Program Files\\DIgSILENT\\PowerFactory 15.2\\Python\\3.4\\")
 #import PowerFactory module
 import powerfactory
@@ -19,19 +21,11 @@ app.ClearOutputWindow()
 # ---------------------------------------------------------------------------------------------------
 def OpenFile():
     """Opens the BPA file."""
-    path = 'C:\\Users\\Outrace\\Desktop\\bpa4.1_crack\\SAMPLE\\IEEE9\\IEEE90.dat' 
+    path = 'C:\\Users\\Outrace\\Downloads\\2013年夏低_华东.dat' 
     bpa_file = open(path, 'r')
     app.PrintPlain("Open Successfully!")
 
     return bpa_file
-
-# ---------------------------------------------------------------------------------------------------
-def OpenBusFile():
-    """Opens the BPA file."""
-    path = 'C:\\Users\\xj\\Desktop\\bus.txt' 
-    bus_file = open(path, 'r')
-
-    return bus_file
 
 # ----------------------------------------------------------------------------------------------------
 def isfloat(str):
@@ -128,7 +122,7 @@ def GetBCard(bpa_file, bpa_str_ar):
             name = line[6:14-chinese_count].strip()
             base = float(line[14-chinese_count:19-chinese_count])
             #名称+电压
-            Variable_name = name + '_' + str(base)
+            Variable_name = name + '   ' + str(base)
 
             #Zone
             zone = Zones.SearchObject(str(line[18-chinese_count:21-chinese_count].strip()))
@@ -156,7 +150,7 @@ def GetBCard(bpa_file, bpa_str_ar):
                 
                 load = line[20-chinese_count:25-chinese_count]
                 # app.PrintInfo(load+'1')
-                if not(load[0:3] == '   ' or load == ''):
+                if isfloat(load):
                     load_index = load_index + 1
                     load = Net.SearchObject('load' + str(load_index))
                     load = load[0]
@@ -184,7 +178,7 @@ def GetBCard(bpa_file, bpa_str_ar):
 					
                 shunt = line[34-chinese_count:38-chinese_count]
                 # app.PrintInfo(load+'1')
-                if not(shunt[0:3] == '   ' or load == ''):
+                if isfloat(shunt):
                     shunt_index = shunt_index + 1
                     shunt = Net.SearchObject('shunt' + str(shunt_index))
                     shunt = shunt[0]
@@ -248,6 +242,32 @@ def GetBCard(bpa_file, bpa_str_ar):
                 generator.pgini = float(line[42-chinese_count:47-chinese_count])
                 generator.q_max = float(line[47-chinese_count:52-chinese_count]) / MVABASE
                 generator.usetp = float(line[57-chinese_count:61-chinese_count])
+
+                #load
+                if isfloat(line[20-chinese_count:25-chinese_count]):
+                    load = Net.SearchObject('load_generator' + str(generator_index))
+                    load = load[0]
+                    if load == None:
+                        load = Net.CreateObject('ElmLod', 'load_generator' + str(generator_index))
+                        load = load[0]
+                    load.plini = float(line[20-chinese_count:25-chinese_count].strip().rstrip('.'))
+                    load.qlini = float(line[25-chinese_count:30-chinese_count].strip().rstrip('.'))
+                    cubic = g_bus.SearchObject('Cubic_load_generator' + str(load_index))
+                    cubic = cubic[0]
+                    if cubic == None:
+                        cubic = g_bus.CreateObject('StaCubic', 'Cubic_load_generator' + str(load_index))
+                        cubic = cubic[0]
+                    #新建typeLoad
+                    TypLod_name = 'TypeLoadGenerator' + str(load_index)
+                    TypLod = Library.SearchObject(TypLod_name)
+                    TypLod = TypLod[0]
+                    if TypLod == None:
+                        TypLod = Library.CreateObject('TypLod',TypLod_name)
+                        TypLod = TypLod[0]
+                    TypLod.aP = 1
+                    TypLod.aQ = 1
+                    load.bus1 = cubic
+                    load.typ_id = TypLod
                 
             elif line[1] == 'S':    #SL
                 generator_index = generator_index + 1
@@ -287,9 +307,6 @@ def GetBCard(bpa_file, bpa_str_ar):
                 generator.pgini = 0
                 generator.q_max = float(line[47-chinese_count:52-chinese_count]) / MVABASE
                 generator.usetp = float(line[57-chinese_count:61-chinese_count])
-
-            if line[1] == ' ' or line[1] == 'T' or line[1] == 'C' or line[1] == 'V' or line[1] == 'F' or line[1] == 'J' or line [1] == 'X': 
-                #The bus type code for a PQ bus
                 
 
 # ----------------------------------------------------------------------------------------------------
@@ -357,7 +374,7 @@ def GetLCard(bpa_file, bpa_str_ar):
 #            app.PrintInfo(chinese_count_from)
             name_from = line[6:14-chinese_count_from].strip()
             base_from = float(line[14-chinese_count_from:18-chinese_count_from])
-            name_from = name_from + '_' + str(base_from)
+            name_from = name_from + '   ' + str(base_from)
         		
 #        	app.PrintPlain(name_from.encode('GBK'))
 #        	app.PrintPlain(base_from)
@@ -370,7 +387,7 @@ def GetLCard(bpa_file, bpa_str_ar):
 #           app.PrintInfo(chinese_count_to)
             name_to = line[19-chinese_count_from:27-chinese_count_from-chinese_count_to].strip()
             base_to = float(line[27-chinese_count_from-chinese_count_to:31-chinese_count_from-chinese_count_to])
-            name_to = name_to + '_' + str(base_to)
+            name_to = name_to + '   ' + str(base_to)
 
             #新建ElmLne	
             transLine_index = transLine_index + 1
@@ -402,7 +419,7 @@ def GetLCard(bpa_file, bpa_str_ar):
                 cubic = bus_to.CreateObject('StaCubic', 'Cubic_' + 'transLine' + str(transLine_index))
                 cubic = cubic[0]
             transLine.bus2 = cubic
-#            app.PrintInfo('0' + line[38-chinese_count_from-chinese_count_to:44-chinese_count_from-chinese_count_to].strip().rstrip('.'))
+
             #新建typeLines
             TypLne_name = 'TypeLine_' + 'transLine' + str(transLine_index)
             TypLne = Library.SearchObject(TypLne_name)
@@ -483,7 +500,7 @@ def GetTCard(bpa_file, bpa_str_ar):
 #            app.PrintInfo(chinese_count_from)
             name_from = line[6:14-chinese_count_from].strip()
             base_from = float(line[14-chinese_count_from:18-chinese_count_from])
-            name_from = name_from + '_' + str(base_from)
+            name_from = name_from + '   ' + str(base_from)
         		
 #        	app.PrintPlain(name_from.encode('GBK'))
 #        	app.PrintPlain(base_from)
@@ -496,7 +513,7 @@ def GetTCard(bpa_file, bpa_str_ar):
 #           app.PrintInfo(chinese_count_to)
             name_to = line[19-chinese_count_from:27-chinese_count_from-chinese_count_to].strip()
             base_to = float(line[27-chinese_count_from-chinese_count_to:31-chinese_count_from-chinese_count_to])
-            name_to = name_to + '_' + str(base_to)
+            name_to = name_to + '   ' + str(base_to)
 
             transformers_index = transformers_index + 1
             transformers = Net.SearchObject('transformers' + str(transformers_index))
@@ -563,7 +580,8 @@ if bpa_file:					#If the file opened successfully
     
     global MVABASE
     MVABASE = 100
-    
+
+    imp.reload(sys)
     bpa_str = bpa_file.read()            #The string containing the text file, to use the find() function
     bpa_file.seek(0)        #To position back at the beginning
     bpa_str_ar = bpa_file.readlines()        #The array that is containing all the lines of the BPA file
@@ -601,8 +619,8 @@ if bpa_file:					#If the file opened successfully
     transformers_index = 0
 
 
-    GetBCard(bpa_file, bpa_str_ar)
+    GetBCard(bpa_file, bpa_str_ar[0:22])
 
-    GetLCard(bpa_file, bpa_str_ar)
+    # GetLCard(bpa_file, bpa_str_ar)
 
-    GetTCard(bpa_file,   bpa_str_ar)
+    # GetTCard(bpa_file,   bpa_str_ar)
