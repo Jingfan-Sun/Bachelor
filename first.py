@@ -18,9 +18,12 @@ app = powerfactory.GetApplication()
 app.ClearOutputWindow()
 
 # ---------------------------------------------------------------------------------------------------
-def OpenFile():
+def OpenFile(system):
     """Opens the BPA file."""
-    path = 'E:\\Bachelor\\2013年夏低_华东.dat' 
+    path_win = 'E:\\Bachelor\\2013年夏低_华东.dat' 
+    path_mac = 'Z:\\Dev\\Bachelor\\2013年夏低_华东.dat'
+    if system == 'win': path = path_win
+    else: path = path_mac
     bpa_file = open(path, 'r')
     app.PrintPlain("Open Successfully!")
 
@@ -110,6 +113,8 @@ def GetBCard(bpa_file, bpa_str_ar):
 
     for line in bpa_str_ar:
         line = line.rstrip('\n')
+        line = line[0:80]
+        line = line + ' '*(80-len(line))
         if line == "": continue
         
         if line[0] == 'B':
@@ -309,7 +314,6 @@ def GetBCard(bpa_file, bpa_str_ar):
                 generator.q_max = float(line[47-chinese_count:52-chinese_count]) / MVABASE
                 generator.usetp = float(line[57-chinese_count:61-chinese_count])
                 
-
 # ----------------------------------------------------------------------------------------------------
 def GetLCard(bpa_file, bpa_str_ar):
     #L卡
@@ -328,6 +332,8 @@ def GetLCard(bpa_file, bpa_str_ar):
     global load_index
     
     global transLine_index
+    global transLine_name_cn
+    global transLine_name
 
     prj = app.GetActiveProject()
     if prj is None:
@@ -364,28 +370,28 @@ def GetLCard(bpa_file, bpa_str_ar):
 
     for line in bpa_str_ar:
         line = line.rstrip('\n')
+        line = line[0:80]
+        line = line + ' '*(80-len(line))
+        app.PrintPlain(line.encode('GBK'))
+
         if line == "": continue
-        
+
+        # app.PrintPlain(line.encode('GBK'))
         if line[0] == 'L':
             chinese_count_from = 0
             #判断中文个数
             for i in range (6,14):
             	if line[i] >= u'\u4e00' and line[i] <= u'\u9fa5':
             	    chinese_count_from = chinese_count_from + 1
-#            app.PrintInfo(chinese_count_from)
             name_from = line[6:14-chinese_count_from].strip()
             base_from = float(line[14-chinese_count_from:18-chinese_count_from])
             name_from = name_from + '   ' + str(base_from)
-        		
-#        	app.PrintPlain(name_from.encode('GBK'))
-#        	app.PrintPlain(base_from)
         	
             chinese_count_to = 0 
             #判断中文个数
             for i in range (19-chinese_count_from,27-chinese_count_from):
             	if line[i] >= u'\u4e00' and line[i] <= u'\u9fa5':
         	    	chinese_count_to = chinese_count_to + 1
-#           app.PrintInfo(chinese_count_to)
             name_to = line[19-chinese_count_from:27-chinese_count_from-chinese_count_to].strip()
             base_to = float(line[27-chinese_count_from-chinese_count_to:31-chinese_count_from-chinese_count_to])
             name_to = name_to + '   ' + str(base_to)
@@ -409,6 +415,7 @@ def GetLCard(bpa_file, bpa_str_ar):
                 cubic = bus_from.CreateObject('StaCubic', 'Cubic_' + 'transLine' + str(transLine_index))
                 cubic = cubic[0]
             transLine.bus1 = cubic
+
             #终止bus
             bus_to = bus_name[bus_name_cn.index(name_to)]
             # app.PrintPlain(bus_to)
@@ -421,18 +428,33 @@ def GetLCard(bpa_file, bpa_str_ar):
                 cubic = cubic[0]
             transLine.bus2 = cubic
 
-            #新建typeLines
-            TypLne_name = 'TypeLine_' + 'transLine' + str(transLine_index)
-            TypLne = Library.SearchObject(TypLne_name)
-            TypLne = TypLne[0]
-            if TypLne == None:
-            	TypLne = Library.CreateObject('TypLne',TypLne_name)
-            	TypLne = TypLne[0]
-            TypLne.uline = base_from
-            TypLne.rline = base_from * base_from / MVABASE * float('0' + line[38-chinese_count_from-chinese_count_to:44-chinese_count_from-chinese_count_to].strip().rstrip('.'))	#电阻
-            TypLne.xline = base_from * base_from / MVABASE * float('0' + line[44-chinese_count_from-chinese_count_to:50-chinese_count_from-chinese_count_to].strip().rstrip('.'))	#电抗
-            TypLne.bline = 2 * pow(10, 6) * MVABASE / base_from / base_from * float('0' + line[56-chinese_count_from-chinese_count_to:62-chinese_count_from-chinese_count_to].strip().rstrip('.'))	#电纳
-            transLine.typ_id = TypLne
+            if line[1] == ' ':
+                #保存线路名称
+                chinese_count_line = 0 
+                for i in range (66-chinese_count_from-chinese_count_to, 74-chinese_count_from-chinese_count_to):
+                    if line[i] >= u'\u4e00' and line[i] <= u'\u9fa5':
+                        chinese_count_line = chinese_count_line + 1
+                name_line = line[66-chinese_count_from-chinese_count_to: 74-chinese_count_from-chinese_count_to-chinese_count_line].strip()
+
+                app.PrintInfo(name_line.encode('GBK'))
+
+                #新建typeLines
+                TypLne_name = 'TypeLine_' + 'transLine' + str(transLine_index)
+                TypLne = Library.SearchObject(TypLne_name)
+                TypLne = TypLne[0]
+                if TypLne == None:
+                	TypLne = Library.CreateObject('TypLne',TypLne_name)
+                	TypLne = TypLne[0]
+                TypLne.uline = base_from
+                if isfloat(line[38-chinese_count_from-chinese_count_to:44-chinese_count_from-chinese_count_to].strip().rstrip('.')): 
+                    TypLne.rline = base_from * base_from / MVABASE * float(line[38-chinese_count_from-chinese_count_to:44-chinese_count_from-chinese_count_to].strip().rstrip('.'))	#电阻
+                else: TypLne.rline = 0
+                if float(line[44-chinese_count_from-chinese_count_to:50-chinese_count_from-chinese_count_to].strip().rstrip('.')) < 0: TypLne.xline = 0
+                else: TypLne.xline = base_from * base_from / MVABASE * float(line[44-chinese_count_from-chinese_count_to:50-chinese_count_from-chinese_count_to].strip().rstrip('.'))   #电抗
+                if isfloat(line[56-chinese_count_from-chinese_count_to:62-chinese_count_from-chinese_count_to].strip().rstrip('.')):
+                    TypLne.bline = 2 * pow(10, 6) * MVABASE / base_from / base_from * float(line[56-chinese_count_from-chinese_count_to:62-chinese_count_from-chinese_count_to].strip().rstrip('.'))	#电纳
+                else: TypLne.bline = 0
+                transLine.typ_id = TypLne
                 		
 # ----------------------------------------------------------------------------------------------------
 def GetTCard(bpa_file, bpa_str_ar):
@@ -490,6 +512,8 @@ def GetTCard(bpa_file, bpa_str_ar):
 
     for line in bpa_str_ar:
         line = line.rstrip('\n')
+        line = line[0:80]
+        line = line + ' '*(80-len(line))
         if line == "": continue
         
         if line[0] == 'T':
@@ -498,20 +522,15 @@ def GetTCard(bpa_file, bpa_str_ar):
             for i in range (6,14):
             	if line[i] >= u'\u4e00' and line[i] <= u'\u9fa5':
             	    chinese_count_from = chinese_count_from + 1
-#            app.PrintInfo(chinese_count_from)
             name_from = line[6:14-chinese_count_from].strip()
             base_from = float(line[14-chinese_count_from:18-chinese_count_from])
             name_from = name_from + '   ' + str(base_from)
-        		
-#        	app.PrintPlain(name_from.encode('GBK'))
-#        	app.PrintPlain(base_from)
         	
             chinese_count_to = 0 
             #判断中文个数
             for i in range (19-chinese_count_from,27-chinese_count_from):
             	if line[i] >= u'\u4e00' and line[i] <= u'\u9fa5':
         	    	chinese_count_to = chinese_count_to + 1
-#           app.PrintInfo(chinese_count_to)
             name_to = line[19-chinese_count_from:27-chinese_count_from-chinese_count_to].strip()
             base_to = float(line[27-chinese_count_from-chinese_count_to:31-chinese_count_from-chinese_count_to])
             name_to = name_to + '   ' + str(base_to)
@@ -573,8 +592,8 @@ def GetTCard(bpa_file, bpa_str_ar):
 # ----------------------------------------------------------------------------------------------------
 DEBUG = 1
 if DEBUG:
-    
-    bpa_file = OpenFile() # 打开指定文件
+
+    bpa_file = OpenFile('mac') # 打开指定文件
 
             
 if bpa_file:					#If the file opened successfully
@@ -590,7 +609,11 @@ if bpa_file:					#If the file opened successfully
         if line[0:2] == "/M": 
             MVABASE = float(line[line.find("=")+1:line.find("\\")].lstrip())            #To continue if it is a blank line
             break
-    
+
+    # for i in range(0, len(bpa_str_ar)):
+    #     bpa_str_ar[i] = bpa_str_ar[i][0:80]
+    #     bpa_str_ar[i] = bpa_str_ar[i] + ' '*(80-len(bpa_str_ar[i]))
+                    
     global bus_name_cn
     global bus_name
     global bus_index
@@ -604,6 +627,8 @@ if bpa_file:					#If the file opened successfully
     global load_index
     
     global transLine_index
+    global transLine_name_cn
+    global transLine_name
     
     global transformers_index
     
@@ -616,11 +641,13 @@ if bpa_file:					#If the file opened successfully
     shunt_index = 0
     load_index = 0
     transLine_index = 0
+    transLine_name_cn = []
+    transLine_name = []
     transformers_index = 0
 
 
-    GetBCard(bpa_file, bpa_str_ar[0:22])
+    GetBCard(bpa_file, bpa_str_ar[0:37])
 
-    # GetLCard(bpa_file, bpa_str_ar)
+    GetLCard(bpa_file, bpa_str_ar[0:37])
 
     # GetTCard(bpa_file,   bpa_str_ar)
