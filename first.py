@@ -249,7 +249,7 @@ def GetBCard(bpa_file, bpa_str_ar):
                 generator.q_max = float(line[47-chinese_count:52-chinese_count]) / MVABASE
                 generator.usetp = float(line[57-chinese_count:61-chinese_count])
                 
-            elif line[1] == 'S':
+            elif line[1] == 'S':    #SL
                 generator_index = generator_index + 1
                 generator = Net.SearchObject('generator' + str(generator_index))
                 generator = generator[0]
@@ -287,6 +287,10 @@ def GetBCard(bpa_file, bpa_str_ar):
                 generator.pgini = 0
                 generator.q_max = float(line[47-chinese_count:52-chinese_count]) / MVABASE
                 generator.usetp = float(line[57-chinese_count:61-chinese_count])
+
+            if line[1] == ' ' or line[1] == 'T' or line[1] == 'C' or line[1] == 'V' or line[1] == 'F' or line[1] == 'J' or line [1] == 'X': 
+                #The bus type code for a PQ bus
+                
 
 # ----------------------------------------------------------------------------------------------------
 def GetLCard(bpa_file, bpa_str_ar):
