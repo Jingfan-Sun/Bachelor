@@ -172,15 +172,14 @@ def GetBCard(bpa_file, bpa_str_ar):
                     if load == None:
                     	load = Net.CreateObject('ElmLod', 'load' + str(load_index))
                     	load = load[0]
-#                     app.PrintInfo(line[25-chinese_count:28-chinese_count].strip().rstrip('.'))
-                    	load.plini = float(line[20-chinese_count:25-chinese_count].strip().rstrip('.'))
-                    	load.qlini = float(line[25-chinese_count:30-chinese_count].strip().rstrip('.'))
-                    		
-                    	cubic = bus.CreateObject('StaCubic', 'Cubic_load')
-                    	cubic = cubic[0]
-                    	load.bus1 = cubic
-                    	
-                    	load.typ_id = TypLod
+                    load.qlini = float(line[25-chinese_count:30-chinese_count].strip().rstrip('.'))
+                    cubic = bus.SearchObject('Cubic_load' + str(load_index))
+                    cubic = cubic[0]
+                    if cubic == None:
+                        cubic = bus.CreateObject('StaCubic', 'Cubic_load' + str(load_index))
+                        cubic = cubic[0]
+                    load.bus1 = cubic
+                    load.typ_id = TypLod
 					
                 shunt = line[34-chinese_count:38-chinese_count]
                 # app.PrintInfo(load+'1')
@@ -191,12 +190,13 @@ def GetBCard(bpa_file, bpa_str_ar):
                     if shunt == None:
                     	shunt = Net.CreateObject('ElmShnt', 'shunt' + str(shunt_index))
                     	shunt = shunt[0]
-                    	shunt.qtotn = float(line[34-chinese_count:38-chinese_count].strip().rstrip('.'))
-                    		
-                    	cubic = bus.CreateObject('StaCubic', 'Cubic_shunt')
-                    	cubic = cubic[0]
-                    	shunt.bus1 = cubic
-										# app.PrintInfo(shunt.bus1)
+                    shunt.qtotn = float(line[34-chinese_count:38-chinese_count].strip().rstrip('.'))
+                    cubic = bus.SearchObject('Cubic_shunt' + str(shunt_index))
+                    cubic = cubic[0]
+                    if cubic == None:
+                        cubic = bus.CreateObject('StaCubic', 'Cubic_shunt' + str(shunt_index))
+                        cubic = cubic[0]
+                    shunt.bus1 = cubic
                 
             elif line[1] == 'E' or line[1] == 'Q' or line[1] == 'G' or line[1] == 'K' or line[1] == 'L':
                 #The bus type code for a PV bus
@@ -207,11 +207,15 @@ def GetBCard(bpa_file, bpa_str_ar):
                 generator = generator[0]
                 g_bus = Net.SearchObject('bus_generator' + str(generator_index))
                 g_bus = g_bus[0]
+                cubic = g_bus.SearchObject('Cubic_generator' + str(generator_index))
+                cubic = cubic[0]
                 if generator == None:
                     generator = Net.CreateObject('ElmSym', 'generator' + str(generator_index))
                     generator = generator[0]
                     g_bus = Net.CreateObject('ElmTerm', 'bus_generator' + str(generator_index))
                     g_bus = g_bus[0]
+                    cubic = g_bus.CreateObject('StaCubic', 'Cubic_generator' + str(generator_index))
+                    cubic = cubic[0]
                 generator_name_cn.append(Variable_name)
                 generator_name.append('generator' + str(generator_index))
                 bus_name_cn.append(Variable_name)
@@ -219,7 +223,7 @@ def GetBCard(bpa_file, bpa_str_ar):
 
                 g_bus.uknom = base
                 
-                generator.bus1 = g_bus
+                generator.bus1 = cubic
                 generator.ip_ctrl = 0;  #PV
                 generator.iv_mode = 1;
                 generator.pgini = float(line[42-chinese_count:47-chinese_count])
@@ -232,11 +236,15 @@ def GetBCard(bpa_file, bpa_str_ar):
                 generator = generator[0]
                 g_bus = Net.SearchObject('bus_generator' + str(generator_index))
                 g_bus = g_bus[0]
+                cubic = g_bus.SearchObject('Cubic_generator' + str(generator_index))
+                cubic = cubic[0]
                 if generator == None:
                     generator = Net.CreateObject('ElmSym', 'generator' + str(generator_index))
                     generator = generator[0]
                     g_bus = Net.CreateObject('ElmTerm', 'bus_generator' + str(generator_index))
                     g_bus = g_bus[0]
+                    cubic = g_bus.CreateObject('StaCubic', 'Cubic_generator' + str(generator_index))
+                    cubic = cubic[0]
                 generator_name_cn.append(Variable_name)
                 generator_name.append('generator' + str(generator_index))
                 bus_name_cn.append(Variable_name)
@@ -244,7 +252,7 @@ def GetBCard(bpa_file, bpa_str_ar):
 
                 g_bus.uknom = base
 
-                generator.bus1 = g_bus
+                generator.bus1 = cubic
                 generator.ip_ctrl = 1; #reference
                 generator.iv_mode = 1;
                 generator.pgini = float(line[42-chinese_count:47-chinese_count])
@@ -344,16 +352,22 @@ def GetLCard(bpa_file, bpa_str_ar):
             # app.PrintPlain(bus_from)
             bus_from = Net.SearchObject(bus_from)
             bus_from = bus_from[0]
-            cubic = bus_from.CreateObject('StaCubic', 'Cubic_' + 'transLine' + str(transLine_index))
+            cubic = bus_from.SearchObject('Cubic_' + 'transLine' + str(transLine_index))
             cubic = cubic[0]
+            if cubic == None:
+                cubic = bus_from.CreateObject('StaCubic', 'Cubic_' + 'transLine' + str(transLine_index))
+                cubic = cubic[0]
             transLine.bus1 = cubic
             #终止bus
             bus_to = bus_name[bus_name_cn.index(name_to)]
             # app.PrintPlain(bus_to)
             bus_to = Net.SearchObject(bus_to)
             bus_to = bus_to[0]
-            cubic = bus_to.CreateObject('StaCubic', 'Cubic_' + 'transLine' + str(transLine_index))
+            cubic = bus_to.SearchObject('Cubic_' + 'transLine' + str(transLine_index))
             cubic = cubic[0]
+            if cubic == None:
+                cubic = bus_to.CreateObject('StaCubic', 'Cubic_' + 'transLine' + str(transLine_index))
+                cubic = cubic[0]
             transLine.bus2 = cubic
 #            app.PrintInfo('0' + line[38-chinese_count_from-chinese_count_to:44-chinese_count_from-chinese_count_to].strip().rstrip('.'))
             #新建typeLines
@@ -469,16 +483,22 @@ def GetTCard(bpa_file, bpa_str_ar):
             app.PrintPlain(bus_hv)
             bus_hv = Net.SearchObject(bus_hv)
             bus_hv = bus_hv[0]
-            cubic = bus_hv.CreateObject('StaCubic', 'Cubic_' + 'transformers' + str(transformers_index))
+            cubic = bus_hv.SearchObject('Cubic_' + 'transformers' + str(transformers_index))
             cubic = cubic[0]
+            if cubic == None:
+                cubic = bus_hv.CreateObject('StaCubic', 'Cubic_' + 'transformers' + str(transformers_index))
+                cubic = cubic[0]
             transformers.bushv = cubic
             #低压bus
             bus_lv = bus_name[bus_name_cn.index(name_lv)]
             app.PrintPlain(bus_lv)
             bus_lv = Net.SearchObject(bus_lv)
             bus_lv = bus_lv[0]
-            cubic = bus_lv.CreateObject('StaCubic', 'Cubic_' + 'transformers' + str(transformers_index))
+            cubic = bus_lv.SearchObject('Cubic_' + 'transformers' + str(transformers_index))
             cubic = cubic[0]
+            if cubic == None:
+                cubic = bus_lv.CreateObject('StaCubic', 'Cubic_' + 'transformers' + str(transformers_index))
+                cubic = cubic[0]
             transformers.buslv = cubic
             #新建typeLines
             TypTr_name = 'TypeLine_' + 'transformers' + str(transformers_index)
