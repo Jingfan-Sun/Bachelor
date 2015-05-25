@@ -219,6 +219,7 @@ def GetBCard(bpa_file, bpa_str_ar):
 
                 g_bus.uknom = base
                 
+                generator.bus1 = g_bus
                 generator.ip_ctrl = 0;  #PV
                 generator.iv_mode = 1;
                 generator.pgini = float(line[42-chinese_count:47-chinese_count])
@@ -240,15 +241,15 @@ def GetBCard(bpa_file, bpa_str_ar):
                 generator_name.append('generator' + str(generator_index))
                 bus_name_cn.append(Variable_name)
                 bus_name.append('bus_generator' + str(generator_index))
-                	
+
+                g_bus.uknom = base
+
+                generator.bus1 = g_bus
                 generator.ip_ctrl = 1; #reference
                 generator.iv_mode = 1;
                 generator.pgini = float(line[42-chinese_count:47-chinese_count])
                 generator.q_max = float(line[47-chinese_count:52-chinese_count])
                 generator.usetp = float(line[57-chinese_count:61-chinese_count])
-
-                app.PrintInfo(g_bus)
-                g_bus.uknom = base
 
 # ----------------------------------------------------------------------------------------------------
 def GetLCard(bpa_file, bpa_str_ar):
