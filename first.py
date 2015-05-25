@@ -163,6 +163,7 @@ def GetBCard(bpa_file, bpa_str_ar):
                     if load == None:
                     	load = Net.CreateObject('ElmLod', 'load' + str(load_index))
                     	load = load[0]
+                    load.plini = float(line[20-chinese_count:25-chinese_count].strip().rstrip('.'))
                     load.qlini = float(line[25-chinese_count:30-chinese_count].strip().rstrip('.'))
                     cubic = bus.SearchObject('Cubic_load' + str(load_index))
                     cubic = cubic[0]
@@ -176,6 +177,8 @@ def GetBCard(bpa_file, bpa_str_ar):
                     if TypLod == None:
                         TypLod = Library.CreateObject('TypLod',TypLod_name)
                         TypLod = TypLod[0]
+                    TypLod.aP = 1
+                    TypLod.aQ = 1
                     load.bus1 = cubic
                     load.typ_id = TypLod
 					
@@ -233,6 +236,7 @@ def GetBCard(bpa_file, bpa_str_ar):
                 bus_name.append('bus_generator' + str(generator_index))
                 Typgen.sgn = MVABASE
                 Typgen.ugn = base
+                Typgen.cosn = 1
 
                 g_bus.uknom = base
                 g_bus.cpZone = zone
@@ -242,7 +246,7 @@ def GetBCard(bpa_file, bpa_str_ar):
                 generator.ip_ctrl = 0;  #PV
                 generator.iv_mode = 1;
                 generator.pgini = float(line[42-chinese_count:47-chinese_count])
-                generator.q_max = float(line[47-chinese_count:52-chinese_count])
+                generator.q_max = float(line[47-chinese_count:52-chinese_count]) / MVABASE
                 generator.usetp = float(line[57-chinese_count:61-chinese_count])
                 
             elif line[1] == 'S':
@@ -266,6 +270,8 @@ def GetBCard(bpa_file, bpa_str_ar):
                 Typgen = Typgen[0]
                 Typgen.sgn = MVABASE
                 Typgen.ugn = base
+                Typgen.cosn = 1
+
                 generator_name_cn.append(Variable_name)
                 generator_name.append('generator' + str(generator_index))
                 bus_name_cn.append(Variable_name)
@@ -278,8 +284,8 @@ def GetBCard(bpa_file, bpa_str_ar):
                 generator.typ_id = Typgen
                 generator.ip_ctrl = 1; #reference
                 generator.iv_mode = 1;
-                generator.pgini = float(line[42-chinese_count:47-chinese_count])
-                generator.q_max = float(line[47-chinese_count:52-chinese_count])
+                generator.pgini = 0
+                generator.q_max = float(line[47-chinese_count:52-chinese_count]) / MVABASE
                 generator.usetp = float(line[57-chinese_count:61-chinese_count])
 
 # ----------------------------------------------------------------------------------------------------
