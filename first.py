@@ -30,6 +30,14 @@ def OpenFile(system):
     return bpa_file
 
 # ----------------------------------------------------------------------------------------------------
+def myFloat(str, defalt):
+    """Enpty -> defalt; Positive Stay; Negetive -> defalt"""
+
+    if str.strip() == '': return defalt
+    elif float(str) < 0: return defalt
+    else: return float(str)
+
+# ----------------------------------------------------------------------------------------------------
 def isfloat(str):
     """Checks if the string is a floating point number."""
 
@@ -49,7 +57,7 @@ def isint(str):
     except (ValueError, TypeError):
         return False			#Returns false otherwise
 
-    # ----------------------------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------------------------
 def getfloatvalue(str_line,num):
     if str_line.strip() == '':
         return 0
@@ -60,6 +68,76 @@ def getfloatvalue(str_line,num):
     elif '.' not in str_line:
         #return float((str_line[0:len(str_line)-num]+'.'+str_line[len(str_line)-num:]).strip())
         return float(str_line.strip())/pow(10,num)
+
+# ----------------------------------------------------------------------------------------------------
+def changeName():
+    """Change the name of Models"""
+
+    global bus_name_cn
+    global bus_name
+
+    global generator_name_cn
+    global generator_name
+
+    global transLine_name_cn
+    global transLine_name
+
+    global shunt_name
+    global shunt_name_cn
+
+    prj = app.GetActiveProject()
+    if prj is None:
+        raise Exception("No project activated. Python Script stopped.")
+
+    # app.PrintInfo(prj)
+    Network_Modell = prj.SearchObject("Network Model.IntPrjfolder")
+    Network_Model=Network_Modell[0]
+
+    Network_Dataa = Network_Model.SearchObject("Network Data.IntPrjfolder")
+    Network_Data = Network_Dataa[0]
+    # app.PrintInfo(Network_Data)
+
+    Nett = Network_Data.SearchObject("*.ElmNet")
+    Net = Nett[0]
+    # app.PrintInfo('Net')
+    # app.PrintInfo(Net)
+
+    Libraryy = prj.SearchObject("Library.IntPrjfolder")
+    Library = Libraryy[0]
+    # app.PrintInfo(Library)
+
+    user_defined_modell = Library.SearchObject("User Defined Models.IntPrjfolder")
+    user_defined_model = user_defined_modell[0]
+    # app.PrintInfo(user_defined_model)
+
+    BPA_Frame_BB = user_defined_model.SearchObject("BPA Frame(E).BlkDef")
+    BPA_Frame_B = BPA_Frame_BB[0]
+    # app.PrintInfo(BPA_Frame_B)
+    
+    Zoness = Network_Data.SearchObject("Zones.IntZone")
+    Zones = Zoness[0]
+    # app.PrintInfo(Zones)
+
+    for model in bus_name:
+        bus = Net.SearchObject(model)
+        bus = bus[0]
+        bus.loc_name = bus_name_cn[bus_name.index(model)].encode("GBK")
+
+    for model in generator_name:
+        generator = Net.SearchObject(model)
+        generator = generator[0]
+        generator.loc_name = generator_name_cn[generator_name.index(model)].encode("GBK")
+
+    for model in transLine_name:
+        transLine = Net.SearchObject(model)
+        transLine = transLine[0]
+        transLine.loc_name = transLine_name_cn[transLine_name.index(model)].encode("GBK")
+
+    for model in shunt_name:
+        shunt = Net.SearchObject(model)
+        shunt = shunt[0]
+        shunt.loc_name = shunt_name_cn[shunt_name.index(model)].encode("GBK")
+
 
 # ----------------------------------------------------------------------------------------------------
 def GetBCard(bpa_file, bpa_str_ar):
@@ -75,6 +153,8 @@ def GetBCard(bpa_file, bpa_str_ar):
     global generator_index
     
     global shunt_index
+    global shunt_name
+    global shunt_name_cn
     
     global load_index
 
@@ -146,7 +226,7 @@ def GetBCard(bpa_file, bpa_str_ar):
                 if bus == None:
                 	bus = Net.CreateObject('ElmTerm', 'bus' + str(bus_index))
                 	bus = bus[0]
-                bus_name_cn.append(Variable_name)
+                bus_name_cn.append('Bus_' + Variable_name)
                 bus_name.append('bus' + str(bus_index))
 
                 bus.uknom = base
@@ -184,6 +264,8 @@ def GetBCard(bpa_file, bpa_str_ar):
                 # app.PrintInfo(load+'1')
                 if isfloat(shunt):
                     shunt_index = shunt_index + 1
+                    shunt_name_cn.append('Shunt_' + Variable_name)
+                    shunt_name.append('shunt' + str(shunt_index))
                     shunt = Net.SearchObject('shunt' + str(shunt_index))
                     shunt = shunt[0]
                     if shunt == None:
@@ -228,9 +310,9 @@ def GetBCard(bpa_file, bpa_str_ar):
                 cubic = cubic[0]
                 Typgen = Library.SearchObject('TypeGenerator' + str(generator_index))
                 Typgen = Typgen[0]
-                generator_name_cn.append(Variable_name)
+                generator_name_cn.append('Generator_' + Variable_name)
                 generator_name.append('generator' + str(generator_index))
-                bus_name_cn.append(Variable_name)
+                bus_name_cn.append('Bus_' + Variable_name)
                 bus_name.append('bus_generator' + str(generator_index))
                 Typgen.sgn = MVABASE
                 Typgen.ugn = base
@@ -298,9 +380,9 @@ def GetBCard(bpa_file, bpa_str_ar):
                 Typgen.ugn = base
                 Typgen.cosn = 1
 
-                generator_name_cn.append(Variable_name)
+                generator_name_cn.append('Generator_' + Variable_name)
                 generator_name.append('generator' + str(generator_index))
-                bus_name_cn.append(Variable_name)
+                bus_name_cn.append('Bus_' + Variable_name)
                 bus_name.append('bus_generator' + str(generator_index))
 
                 g_bus.uknom = base
@@ -318,6 +400,7 @@ def GetBCard(bpa_file, bpa_str_ar):
 def GetLCard(bpa_file, bpa_str_ar):
     #L卡
     global MVABASE
+    global MileToKm
     
     global bus_name_cn
     global bus_name
@@ -328,6 +411,8 @@ def GetLCard(bpa_file, bpa_str_ar):
     global generator_index
     
     global shunt_index
+    global shunt_name
+    global shunt_name_cn
     
     global load_index
     
@@ -405,7 +490,7 @@ def GetLCard(bpa_file, bpa_str_ar):
         	    transLine = transLine[0]
 
             #起始bus
-            bus_from = bus_name[bus_name_cn.index(name_from)]   
+            bus_from = bus_name[bus_name_cn.index('Bus_' + name_from)]   
             # app.PrintPlain(bus_from)
             bus_from = Net.SearchObject(bus_from)
             bus_from = bus_from[0]
@@ -417,7 +502,7 @@ def GetLCard(bpa_file, bpa_str_ar):
             transLine.bus1 = cubic
 
             #终止bus
-            bus_to = bus_name[bus_name_cn.index(name_to)]
+            bus_to = bus_name[bus_name_cn.index('Bus_' + name_to)]
             # app.PrintPlain(bus_to)
             bus_to = Net.SearchObject(bus_to)
             bus_to = bus_to[0]
@@ -436,7 +521,11 @@ def GetLCard(bpa_file, bpa_str_ar):
                         chinese_count_line = chinese_count_line + 1
                 name_line = line[66-chinese_count_from-chinese_count_to: 74-chinese_count_from-chinese_count_to-chinese_count_line].strip()
 
-                app.PrintInfo(name_line.encode('GBK'))
+                name_transLine = name_from + '_' + name_to + '_' + line[31-chinese_count_from-chinese_count_to: 32-chinese_count_from-chinese_count_to]
+                transLine_name_cn.append(name_transLine)
+                transLine_name.append('transLine' + str(transLine_index))
+
+                # app.PrintInfo(name_line.encode('GBK'))
 
                 #新建typeLines
                 TypLne_name = 'TypeLine_' + 'transLine' + str(transLine_index)
@@ -446,16 +535,66 @@ def GetLCard(bpa_file, bpa_str_ar):
                 	TypLne = Library.CreateObject('TypLne',TypLne_name)
                 	TypLne = TypLne[0]
                 TypLne.uline = base_from
-                if isfloat(line[38-chinese_count_from-chinese_count_to:44-chinese_count_from-chinese_count_to].strip().rstrip('.')): 
-                    TypLne.rline = base_from * base_from / MVABASE * float(line[38-chinese_count_from-chinese_count_to:44-chinese_count_from-chinese_count_to].strip().rstrip('.'))	#电阻
-                else: TypLne.rline = 0
-                if float(line[44-chinese_count_from-chinese_count_to:50-chinese_count_from-chinese_count_to].strip().rstrip('.')) < 0: TypLne.xline = 0
-                else: TypLne.xline = base_from * base_from / MVABASE * float(line[44-chinese_count_from-chinese_count_to:50-chinese_count_from-chinese_count_to].strip().rstrip('.'))   #电抗
-                if isfloat(line[56-chinese_count_from-chinese_count_to:62-chinese_count_from-chinese_count_to].strip().rstrip('.')):
-                    TypLne.bline = 2 * pow(10, 6) * MVABASE / base_from / base_from * float(line[56-chinese_count_from-chinese_count_to:62-chinese_count_from-chinese_count_to].strip().rstrip('.'))	#电纳
-                else: TypLne.bline = 0
+
+                R_pu = myFloat(line[38-chinese_count_from-chinese_count_to:44-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0)
+                X_pu = myFloat(line[44-chinese_count_from-chinese_count_to:50-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0)
+                B_pu = myFloat(line[56-chinese_count_from-chinese_count_to:62-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0)
+                Current = myFloat(line[33-chinese_count_from-chinese_count_to:37-chinese_count_from-chinese_count_to].strip().rstrip('.'), 1)
+                transLineLength = myFloat(line[62-chinese_count_from-chinese_count_to:66-chinese_count_from-chinese_count_to].strip().rstrip('.'), 1/MileToKm)
+
+                transLine.dline = transLineLength
+                TypLne.sline = Current
+                TypLne.rline = base_from * base_from / MVABASE / (MileToKm * transLineLength) * R_pu
+                if X_pu > 0: TypLne.xline = base_from * base_from / MVABASE / (MileToKm * transLineLength) * X_pu
+                else: TypLne.xline = 0
+                TypLne.bline = 2 * pow(10, 6) * MVABASE / base_from / base_from / (MileToKm * transLineLength) * B_pu
+
                 transLine.typ_id = TypLne
-                		
+
+            if line[1] == '+':
+                if myFloat(line[33-chinese_count_from-chinese_count_to:38-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0) > 0:
+                    name_shunt = name_from + '_' + name_to + '_' + line[31-chinese_count_from-chinese_count_to: 32-chinese_count_from-chinese_count_to] + '_i'
+                    shunt_index = shunt_index + 1
+                    shunt_name_cn.append(name_shunt)
+                    shunt_name.append('shunt' + str(shunt_index))
+
+                    shunt = Net.SearchObject('shunt' + str(shunt_index))
+                    shunt = shunt[0]
+                    if shunt == None:
+                        shunt = Net.CreateObject('ElmShnt', 'shunt' + str(shunt_index))
+                        shunt = shunt[0]
+                    cubic = bus_from.SearchObject('Cubic_shunt' + str(shunt_index))
+                    cubic = cubic[0]
+                    if cubic == None:
+                        cubic = bus_from.CreateObject('StaCubic', 'Cubic_shunt' + str(shunt_index))
+                        cubic = cubic[0]
+                    shunt.bus1 = cubic
+                    shunt.ushnm = base_from
+                    shunt.shtype = 1
+                    shunt.grea = 9999
+                    shunt.qrean = myFloat(line[33-chinese_count_from-chinese_count_to:38-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0)
+                if myFloat(line[43-chinese_count_from-chinese_count_to:48-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0) > 0:
+                    name_shunt = name_from + '_' + name_to + '_' + line[31-chinese_count_from-chinese_count_to: 32-chinese_count_from-chinese_count_to] + '_j'
+                    shunt_index = shunt_index + 1
+                    shunt_name_cn.append(name_shunt)
+                    shunt_name.append('shunt' + str(shunt_index))
+
+                    shunt = Net.SearchObject('shunt' + str(shunt_index))
+                    shunt = shunt[0]
+                    if shunt == None:
+                        shunt = Net.CreateObject('ElmShnt', 'shunt' + str(shunt_index))
+                        shunt = shunt[0]
+                    cubic = bus_to.SearchObject('Cubic_shunt' + str(shunt_index))
+                    cubic = cubic[0]
+                    if cubic == None:
+                        cubic = bus_to.CreateObject('StaCubic', 'Cubic_shunt' + str(shunt_index))
+                        cubic = cubic[0]
+                    shunt.bus1 = cubic
+                    shunt.ushnm = base_to
+                    shunt.shtype = 1
+                    shunt.grea = 9999
+                    shunt.qrean = myFloat(line[43-chinese_count_from-chinese_count_to:48-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0)
+
 # ----------------------------------------------------------------------------------------------------
 def GetTCard(bpa_file, bpa_str_ar):
     #T卡
@@ -520,18 +659,18 @@ def GetTCard(bpa_file, bpa_str_ar):
             chinese_count_from = 0
             #判断中文个数
             for i in range (6,14):
-            	if line[i] >= u'\u4e00' and line[i] <= u'\u9fa5':
-            	    chinese_count_from = chinese_count_from + 1
-            name_from = line[6:14-chinese_count_from].strip()
+                if line[i] >= u'\u4e00' and line[i] <= u'\u9fa5':
+                    chinese_count_from = chinese_count_from + 1
+            name_from = 'Bus_' + line[6:14-chinese_count_from].strip()
             base_from = float(line[14-chinese_count_from:18-chinese_count_from])
             name_from = name_from + '   ' + str(base_from)
-        	
+            
             chinese_count_to = 0 
             #判断中文个数
             for i in range (19-chinese_count_from,27-chinese_count_from):
-            	if line[i] >= u'\u4e00' and line[i] <= u'\u9fa5':
-        	    	chinese_count_to = chinese_count_to + 1
-            name_to = line[19-chinese_count_from:27-chinese_count_from-chinese_count_to].strip()
+                if line[i] >= u'\u4e00' and line[i] <= u'\u9fa5':
+                    chinese_count_to = chinese_count_to + 1
+            name_to = 'Bus_' + line[19-chinese_count_from:27-chinese_count_from-chinese_count_to].strip()
             base_to = float(line[27-chinese_count_from-chinese_count_to:31-chinese_count_from-chinese_count_to])
             name_to = name_to + '   ' + str(base_to)
 
@@ -539,16 +678,16 @@ def GetTCard(bpa_file, bpa_str_ar):
             transformers = Net.SearchObject('transformers' + str(transformers_index))
             transformers = transformers[0]
             if transformers == None:
-        	    transformers = Net.CreateObject('ElmTr2', 'transformers' + str(transformers_index))	#新建ElmTr2
-        	    transformers = transformers[0]
-        	    
+                transformers = Net.CreateObject('ElmTr2', 'transformers' + str(transformers_index)) #新建ElmTr2
+                transformers = transformers[0]
+                
             if base_from > base_to: 
-        	    base_hv = base_from; base_lv = base_to
-        	    name_hv = name_from; name_lv = name_to
+                base_hv = base_from; base_lv = base_to
+                name_hv = name_from; name_lv = name_to
             else: 
-        	    base_hv = base_to; base_lv = base_from
-        	    name_hv = name_to; name_lv = name_from
-        	    
+                base_hv = base_to; base_lv = base_from
+                name_hv = name_to; name_lv = name_from
+                
             #高压bus
             bus_hv = bus_name[bus_name_cn.index(name_hv)]
             app.PrintPlain(bus_hv)
@@ -593,13 +732,16 @@ def GetTCard(bpa_file, bpa_str_ar):
 DEBUG = 1
 if DEBUG:
 
-    bpa_file = OpenFile('mac') # 打开指定文件
+    bpa_file = OpenFile('win') # 打开指定文件
 
             
 if bpa_file:					#If the file opened successfully
     
     global MVABASE
+    global MileToKm
+
     MVABASE = 100
+    MileToKm = 1.609344
 
     bpa_str = bpa_file.read()            #The string containing the text file, to use the find() function
     bpa_file.seek(0)        #To position back at the beginning
@@ -623,6 +765,8 @@ if bpa_file:					#If the file opened successfully
     global generator_index
     
     global shunt_index
+    global shunt_name
+    global shunt_name_cn
     
     global load_index
     
@@ -639,6 +783,8 @@ if bpa_file:					#If the file opened successfully
     generator_name = []
     generator_index = 0
     shunt_index = 0
+    shunt_name = []
+    shunt_name_cn = []
     load_index = 0
     transLine_index = 0
     transLine_name_cn = []
@@ -651,3 +797,5 @@ if bpa_file:					#If the file opened successfully
     GetLCard(bpa_file, bpa_str_ar[0:37])
 
     # GetTCard(bpa_file,   bpa_str_ar)
+
+    changeName()
