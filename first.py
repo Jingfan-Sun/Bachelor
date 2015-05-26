@@ -215,8 +215,12 @@ def GetBCard(bpa_file, bpa_str_ar):
     Zoness = Network_Data.SearchObject("Zones.IntZone")
     Zones = Zoness[0]
     # app.PrintInfo(Zones)
+    
+    global i
 
-    for line in bpa_str_ar:
+    for i in range(0, len(bpa_str_ar)):
+        line = bpa_str_ar[i]
+        app.PrintInfo(i)
         line = line.rstrip('\n')
         line = line[0:80]
         line = line + ' '*(80-len(line))
@@ -348,15 +352,15 @@ def GetBCard(bpa_file, bpa_str_ar):
 
                 g_bus.uknom = base
                 g_bus.cpZone = zone
-                
+
                 generator.bus1 = cubic
                 generator.typ_id = Typgen
                 generator.ip_ctrl = 0;  #PV
                 generator.iv_mode = 1;
                 generator.Pmax_uc = float(line[38-chinese_count:42-chinese_count])
                 generator.pgini = float(line[42-chinese_count:47-chinese_count])
-                generator.q_max = float(line[47-chinese_count:52-chinese_count]) / MVABASE  #无功出力最大值
-                generator.q_min = float(line[53-chinese_count:57-chinese_count]) / MVABASE  #无功出力最小值
+                generator.q_max = myFloat(line[47-chinese_count:52-chinese_count], 99999) / MVABASE  #无功出力最大值
+                generator.q_min = myFloat(line[52-chinese_count:57-chinese_count], -99999) / MVABASE  #无功出力最小值
                 generator.usetp = float(line[57-chinese_count:61-chinese_count])
 
                 #load
@@ -369,8 +373,8 @@ def GetBCard(bpa_file, bpa_str_ar):
                     if load == None:
                         load = Net.CreateObject('ElmLod', 'load_generator' + str(generator_index))
                         load = load[0]
-                    load.plini = float(line[20-chinese_count:25-chinese_count].strip().rstrip('.'))
-                    load.qlini = float(line[25-chinese_count:30-chinese_count].strip().rstrip('.'))
+                    load.plini = myFloat(line[20-chinese_count:25-chinese_count].strip().rstrip('.'), 0)
+                    load.qlini = myFloat(line[25-chinese_count:30-chinese_count].strip().rstrip('.'), 0)
                     cubic = g_bus.SearchObject('Cubic_load_generator' + str(load_index))
                     cubic = cubic[0]
                     if cubic == None:
@@ -857,6 +861,10 @@ if bpa_file:					#If the file opened successfully
     global transformers_index
     global transformers_name_cn
     global transformers_name
+
+    global i
+
+    i = 0
     
     bus_name_cn = []
     bus_name = []
@@ -882,7 +890,7 @@ if bpa_file:					#If the file opened successfully
     end = 62
 
 
-    GetBCard(bpa_file, bpa_str_ar[0:178])
+    GetBCard(bpa_file, bpa_str_ar)
 
     # GetLCard(bpa_file, bpa_str_ar[0:end])
 
