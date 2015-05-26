@@ -88,6 +88,9 @@ def changeName():
     global scap_name_cn
     global scap_name
 
+    global transformers_name_cn
+    global transformers_name
+
     prj = app.GetActiveProject()
     if prj is None:
         raise Exception("No project activated. Python Script stopped.")
@@ -146,7 +149,10 @@ def changeName():
         scap = scap[0]
         scap.loc_name = scap_name_cn[scap_name.index(model)].encode("GBK")
 
-
+    for model in transformers_name:
+        transformers = Net.SearchObject(model)
+        transformers = transformers[0]
+        transformers.loc_name = transformers_name_cn[transformers_name.index(model)].encode("GBK")
 
 # ----------------------------------------------------------------------------------------------------
 def GetBCard(bpa_file, bpa_str_ar):
@@ -469,7 +475,6 @@ def GetLCard(bpa_file, bpa_str_ar):
         line = line.rstrip('\n')
         line = line[0:80]
         line = line + ' '*(80-len(line))
-        app.PrintPlain(line.encode('GBK'))
 
         if line == "": continue
 
@@ -557,7 +562,7 @@ def GetLCard(bpa_file, bpa_str_ar):
                     Current = myFloat(line[33-chinese_count_from-chinese_count_to:37-chinese_count_from-chinese_count_to].strip().rstrip('.'), 1)
                     transLineLength = myFloat(line[62-chinese_count_from-chinese_count_to:66-chinese_count_from-chinese_count_to].strip().rstrip('.'), 1/MileToKm)
 
-                    transLine.dline = transLineLength
+                    transLine.dline = transLineLength * MileToKm
                     TypLne.sline = Current
                     TypLne.rline = base_from * base_from / MVABASE / (MileToKm * transLineLength) * R_pu
                     TypLne.xline = base_from * base_from / MVABASE / (MileToKm * transLineLength) * X_pu
@@ -589,7 +594,6 @@ def GetLCard(bpa_file, bpa_str_ar):
                     scap.ucn = base_from
 
                     name_scap = 'Scap_' + name_from + '_' + name_to + '_' + line[31-chinese_count_from-chinese_count_to: 32-chinese_count_from-chinese_count_to]
-                    app.PrintInfo(name_scap.encode('GBK'))
                     scap_name_cn.append(name_scap)
                     scap_name.append('scap' + str(transLine_index))
 
@@ -659,6 +663,8 @@ def GetTCard(bpa_file, bpa_str_ar):
     global transLine_index
     
     global transformers_index
+    global transformers_name_cn
+    global transformers_name
 
     prj = app.GetActiveProject()
     if prj is None:
@@ -705,7 +711,7 @@ def GetTCard(bpa_file, bpa_str_ar):
             for i in range (6,14):
                 if line[i] >= u'\u4e00' and line[i] <= u'\u9fa5':
                     chinese_count_from = chinese_count_from + 1
-            name_from = 'Bus_' + line[6:14-chinese_count_from].strip()
+            name_from = line[6:14-chinese_count_from].strip()
             base_from = float(line[14-chinese_count_from:18-chinese_count_from])
             name_from = name_from + '   ' + str(base_from)
             
@@ -714,11 +720,15 @@ def GetTCard(bpa_file, bpa_str_ar):
             for i in range (19-chinese_count_from,27-chinese_count_from):
                 if line[i] >= u'\u4e00' and line[i] <= u'\u9fa5':
                     chinese_count_to = chinese_count_to + 1
-            name_to = 'Bus_' + line[19-chinese_count_from:27-chinese_count_from-chinese_count_to].strip()
+            name_to = line[19-chinese_count_from:27-chinese_count_from-chinese_count_to].strip()
             base_to = float(line[27-chinese_count_from-chinese_count_to:31-chinese_count_from-chinese_count_to])
             name_to = name_to + '   ' + str(base_to)
 
             transformers_index = transformers_index + 1
+            name_transformers =  'Transformers_' + name_from + '_' + name_to + '_' + line[31-chinese_count_from-chinese_count_to: 32-chinese_count_from-chinese_count_to]
+            transformers_name_cn.append(name_transformers)
+            transformers_name.append('transformers' + str(transformers_index))
+
             transformers = Net.SearchObject('transformers' + str(transformers_index))
             transformers = transformers[0]
             if transformers == None:
@@ -733,7 +743,7 @@ def GetTCard(bpa_file, bpa_str_ar):
                 name_hv = name_to; name_lv = name_from
                 
             #高压bus
-            bus_hv = bus_name[bus_name_cn.index(name_hv)]
+            bus_hv = bus_name[bus_name_cn.index('Bus_' + name_hv)]
             app.PrintPlain(bus_hv)
             bus_hv = Net.SearchObject(bus_hv)
             bus_hv = bus_hv[0]
@@ -744,7 +754,7 @@ def GetTCard(bpa_file, bpa_str_ar):
                 cubic = cubic[0]
             transformers.bushv = cubic
             #低压bus
-            bus_lv = bus_name[bus_name_cn.index(name_lv)]
+            bus_lv = bus_name[bus_name_cn.index('Bus_' + name_lv)]
             app.PrintPlain(bus_lv)
             bus_lv = Net.SearchObject(bus_lv)
             bus_lv = bus_lv[0]
@@ -761,14 +771,21 @@ def GetTCard(bpa_file, bpa_str_ar):
             if TypTr == None:
                 TypTr = Library.CreateObject('TypTr2',TypTr_name)
                 TypTr = TypTr[0]
-            if float(line[62-chinese_count_from-chinese_count_to:67-chinese_count_from-chinese_count_to].strip().rstrip('.')) > float(line[67-chinese_count_from-chinese_count_to:72-chinese_count_from-chinese_count_to].strip().rstrip('.')):
-                TypTr.utrn_h = float(line[62-chinese_count_from-chinese_count_to:67-chinese_count_from-chinese_count_to].strip().rstrip('.'))
-                TypTr.utrn_l = float(line[67-chinese_count_from-chinese_count_to:72-chinese_count_from-chinese_count_to].strip().rstrip('.'))
-            else:   
-                TypTr.utrn_l = float(line[62-chinese_count_from-chinese_count_to:67-chinese_count_from-chinese_count_to].strip().rstrip('.'))
-                TypTr.utrn_h = float(line[67-chinese_count_from-chinese_count_to:72-chinese_count_from-chinese_count_to].strip().rstrip('.'))
-            TypTr.strn = MVABASE
-            TypTr.uktr = float(line[44-chinese_count_from-chinese_count_to:50-chinese_count_from-chinese_count_to].strip().rstrip('.')) * 100
+            # if float(line[62-chinese_count_from-chinese_count_to:67-chinese_count_from-chinese_count_to].strip().rstrip('.')) > float(line[67-chinese_count_from-chinese_count_to:72-chinese_count_from-chinese_count_to].strip().rstrip('.')):
+            #     TypTr.utrn_h = float(line[62-chinese_count_from-chinese_count_to:67-chinese_count_from-chinese_count_to].strip().rstrip('.'))
+            #     TypTr.utrn_l = float(line[67-chinese_count_from-chinese_count_to:72-chinese_count_from-chinese_count_to].strip().rstrip('.'))
+            # else:   
+            #     TypTr.utrn_l = float(line[62-chinese_count_from-chinese_count_to:67-chinese_count_from-chinese_count_to].strip().rstrip('.'))
+            #     TypTr.utrn_h = float(line[67-chinese_count_from-chinese_count_to:72-chinese_count_from-chinese_count_to].strip().rstrip('.'))
+            TypTr.utrn_h = base_hv
+            TypTr.utrn_l = base_lv
+            if myFloat(line[33-chinese_count_from-chinese_count_to:37-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0) > 0: 
+                TypTr.strn = myFloat(line[33-chinese_count_from-chinese_count_to:37-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0)
+            else:
+                TypTr.strn = MVABASE
+
+            TypTr.uktr = float(line[44-chinese_count_from-chinese_count_to:50-chinese_count_from-chinese_count_to].strip().rstrip('.')) * TypTr.strn
+            TypTr.pcutr = 1000 / MVABASE * myFloat(line[38-chinese_count_from-chinese_count_to:44-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0) * TypTr.strn * TypTr.strn
 
             transformers.typ_id = TypTr
                 		
@@ -822,6 +839,8 @@ if bpa_file:					#If the file opened successfully
     global scap_name
     
     global transformers_index
+    global transformers_name_cn
+    global transformers_name
     
     bus_name_cn = []
     bus_name = []
@@ -839,12 +858,14 @@ if bpa_file:					#If the file opened successfully
     transLine_name_cn = []
     transLine_name = []
     transformers_index = 0
+    transformers_name_cn = []
+    transformers_name = []
 
 
-    GetBCard(bpa_file, bpa_str_ar[0:37])
+    GetBCard(bpa_file, bpa_str_ar[0:52])
 
-    GetLCard(bpa_file, bpa_str_ar[0:37])
+    GetLCard(bpa_file, bpa_str_ar[0:52])
 
-    # GetTCard(bpa_file,   bpa_str_ar)
+    GetTCard(bpa_file, bpa_str_ar[0:52])
 
     changeName()
