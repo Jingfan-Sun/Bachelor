@@ -91,6 +91,9 @@ def changeName():
     global transformers_name_cn
     global transformers_name
 
+    global load_name_cn
+    global load_name
+
     prj = app.GetActiveProject()
     if prj is None:
         raise Exception("No project activated. Python Script stopped.")
@@ -154,6 +157,11 @@ def changeName():
         transformers = transformers[0]
         transformers.loc_name = transformers_name_cn[transformers_name.index(model)].encode("GBK")
 
+    for model in load_name:
+        load = Net.SearchObject(model)
+        load = load[0]
+        load.loc_name = load_name_cn[load_name.index(model)].encode("GBK")
+
 # ----------------------------------------------------------------------------------------------------
 def GetBCard(bpa_file, bpa_str_ar):
     #B卡 
@@ -172,6 +180,8 @@ def GetBCard(bpa_file, bpa_str_ar):
     global shunt_name_cn
     
     global load_index
+    global load_name_cn
+    global load_name
 
     prj = app.GetActiveProject()
     if prj is None:
@@ -251,13 +261,16 @@ def GetBCard(bpa_file, bpa_str_ar):
                 # app.PrintInfo(load+'1')
                 if isfloat(load):
                     load_index = load_index + 1
+                    name_load = 'Load_' + Variable_name
+                    load_name_cn.append(name_load)
+                    load_name.append('load' + str(load_index))
                     load = Net.SearchObject('load' + str(load_index))
                     load = load[0]
                     if load == None:
                     	load = Net.CreateObject('ElmLod', 'load' + str(load_index))
                     	load = load[0]
                     load.plini = float(line[20-chinese_count:25-chinese_count].strip().rstrip('.'))
-                    load.qlini = float(line[25-chinese_count:30-chinese_count].strip().rstrip('.'))
+                    load.qlini = myFloat(line[25-chinese_count:30-chinese_count].strip().rstrip('.'), 0)
                     cubic = bus.SearchObject('Cubic_load' + str(load_index))
                     cubic = cubic[0]
                     if cubic == None:
@@ -348,6 +361,9 @@ def GetBCard(bpa_file, bpa_str_ar):
 
                 #load
                 if isfloat(line[20-chinese_count:25-chinese_count]):
+                    name_load = 'Load_' + Variable_name
+                    load_name_cn.append(name_load)
+                    load_name.append('load_generator' + str(generator_index))
                     load = Net.SearchObject('load_generator' + str(generator_index))
                     load = load[0]
                     if load == None:
@@ -512,7 +528,7 @@ def GetLCard(bpa_file, bpa_str_ar):
 
             if line[1] == ' ':
                 if myFloat(line[44-chinese_count_from-chinese_count_to:50-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0) > 0:
-                     #新建ElmLne   
+                    #新建ElmLne   
                     transLine_index = transLine_index + 1
                     transLine = Net.SearchObject('transLine' + str(transLine_index))
                     transLine = transLine[0]
@@ -544,8 +560,6 @@ def GetLCard(bpa_file, bpa_str_ar):
                     name_transLine = name_from + '_' + name_to + '_' + line[31-chinese_count_from-chinese_count_to: 32-chinese_count_from-chinese_count_to]
                     transLine_name_cn.append(name_transLine)
                     transLine_name.append('transLine' + str(transLine_index))
-
-                    # app.PrintInfo(name_line.encode('GBK'))
 
                     #新建typeLines
                     TypLne_name = 'TypeLine_' + 'transLine' + str(transLine_index)
@@ -830,6 +844,8 @@ if bpa_file:					#If the file opened successfully
     global shunt_name_cn
     
     global load_index
+    global load_name_cn
+    global load_name
     
     global transLine_index
     global transLine_name_cn
@@ -852,6 +868,8 @@ if bpa_file:					#If the file opened successfully
     shunt_name = []
     shunt_name_cn = []
     load_index = 0
+    load_name_cn = []
+    load_name = []
     scap_name_cn = []
     scap_name = []
     transLine_index = 0
@@ -861,11 +879,13 @@ if bpa_file:					#If the file opened successfully
     transformers_name_cn = []
     transformers_name = []
 
+    end = 62
 
-    GetBCard(bpa_file, bpa_str_ar[0:52])
 
-    GetLCard(bpa_file, bpa_str_ar[0:52])
+    GetBCard(bpa_file, bpa_str_ar[0:178])
 
-    GetTCard(bpa_file, bpa_str_ar[0:52])
+    # GetLCard(bpa_file, bpa_str_ar[0:end])
+
+    # GetTCard(bpa_file, bpa_str_ar[0:end])
 
     changeName()
