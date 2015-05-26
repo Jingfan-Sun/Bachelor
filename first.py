@@ -29,6 +29,51 @@ def OpenFile(system):
 
     return bpa_file
 
+# ---------------------------------------------------------------------------------------------------
+def WriteFile(system):
+    """Opens data file."""
+
+    global bus_name_cn
+    global bus_name
+    global bus_index
+    
+    global generator_name_cn
+    global generator_name
+    global generator_index
+    
+    global shunt_index
+    global shunt_name
+    global shunt_name_cn
+    
+    global load_index
+    global load_name_cn
+    global load_name
+    
+    global transLine_index
+    global transLine_name_cn
+    global transLine_name
+
+    global scap_name_cn
+    global scap_name
+    
+    global transformers_index
+    global transformers_name_cn
+    global transformers_name
+
+    path_win = 'E:\\Bachelor\\Data\\'
+
+    name_list = ['bus_name_cn', 'bus_name', 'generator_name_cn', 'generator_name', 'shunt_name', 'shunt_name_cn', 'scap_name', 'scap_name_cn', 'load_name', 'load_name_cn', 'transformers_name', 'transformers_name_cn', 'transLine_name', 'transLine_name_cn']
+    for name in name_list:
+        if system == 'win': path = path_win + name + '.txt'
+        else: path = path_mac + name + '.txt'
+        app.PrintPlain(path)
+        f = open(path, 'w')
+        data = eval(name)
+        for i in data:
+            f.write(i)
+            f.write('\n')
+        f.close()
+
 # ----------------------------------------------------------------------------------------------------
 def myFloat(str, defalt):
     """Enpty -> defalt; Positive Stay; Negetive -> defalt"""
@@ -491,7 +536,9 @@ def GetLCard(bpa_file, bpa_str_ar):
     Zones = Zoness[0]
     # app.PrintInfo(Zones)
 
-    for line in bpa_str_ar:
+    for i in range(0, len(bpa_str_ar)):
+        line = bpa_str_ar[i]
+        app.PrintInfo(i)
         line = line.rstrip('\n')
         line = line[0:80]
         line = line + ' '*(80-len(line))
@@ -887,13 +934,15 @@ if bpa_file:					#If the file opened successfully
     transformers_name_cn = []
     transformers_name = []
 
-    end = 62
+    end = 68
 
 
     GetBCard(bpa_file, bpa_str_ar)
 
-    # GetLCard(bpa_file, bpa_str_ar[0:end])
+    # GetLCard(bpa_file, bpa_str_ar[0:1000])
+
+    WriteFile('win')
 
     # GetTCard(bpa_file, bpa_str_ar[0:end])
 
-    changeName()
+    # changeName()
