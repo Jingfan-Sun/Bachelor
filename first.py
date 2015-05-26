@@ -85,6 +85,9 @@ def changeName():
     global shunt_name
     global shunt_name_cn
 
+    global scap_name_cn
+    global scap_name
+
     prj = app.GetActiveProject()
     if prj is None:
         raise Exception("No project activated. Python Script stopped.")
@@ -137,6 +140,12 @@ def changeName():
         shunt = Net.SearchObject(model)
         shunt = shunt[0]
         shunt.loc_name = shunt_name_cn[shunt_name.index(model)].encode("GBK")
+
+    for model in scap_name:
+        scap = Net.SearchObject(model)
+        scap = scap[0]
+        scap.loc_name = scap_name_cn[scap_name.index(model)].encode("GBK")
+
 
 
 # ----------------------------------------------------------------------------------------------------
@@ -415,6 +424,9 @@ def GetLCard(bpa_file, bpa_str_ar):
     global shunt_name_cn
     
     global load_index
+
+    global scap_name_cn
+    global scap_name
     
     global transLine_index
     global transLine_name_cn
@@ -481,75 +493,106 @@ def GetLCard(bpa_file, bpa_str_ar):
             base_to = float(line[27-chinese_count_from-chinese_count_to:31-chinese_count_from-chinese_count_to])
             name_to = name_to + '   ' + str(base_to)
 
-            #新建ElmLne	
-            transLine_index = transLine_index + 1
-            transLine = Net.SearchObject('transLine' + str(transLine_index))
-            transLine = transLine[0]
-            if transLine == None:
-        	    transLine = Net.CreateObject('ElmLne', 'transLine' + str(transLine_index))
-        	    transLine = transLine[0]
-
             #起始bus
             bus_from = bus_name[bus_name_cn.index('Bus_' + name_from)]   
             # app.PrintPlain(bus_from)
             bus_from = Net.SearchObject(bus_from)
             bus_from = bus_from[0]
-            cubic = bus_from.SearchObject('Cubic_' + 'transLine' + str(transLine_index))
-            cubic = cubic[0]
-            if cubic == None:
-                cubic = bus_from.CreateObject('StaCubic', 'Cubic_' + 'transLine' + str(transLine_index))
-                cubic = cubic[0]
-            transLine.bus1 = cubic
 
             #终止bus
             bus_to = bus_name[bus_name_cn.index('Bus_' + name_to)]
             # app.PrintPlain(bus_to)
             bus_to = Net.SearchObject(bus_to)
             bus_to = bus_to[0]
-            cubic = bus_to.SearchObject('Cubic_' + 'transLine' + str(transLine_index))
-            cubic = cubic[0]
-            if cubic == None:
-                cubic = bus_to.CreateObject('StaCubic', 'Cubic_' + 'transLine' + str(transLine_index))
-                cubic = cubic[0]
-            transLine.bus2 = cubic
 
             if line[1] == ' ':
-                #保存线路名称
-                chinese_count_line = 0 
-                for i in range (66-chinese_count_from-chinese_count_to, 74-chinese_count_from-chinese_count_to):
-                    if line[i] >= u'\u4e00' and line[i] <= u'\u9fa5':
-                        chinese_count_line = chinese_count_line + 1
-                name_line = line[66-chinese_count_from-chinese_count_to: 74-chinese_count_from-chinese_count_to-chinese_count_line].strip()
+                if myFloat(line[44-chinese_count_from-chinese_count_to:50-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0) > 0:
+                     #新建ElmLne   
+                    transLine_index = transLine_index + 1
+                    transLine = Net.SearchObject('transLine' + str(transLine_index))
+                    transLine = transLine[0]
+                    if transLine == None:
+                        transLine = Net.CreateObject('ElmLne', 'transLine' + str(transLine_index))
+                        transLine = transLine[0]
 
-                name_transLine = name_from + '_' + name_to + '_' + line[31-chinese_count_from-chinese_count_to: 32-chinese_count_from-chinese_count_to]
-                transLine_name_cn.append(name_transLine)
-                transLine_name.append('transLine' + str(transLine_index))
+                    cubic = bus_from.SearchObject('Cubic_' + 'transLine' + str(transLine_index))
+                    cubic = cubic[0]
+                    if cubic == None:
+                        cubic = bus_from.CreateObject('StaCubic', 'Cubic_' + 'transLine' + str(transLine_index))
+                        cubic = cubic[0]
+                    transLine.bus1 = cubic
 
-                # app.PrintInfo(name_line.encode('GBK'))
+                    cubic = bus_to.SearchObject('Cubic_' + 'transLine' + str(transLine_index))
+                    cubic = cubic[0]
+                    if cubic == None:
+                        cubic = bus_to.CreateObject('StaCubic', 'Cubic_' + 'transLine' + str(transLine_index))
+                        cubic = cubic[0]
+                    transLine.bus2 = cubic
 
-                #新建typeLines
-                TypLne_name = 'TypeLine_' + 'transLine' + str(transLine_index)
-                TypLne = Library.SearchObject(TypLne_name)
-                TypLne = TypLne[0]
-                if TypLne == None:
-                	TypLne = Library.CreateObject('TypLne',TypLne_name)
-                	TypLne = TypLne[0]
-                TypLne.uline = base_from
+                    #保存线路名称
+                    chinese_count_line = 0 
+                    for i in range (66-chinese_count_from-chinese_count_to, 74-chinese_count_from-chinese_count_to):
+                        if line[i] >= u'\u4e00' and line[i] <= u'\u9fa5':
+                            chinese_count_line = chinese_count_line + 1
+                    name_line = line[66-chinese_count_from-chinese_count_to: 74-chinese_count_from-chinese_count_to-chinese_count_line].strip()
 
-                R_pu = myFloat(line[38-chinese_count_from-chinese_count_to:44-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0)
-                X_pu = myFloat(line[44-chinese_count_from-chinese_count_to:50-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0)
-                B_pu = myFloat(line[56-chinese_count_from-chinese_count_to:62-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0)
-                Current = myFloat(line[33-chinese_count_from-chinese_count_to:37-chinese_count_from-chinese_count_to].strip().rstrip('.'), 1)
-                transLineLength = myFloat(line[62-chinese_count_from-chinese_count_to:66-chinese_count_from-chinese_count_to].strip().rstrip('.'), 1/MileToKm)
+                    name_transLine = name_from + '_' + name_to + '_' + line[31-chinese_count_from-chinese_count_to: 32-chinese_count_from-chinese_count_to]
+                    transLine_name_cn.append(name_transLine)
+                    transLine_name.append('transLine' + str(transLine_index))
 
-                transLine.dline = transLineLength
-                TypLne.sline = Current
-                TypLne.rline = base_from * base_from / MVABASE / (MileToKm * transLineLength) * R_pu
-                if X_pu > 0: TypLne.xline = base_from * base_from / MVABASE / (MileToKm * transLineLength) * X_pu
-                else: TypLne.xline = 0
-                TypLne.bline = 2 * pow(10, 6) * MVABASE / base_from / base_from / (MileToKm * transLineLength) * B_pu
+                    # app.PrintInfo(name_line.encode('GBK'))
 
-                transLine.typ_id = TypLne
+                    #新建typeLines
+                    TypLne_name = 'TypeLine_' + 'transLine' + str(transLine_index)
+                    TypLne = Library.SearchObject(TypLne_name)
+                    TypLne = TypLne[0]
+                    if TypLne == None:
+                    	TypLne = Library.CreateObject('TypLne',TypLne_name)
+                    	TypLne = TypLne[0]
+                    TypLne.uline = base_from
+
+                    R_pu = myFloat(line[38-chinese_count_from-chinese_count_to:44-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0)
+                    X_pu = myFloat(line[44-chinese_count_from-chinese_count_to:50-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0)
+                    B_pu = myFloat(line[56-chinese_count_from-chinese_count_to:62-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0)
+                    Current = myFloat(line[33-chinese_count_from-chinese_count_to:37-chinese_count_from-chinese_count_to].strip().rstrip('.'), 1)
+                    transLineLength = myFloat(line[62-chinese_count_from-chinese_count_to:66-chinese_count_from-chinese_count_to].strip().rstrip('.'), 1/MileToKm)
+
+                    transLine.dline = transLineLength
+                    TypLne.sline = Current
+                    TypLne.rline = base_from * base_from / MVABASE / (MileToKm * transLineLength) * R_pu
+                    TypLne.xline = base_from * base_from / MVABASE / (MileToKm * transLineLength) * X_pu
+                    TypLne.bline = 2 * pow(10, 6) * MVABASE / base_from / base_from / (MileToKm * transLineLength) * B_pu
+
+                    transLine.typ_id = TypLne
+                else:
+                    #Scap
+                    transLine_index = transLine_index + 1
+                    scap = Net.SearchObject('scap' + str(transLine_index))
+                    scap = scap[0]
+                    if scap == None:
+                        scap = Net.CreateObject('ElmScap', ('scap' + str(transLine_index)))
+                        scap = scap[0]
+                    cubic = bus_from.SearchObject('Cubic_' + 'scap' + str(transLine_index))
+                    cubic = cubic[0]
+                    if cubic == None:
+                        cubic = bus_from.CreateObject('StaCubic', 'Cubic_' + 'scap' + str(transLine_index))
+                        cubic = cubic[0]
+                    scap.bus1 = cubic
+
+                    cubic = bus_to.SearchObject('Cubic_' + 'scap' + str(transLine_index))
+                    cubic = cubic[0]
+                    if cubic == None:
+                        cubic = bus_to.CreateObject('StaCubic', 'Cubic_' + 'scap' + str(transLine_index))
+                        cubic = cubic[0]
+                    scap.bus2 = cubic
+
+                    scap.ucn = base_from
+
+                    name_scap = 'Scap_' + name_from + '_' + name_to + '_' + line[31-chinese_count_from-chinese_count_to: 32-chinese_count_from-chinese_count_to]
+                    app.PrintInfo(name_scap.encode('GBK'))
+                    scap_name_cn.append(name_scap)
+                    scap_name.append('scap' + str(transLine_index))
+
 
             if line[1] == '+':
                 if myFloat(line[33-chinese_count_from-chinese_count_to:38-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0) > 0:
@@ -573,6 +616,7 @@ def GetLCard(bpa_file, bpa_str_ar):
                     shunt.shtype = 1
                     shunt.grea = 9999
                     shunt.qrean = myFloat(line[33-chinese_count_from-chinese_count_to:38-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0)
+
                 if myFloat(line[43-chinese_count_from-chinese_count_to:48-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0) > 0:
                     name_shunt = name_from + '_' + name_to + '_' + line[31-chinese_count_from-chinese_count_to: 32-chinese_count_from-chinese_count_to] + '_j'
                     shunt_index = shunt_index + 1
@@ -773,6 +817,9 @@ if bpa_file:					#If the file opened successfully
     global transLine_index
     global transLine_name_cn
     global transLine_name
+
+    global scap_name_cn
+    global scap_name
     
     global transformers_index
     
@@ -786,6 +833,8 @@ if bpa_file:					#If the file opened successfully
     shunt_name = []
     shunt_name_cn = []
     load_index = 0
+    scap_name_cn = []
+    scap_name = []
     transLine_index = 0
     transLine_name_cn = []
     transLine_name = []
