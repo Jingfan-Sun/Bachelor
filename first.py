@@ -74,13 +74,72 @@ def WriteFile(system):
             f.write('\n')
         f.close()
 
+# ---------------------------------------------------------------------------------------------------
+def readFile(system):
+    """Opens data file."""
+
+    global bus_name_cn
+    global bus_name
+    global bus_index
+    
+    global generator_name_cn
+    global generator_name
+    global generator_index
+    
+    global shunt_index
+    global shunt_name
+    global shunt_name_cn
+    
+    global load_index
+    global load_name_cn
+    global load_name
+    
+    global transLine_index
+    global transLine_name_cn
+    global transLine_name
+
+    global scap_name_cn
+    global scap_name
+    
+    global transformers_index
+    global transformers_name_cn
+    global transformers_name
+
+    path_win = 'E:\\Bachelor\\Data\\'
+
+    name_list_str = ['bus_name_cn', 'bus_name', 'generator_name_cn', 'generator_name', 'shunt_name', 'shunt_name_cn', 'scap_name', 'scap_name_cn', 'load_name', 'load_name_cn', 'transformers_name', 'transformers_name_cn', 'transLine_name', 'transLine_name_cn']
+    name_list = [bus_name_cn, bus_name, generator_name_cn, generator_name, shunt_name, shunt_name_cn, scap_name, scap_name_cn, load_name, load_name_cn, transformers_name, transformers_name_cn, transLine_name, transLine_name_cn]
+    for index in range(0, len(name_list)):
+        if system == 'win': path = path_win + name_list_str[index] + '.txt'
+        else: path = path_mac + name_list_str[index] + '.txt'
+        f = open(path, 'r')
+        lineStr = f.readlines()
+        for i in range(0, len(lineStr)):
+            lineStr[i] = lineStr[i].rstrip('\n')
+        name_list[index] = lineStr
+        f.close()
+    bus_name_cn = name_list[0]; bus_name = name_list[1]; 
+    generator_name_cn = name_list[2]; generator_name = name_list[3]; 
+    shunt_name = name_list[4]; shunt_name_cn = name_list[5]; 
+    scap_name = name_list[6]; scap_name_cn = name_list[7]; 
+    load_name = name_list[8]; load_name_cn = name_list[9]; 
+    transformers_name = name_list[10]; transformers_name_cn = name_list[11]; 
+    transLine_name = name_list[12]; transLine_name_cn = name_list[13]
+
 # ----------------------------------------------------------------------------------------------------
-def myFloat(str, defalt):
+def myFloat(inputStr, defalt, num):
     """Enpty -> defalt; Positive Stay; Negetive -> defalt"""
 
-    if str.strip() == '': return defalt
-    elif float(str) < 0: return defalt
-    else: return float(str)
+    if inputStr.strip() == '': 
+        return defalt
+    elif float(inputStr) < 0 or float(inputStr) == 0: 
+        return defalt
+    elif inputStr.strip() == '.': 
+        return defalt
+    elif '.' in inputStr: 
+        return float(inputStr)
+    else: 
+        return float(inputStr)/pow(10,num)
 
 # ----------------------------------------------------------------------------------------------------
 def isfloat(str):
@@ -88,19 +147,9 @@ def isfloat(str):
 
     try:
         float(str)
-        return True			#Returns true if the string is a floating point number
+        return True         #Returns true if the string is a floating point number
     except (ValueError, TypeError):
-        return False			#Returns false otherwise
-
-# ----------------------------------------------------------------------------------------------------
-def isint(str):
-    """Checks if the string is an integer."""
-
-    try:
-        int(str)
-        return True			#Returns true if the string is an integer
-    except (ValueError, TypeError):
-        return False			#Returns false otherwise
+        return False            #Returns false otherwise
 
 # ----------------------------------------------------------------------------------------------------
 def getfloatvalue(str_line,num):
@@ -318,8 +367,8 @@ def GetBCard(bpa_file, bpa_str_ar):
                     if load == None:
                     	load = Net.CreateObject('ElmLod', 'load' + str(load_index))
                     	load = load[0]
-                    load.plini = float(line[20-chinese_count:25-chinese_count].strip().rstrip('.'))
-                    load.qlini = myFloat(line[25-chinese_count:30-chinese_count].strip().rstrip('.'), 0)
+                    load.plini = myFloat(line[20-chinese_count:25-chinese_count].strip().rstrip('.'), 0, 0)
+                    load.qlini = myFloat(line[25-chinese_count:30-chinese_count].strip().rstrip('.'), 0, 0)
                     cubic = bus.SearchObject('Cubic_load' + str(load_index))
                     cubic = cubic[0]
                     if cubic == None:
@@ -404,8 +453,8 @@ def GetBCard(bpa_file, bpa_str_ar):
                 generator.iv_mode = 1;
                 generator.Pmax_uc = float(line[38-chinese_count:42-chinese_count])
                 generator.pgini = float(line[42-chinese_count:47-chinese_count])
-                generator.q_max = myFloat(line[47-chinese_count:52-chinese_count], 99999) / MVABASE  #无功出力最大值
-                generator.q_min = myFloat(line[52-chinese_count:57-chinese_count], -99999) / MVABASE  #无功出力最小值
+                generator.q_max = myFloat(line[47-chinese_count:52-chinese_count], 99999, 0) / MVABASE  #无功出力最大值
+                generator.q_min = myFloat(line[52-chinese_count:57-chinese_count], -99999, 0) / MVABASE  #无功出力最小值
                 generator.usetp = float(line[57-chinese_count:61-chinese_count])
 
                 #load
@@ -418,8 +467,8 @@ def GetBCard(bpa_file, bpa_str_ar):
                     if load == None:
                         load = Net.CreateObject('ElmLod', 'load_generator' + str(generator_index))
                         load = load[0]
-                    load.plini = myFloat(line[20-chinese_count:25-chinese_count].strip().rstrip('.'), 0)
-                    load.qlini = myFloat(line[25-chinese_count:30-chinese_count].strip().rstrip('.'), 0)
+                    load.plini = myFloat(line[20-chinese_count:25-chinese_count].strip().rstrip('.'), 0, 0)
+                    load.qlini = myFloat(line[25-chinese_count:30-chinese_count].strip().rstrip('.'), 0, 0)
                     cubic = g_bus.SearchObject('Cubic_load_generator' + str(load_index))
                     cubic = cubic[0]
                     if cubic == None:
@@ -578,7 +627,7 @@ def GetLCard(bpa_file, bpa_str_ar):
             bus_to = bus_to[0]
 
             if line[1] == ' ':
-                if myFloat(line[44-chinese_count_from-chinese_count_to:50-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0) > 0:
+                if myFloat(line[44-chinese_count_from-chinese_count_to:50-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0, 0) > 0:
                     #新建ElmLne   
                     transLine_index = transLine_index + 1
                     transLine = Net.SearchObject('transLine' + str(transLine_index))
@@ -621,11 +670,11 @@ def GetLCard(bpa_file, bpa_str_ar):
                     	TypLne = TypLne[0]
                     TypLne.uline = base_from
 
-                    R_pu = myFloat(line[38-chinese_count_from-chinese_count_to:44-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0)
-                    X_pu = myFloat(line[44-chinese_count_from-chinese_count_to:50-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0)
-                    B_pu = myFloat(line[56-chinese_count_from-chinese_count_to:62-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0)
-                    Current = myFloat(line[33-chinese_count_from-chinese_count_to:37-chinese_count_from-chinese_count_to].strip().rstrip('.'), 1)
-                    transLineLength = myFloat(line[62-chinese_count_from-chinese_count_to:66-chinese_count_from-chinese_count_to].strip().rstrip('.'), 1/MileToKm)
+                    R_pu = myFloat(line[38-chinese_count_from-chinese_count_to:44-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0, 5)
+                    X_pu = myFloat(line[44-chinese_count_from-chinese_count_to:50-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0, 5)
+                    B_pu = myFloat(line[56-chinese_count_from-chinese_count_to:62-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0, 5)
+                    Current = myFloat(line[33-chinese_count_from-chinese_count_to:37-chinese_count_from-chinese_count_to].strip().rstrip('.'), 1, 0)
+                    transLineLength = myFloat(line[62-chinese_count_from-chinese_count_to:66-chinese_count_from-chinese_count_to].strip().rstrip('.'), 1/MileToKm, 1)
 
                     transLine.dline = transLineLength * MileToKm
                     TypLne.sline = Current
@@ -664,7 +713,7 @@ def GetLCard(bpa_file, bpa_str_ar):
 
 
             if line[1] == '+':
-                if myFloat(line[33-chinese_count_from-chinese_count_to:38-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0) > 0:
+                if myFloat(line[33-chinese_count_from-chinese_count_to:38-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0, 0) > 0:
                     name_shunt = name_from + '_' + name_to + '_' + line[31-chinese_count_from-chinese_count_to: 32-chinese_count_from-chinese_count_to] + '_i'
                     shunt_index = shunt_index + 1
                     shunt_name_cn.append(name_shunt)
@@ -684,9 +733,9 @@ def GetLCard(bpa_file, bpa_str_ar):
                     shunt.ushnm = base_from
                     shunt.shtype = 1
                     shunt.grea = 9999
-                    shunt.qrean = myFloat(line[33-chinese_count_from-chinese_count_to:38-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0)
+                    shunt.qrean = myFloat(line[33-chinese_count_from-chinese_count_to:38-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0, 0)
 
-                if myFloat(line[43-chinese_count_from-chinese_count_to:48-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0) > 0:
+                if myFloat(line[43-chinese_count_from-chinese_count_to:48-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0, 0) > 0:
                     name_shunt = name_from + '_' + name_to + '_' + line[31-chinese_count_from-chinese_count_to: 32-chinese_count_from-chinese_count_to] + '_j'
                     shunt_index = shunt_index + 1
                     shunt_name_cn.append(name_shunt)
@@ -706,7 +755,7 @@ def GetLCard(bpa_file, bpa_str_ar):
                     shunt.ushnm = base_to
                     shunt.shtype = 1
                     shunt.grea = 9999
-                    shunt.qrean = myFloat(line[43-chinese_count_from-chinese_count_to:48-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0)
+                    shunt.qrean = myFloat(line[43-chinese_count_from-chinese_count_to:48-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0, 0)
 
 # ----------------------------------------------------------------------------------------------------
 def GetTCard(bpa_file, bpa_str_ar):
@@ -844,13 +893,13 @@ def GetTCard(bpa_file, bpa_str_ar):
             #     TypTr.utrn_h = float(line[67-chinese_count_from-chinese_count_to:72-chinese_count_from-chinese_count_to].strip().rstrip('.'))
             TypTr.utrn_h = base_hv
             TypTr.utrn_l = base_lv
-            if myFloat(line[33-chinese_count_from-chinese_count_to:37-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0) > 0: 
-                TypTr.strn = myFloat(line[33-chinese_count_from-chinese_count_to:37-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0)
+            if myFloat(line[33-chinese_count_from-chinese_count_to:37-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0, 0) > 0: 
+                TypTr.strn = myFloat(line[33-chinese_count_from-chinese_count_to:37-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0, 0)
             else:
                 TypTr.strn = MVABASE
 
             TypTr.uktr = float(line[44-chinese_count_from-chinese_count_to:50-chinese_count_from-chinese_count_to].strip().rstrip('.')) * TypTr.strn
-            TypTr.pcutr = 1000 / MVABASE * myFloat(line[38-chinese_count_from-chinese_count_to:44-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0) * TypTr.strn * TypTr.strn
+            TypTr.pcutr = 1000 / MVABASE * myFloat(line[38-chinese_count_from-chinese_count_to:44-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0, 5) * TypTr.strn * TypTr.strn
 
             transformers.typ_id = TypTr
                 		
@@ -936,12 +985,14 @@ if bpa_file:					#If the file opened successfully
 
     end = 68
 
+    readFile('win')
 
-    GetBCard(bpa_file, bpa_str_ar)
+    app.PrintInfo(bus_name_cn[0].encode('GBK'))
 
-    # GetLCard(bpa_file, bpa_str_ar[0:1000])
+    # GetBCard(bpa_file, bpa_str_ar)
 
-    WriteFile('win')
+
+    # WriteFile('win')
 
     # GetTCard(bpa_file, bpa_str_ar[0:end])
 
