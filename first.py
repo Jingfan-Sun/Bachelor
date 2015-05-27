@@ -142,11 +142,23 @@ def myFloat(inputStr, defalt, num):
         return float(inputStr)/pow(10,num)
 
 # ----------------------------------------------------------------------------------------------------
-def isfloat(str):
+def isfloat(inputStr):
     """Checks if the string is a floating point number."""
 
     try:
-        float(str)
+        float(inputStr)
+        return True         #Returns true if the string is a floating point number
+    except (ValueError, TypeError):
+        return False            #Returns false otherwise
+
+# ----------------------------------------------------------------------------------------------------
+def isModified(inputStr):
+    """Checks if the string is a floating point number."""
+
+    global modify_name
+
+    try:
+        modify_name.index(inputStr)
         return True         #Returns true if the string is a floating point number
     except (ValueError, TypeError):
         return False            #Returns false otherwise
@@ -277,6 +289,9 @@ def GetBCard(bpa_file, bpa_str_ar):
     global load_name_cn
     global load_name
 
+    global modify_name
+    global modify_content
+
     prj = app.GetActiveProject()
     if prj is None:
         raise Exception("No project activated. Python Script stopped.")
@@ -314,7 +329,7 @@ def GetBCard(bpa_file, bpa_str_ar):
 
     for i in range(0, len(bpa_str_ar)):
         line = bpa_str_ar[i]
-        app.PrintInfo(i)
+        app.PrintInfo('BCard  ' + str(i))
         line = line.rstrip('\n')
         line = line[0:80]
         line = line + ' '*(80-len(line))
@@ -339,6 +354,18 @@ def GetBCard(bpa_file, bpa_str_ar):
                 zone = Zones.CreateObject('ElmZone', 'Zone')
                 zone = zone[0]
                 zone.loc_name = line[18-chinese_count:20-chinese_count]
+
+            #P卡修改
+            if isModified(zone.loc_name):
+                P_load_m = modify_content[4 * modify_name.index(zone.loc_name)]
+                Q_load_m = modify_content[4 * modify_name.index(zone.loc_name) + 1]
+                P_generator_m = modify_content[4 * modify_name.index(zone.loc_name) + 2]
+                P_generator_m = modify_content[4 * modify_name.index(zone.loc_name) + 3]
+            else:
+                P_load_m = 1
+                Q_load_m = 1
+                P_generator_m = 1
+                P_generator_m = 1
             
             if line[1] == ' ' or line[1] == 'T' or line[1] == 'C' or line[1] == 'V' or line[1] == 'F' or line[1] == 'J' or line [1] == 'X':
                 #The bus type code for a PQ bus
@@ -367,8 +394,8 @@ def GetBCard(bpa_file, bpa_str_ar):
                     if load == None:
                     	load = Net.CreateObject('ElmLod', 'load' + str(load_index))
                     	load = load[0]
-                    load.plini = myFloat(line[20-chinese_count:25-chinese_count].strip().rstrip('.'), 0, 0)
-                    load.qlini = myFloat(line[25-chinese_count:30-chinese_count].strip().rstrip('.'), 0, 0)
+                    load.plini = myFloat(line[20-chinese_count:25-chinese_count].strip().rstrip('.'), 0, 0) * P_load_m
+                    load.qlini = myFloat(line[25-chinese_count:30-chinese_count].strip().rstrip('.'), 0, 0) * Q_load_m
                     cubic = bus.SearchObject('Cubic_load' + str(load_index))
                     cubic = cubic[0]
                     if cubic == None:
@@ -452,7 +479,7 @@ def GetBCard(bpa_file, bpa_str_ar):
                 generator.ip_ctrl = 0;  #PV
                 generator.iv_mode = 1;
                 generator.Pmax_uc = float(line[38-chinese_count:42-chinese_count])
-                generator.pgini = float(line[42-chinese_count:47-chinese_count])
+                generator.pgini = float(line[42-chinese_count:47-chinese_count]) * P_generator_m
                 generator.q_max = myFloat(line[47-chinese_count:52-chinese_count], 99999, 0) / MVABASE  #无功出力最大值
                 generator.q_min = myFloat(line[52-chinese_count:57-chinese_count], -99999, 0) / MVABASE  #无功出力最小值
                 generator.usetp = float(line[57-chinese_count:61-chinese_count])
@@ -467,8 +494,8 @@ def GetBCard(bpa_file, bpa_str_ar):
                     if load == None:
                         load = Net.CreateObject('ElmLod', 'load_generator' + str(generator_index))
                         load = load[0]
-                    load.plini = myFloat(line[20-chinese_count:25-chinese_count].strip().rstrip('.'), 0, 0)
-                    load.qlini = myFloat(line[25-chinese_count:30-chinese_count].strip().rstrip('.'), 0, 0)
+                    load.plini = myFloat(line[20-chinese_count:25-chinese_count].strip().rstrip('.'), 0, 0) * P_load_m
+                    load.qlini = myFloat(line[25-chinese_count:30-chinese_count].strip().rstrip('.'), 0, 0) * Q_load_m
                     cubic = g_bus.SearchObject('Cubic_load_generator' + str(load_index))
                     cubic = cubic[0]
                     if cubic == None:
@@ -552,6 +579,9 @@ def GetLCard(bpa_file, bpa_str_ar):
     global transLine_name_cn
     global transLine_name
 
+    global modify_name
+    global modify_content
+
     prj = app.GetActiveProject()
     if prj is None:
         raise Exception("No project activated. Python Script stopped.")
@@ -587,7 +617,7 @@ def GetLCard(bpa_file, bpa_str_ar):
 
     for i in range(0, len(bpa_str_ar)):
         line = bpa_str_ar[i]
-        app.PrintInfo(i)
+        app.PrintInfo('LCard  ' + str(i))
         line = line.rstrip('\n')
         line = line[0:80]
         line = line + ' '*(80-len(line))
@@ -780,6 +810,9 @@ def GetTCard(bpa_file, bpa_str_ar):
     global transformers_name_cn
     global transformers_name
 
+    global modify_name
+    global modify_content
+
     prj = app.GetActiveProject()
     if prj is None:
         raise Exception("No project activated. Python Script stopped.")
@@ -815,7 +848,7 @@ def GetTCard(bpa_file, bpa_str_ar):
 
     for i in range(0, len(bpa_str_ar)):
         line = bpa_str_ar[i]
-        app.PrintInfo(i)
+        app.PrintInfo('TCard  ' + str(i))
         line = line.rstrip('\n')
         line = line[0:80]
         line = line + ' '*(80-len(line))
@@ -904,7 +937,95 @@ def GetTCard(bpa_file, bpa_str_ar):
             TypTr.pcutr = 1000 / MVABASE * myFloat(line[38-chinese_count_from-chinese_count_to:44-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0, 5) * TypTr.strn * TypTr.strn
 
             transformers.typ_id = TypTr
-                		
+
+# ----------------------------------------------------------------------------------------------------
+def GetPCard(bpa_file, bpa_str_ar):
+    #T卡
+    global MVABASE
+    
+    global bus_name_cn
+    global bus_name
+    global bus_index
+    
+    global generator_name_cn
+    global generator_name
+    global generator_index
+    
+    global shunt_index
+    
+    global load_index
+    
+    global transLine_index
+    
+    global transformers_index
+    global transformers_name_cn
+    global transformers_name
+
+    global modify_name
+    global modify_content
+
+    prj = app.GetActiveProject()
+    if prj is None:
+        raise Exception("No project activated. Python Script stopped.")
+
+    # app.PrintInfo(prj)
+    Network_Modell = prj.SearchObject("Network Model.IntPrjfolder")
+    Network_Model=Network_Modell[0]
+
+    Network_Dataa = Network_Model.SearchObject("Network Data.IntPrjfolder")
+    Network_Data = Network_Dataa[0]
+    # app.PrintInfo(Network_Data)
+
+    Nett = Network_Data.SearchObject("*.ElmNet")
+    Net = Nett[0]
+    # app.PrintInfo('Net')
+    # app.PrintInfo(Net)
+
+    Libraryy = prj.SearchObject("Library.IntPrjfolder")
+    Library = Libraryy[0]
+    # app.PrintInfo(Library)
+
+    user_defined_modell = Library.SearchObject("User Defined Models.IntPrjfolder")
+    user_defined_model = user_defined_modell[0]
+    # app.PrintInfo(user_defined_model)
+
+    BPA_Frame_BB = user_defined_model.SearchObject("BPA Frame(E).BlkDef")
+    BPA_Frame_B = BPA_Frame_BB[0]
+    # app.PrintInfo(BPA_Frame_B)
+    
+    Zoness = Network_Data.SearchObject("Zones.IntZone")
+    Zones = Zoness[0]
+    # app.PrintInfo(Zones)
+
+    global i
+
+    for i in range(0, len(bpa_str_ar)):
+        line = bpa_str_ar[i]
+        app.PrintInfo('PCard  ' + str(i))
+        line = line.rstrip('\n')
+        line = line[0:80]
+        line = line + ' '*(80-len(line))
+        if line == "": continue
+        
+        if line[0] == 'P':
+            if line[1] == 'A': app.PrintInfo('PA Card')
+            elif line[1] == 'Z': 
+                zone = str(line[3: 5].strip())
+                P_load = myFloat(line[9: 14].strip(), 1, 0)
+                Q_load = myFloat(line[15: 20].strip(), 1, 0)
+                P_generator = myFloat(line[21: 26].strip(), 1, 0)
+                P_generator = myFloat(line[27: 32].strip(), 1, 0)
+
+                modify_name.append(zone)
+                modify_content.append(P_load)
+                modify_content.append(Q_load)
+                modify_content.append(P_generator)
+                modify_content.append(P_generator)
+
+            elif line[1] == 'O': app.PrintInfo('PO Card')
+            elif line[1] == 'C': app.PrintInfo('PC Card')
+            elif line[1] == 'B': app.PrintInfo('PB Card')
+
 # ----------------------------------------------------------------------------------------------------
 DEBUG = 1
 if DEBUG:
@@ -924,10 +1045,14 @@ if bpa_file:					#If the file opened successfully
     bpa_file.seek(0)        #To position back at the beginning
     bpa_str_ar = bpa_file.readlines()        #The array that is containing all the lines of the BPA file
     
+    count = 0
     for line in bpa_str_ar: 
+        count = count + 1
         if line[0:2] == "/M": 
             MVABASE = float(line[line.find("=")+1:line.find("\\")].lstrip())            #To continue if it is a blank line
             break
+        # if not(line[0] == 'B' or line[0] == 'L' or line[0] == 'T' or line[0] == '.' or line[0] == ' '):
+        #     app.PrintInfo(line[0:2] + '       ' + str(count))
 
     # for i in range(0, len(bpa_str_ar)):
     #     bpa_str_ar[i] = bpa_str_ar[i][0:80]
@@ -960,6 +1085,9 @@ if bpa_file:					#If the file opened successfully
     global transformers_name_cn
     global transformers_name
 
+    global modify_name
+    global modify_content
+
     global i
 
     i = 0
@@ -984,12 +1112,16 @@ if bpa_file:					#If the file opened successfully
     transformers_index = 0
     transformers_name_cn = []
     transformers_name = []
+    modify_name = []
+    modify_content = []
 
     end = 10000
 
-    readFile('win')
+    # readFile('win')
 
-    app.PrintInfo(bus_name_cn[0].encode('GBK'))
+    GetPCard(bpa_file, bpa_str_ar)
+
+    app.PrintInfo(modify_name[0])
 
     # GetBCard(bpa_file, bpa_str_ar)
 
@@ -997,6 +1129,6 @@ if bpa_file:					#If the file opened successfully
 
     # WriteFile('win')
 
-    GetTCard(bpa_file, bpa_str_ar)
+    # GetTCard(bpa_file, bpa_str_ar)
 
     # changeName()
