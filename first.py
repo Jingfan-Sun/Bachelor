@@ -60,9 +60,12 @@ def WriteFile(system):
     global transformers_name_cn
     global transformers_name
 
+    global modify_name
+    global modify_content
+
     path_win = 'E:\\Bachelor\\Data\\'
 
-    name_list = ['bus_name_cn', 'bus_name', 'generator_name_cn', 'generator_name', 'shunt_name', 'shunt_name_cn', 'scap_name', 'scap_name_cn', 'load_name', 'load_name_cn', 'transformers_name', 'transformers_name_cn', 'transLine_name', 'transLine_name_cn']
+    name_list = ['bus_name_cn', 'bus_name', 'generator_name_cn', 'generator_name', 'shunt_name', 'shunt_name_cn', 'scap_name', 'scap_name_cn', 'load_name', 'load_name_cn', 'transformers_name', 'transformers_name_cn', 'transLine_name', 'transLine_name_cn', 'modify_name', 'modify_content']
     for name in name_list:
         if system == 'win': path = path_win + name + '.txt'
         else: path = path_mac + name + '.txt'
@@ -105,10 +108,13 @@ def readFile(system):
     global transformers_name_cn
     global transformers_name
 
+    global modify_name
+    global modify_content
+
     path_win = 'E:\\Bachelor\\Data\\'
 
-    name_list_str = ['bus_name_cn', 'bus_name', 'generator_name_cn', 'generator_name', 'shunt_name', 'shunt_name_cn', 'scap_name', 'scap_name_cn', 'load_name', 'load_name_cn', 'transformers_name', 'transformers_name_cn', 'transLine_name', 'transLine_name_cn']
-    name_list = [bus_name_cn, bus_name, generator_name_cn, generator_name, shunt_name, shunt_name_cn, scap_name, scap_name_cn, load_name, load_name_cn, transformers_name, transformers_name_cn, transLine_name, transLine_name_cn]
+    name_list_str = ['bus_name_cn', 'bus_name', 'generator_name_cn', 'generator_name', 'shunt_name', 'shunt_name_cn', 'scap_name', 'scap_name_cn', 'load_name', 'load_name_cn', 'transformers_name', 'transformers_name_cn', 'transLine_name', 'transLine_name_cn', 'modify_name', 'modify_content']
+    name_list = [bus_name_cn, bus_name, generator_name_cn, generator_name, shunt_name, shunt_name_cn, scap_name, scap_name_cn, load_name, load_name_cn, transformers_name, transformers_name_cn, transLine_name, transLine_name_cn, modify_name, modify_content]
     for index in range(0, len(name_list)):
         if system == 'win': path = path_win + name_list_str[index] + '.txt'
         else: path = path_mac + name_list_str[index] + '.txt'
@@ -124,7 +130,8 @@ def readFile(system):
     scap_name = name_list[6]; scap_name_cn = name_list[7]; 
     load_name = name_list[8]; load_name_cn = name_list[9]; 
     transformers_name = name_list[10]; transformers_name_cn = name_list[11]; 
-    transLine_name = name_list[12]; transLine_name_cn = name_list[13]
+    transLine_name = name_list[12]; transLine_name_cn = name_list[13];
+    modify_name = name_list[14]; modify_content = name_list[15]
 
 # ----------------------------------------------------------------------------------------------------
 def myFloat(inputStr, defalt, num):
@@ -233,37 +240,53 @@ def changeName():
     Zones = Zoness[0]
     # app.PrintInfo(Zones)
 
+    i = 0
+
     for model in bus_name:
+        i = i + 1
+        app.PrintInfo('Changing Name: bus------Object' + str(i))
         bus = Net.SearchObject(model)
         bus = bus[0]
         bus.loc_name = bus_name_cn[bus_name.index(model)].encode("GBK")
 
     for model in generator_name:
+        i = i + 1
+        app.PrintInfo('Changing Name: generator------Object' + str(i))
         generator = Net.SearchObject(model)
         generator = generator[0]
         generator.loc_name = generator_name_cn[generator_name.index(model)].encode("GBK")
 
     for model in transLine_name:
+        i = i + 1
+        app.PrintInfo('Changing Name: transLine------Object' + str(i))
         transLine = Net.SearchObject(model)
         transLine = transLine[0]
         transLine.loc_name = transLine_name_cn[transLine_name.index(model)].encode("GBK")
 
     for model in shunt_name:
+        i = i + 1
+        app.PrintInfo('Changing Name: shunt------Object' + str(i))
         shunt = Net.SearchObject(model)
         shunt = shunt[0]
         shunt.loc_name = shunt_name_cn[shunt_name.index(model)].encode("GBK")
 
     for model in scap_name:
+        i = i + 1
+        app.PrintInfo('Changing Name: scap------Object' + str(i))
         scap = Net.SearchObject(model)
         scap = scap[0]
         scap.loc_name = scap_name_cn[scap_name.index(model)].encode("GBK")
 
     for model in transformers_name:
+        i = i + 1
+        app.PrintInfo('Changing Name: transformers------Object' + str(i))
         transformers = Net.SearchObject(model)
         transformers = transformers[0]
         transformers.loc_name = transformers_name_cn[transformers_name.index(model)].encode("GBK")
 
     for model in load_name:
+        i = i + 1
+        app.PrintInfo('Changing Name: load------Object' + str(i))
         load = Net.SearchObject(model)
         load = load[0]
         load.loc_name = load_name_cn[load_name.index(model)].encode("GBK")
@@ -357,10 +380,10 @@ def GetBCard(bpa_file, bpa_str_ar):
 
             #P卡修改
             if isModified(zone.loc_name):
-                P_load_m = modify_content[4 * modify_name.index(zone.loc_name)]
-                Q_load_m = modify_content[4 * modify_name.index(zone.loc_name) + 1]
-                P_generator_m = modify_content[4 * modify_name.index(zone.loc_name) + 2]
-                P_generator_m = modify_content[4 * modify_name.index(zone.loc_name) + 3]
+                P_load_m = float(modify_content[4 * modify_name.index(zone.loc_name)])
+                Q_load_m = float(modify_content[4 * modify_name.index(zone.loc_name) + 1])
+                P_generator_m = float(modify_content[4 * modify_name.index(zone.loc_name) + 2])
+                P_generator_m = float(modify_content[4 * modify_name.index(zone.loc_name) + 3])
             else:
                 P_load_m = 1
                 Q_load_m = 1
@@ -893,7 +916,7 @@ def GetTCard(bpa_file, bpa_str_ar):
                 
             #高压bus
             bus_hv = bus_name[bus_name_cn.index('Bus_' + name_hv)]
-            app.PrintPlain(bus_hv)
+            # app.PrintPlain(bus_hv)
             bus_hv = Net.SearchObject(bus_hv)
             bus_hv = bus_hv[0]
             cubic = bus_hv.SearchObject('Cubic_' + 'transformers' + str(transformers_index))
@@ -904,7 +927,7 @@ def GetTCard(bpa_file, bpa_str_ar):
             transformers.bushv = cubic
             #低压bus
             bus_lv = bus_name[bus_name_cn.index('Bus_' + name_lv)]
-            app.PrintPlain(bus_lv)
+            # app.PrintPlain(bus_lv)
             bus_lv = Net.SearchObject(bus_lv)
             bus_lv = bus_lv[0]
             cubic = bus_lv.SearchObject('Cubic_' + 'transformers' + str(transformers_index))
@@ -1011,10 +1034,10 @@ def GetPCard(bpa_file, bpa_str_ar):
             if line[1] == 'A': app.PrintInfo('PA Card')
             elif line[1] == 'Z': 
                 zone = str(line[3: 5].strip())
-                P_load = myFloat(line[9: 14].strip(), 1, 0)
-                Q_load = myFloat(line[15: 20].strip(), 1, 0)
-                P_generator = myFloat(line[21: 26].strip(), 1, 0)
-                P_generator = myFloat(line[27: 32].strip(), 1, 0)
+                P_load = str(myFloat(line[9: 14].strip(), 1, 0))
+                Q_load = str(myFloat(line[15: 20].strip(), 1, 0))
+                P_generator = str(myFloat(line[21: 26].strip(), 1, 0))
+                P_generator = str(myFloat(line[27: 32].strip(), 1, 0))
 
                 modify_name.append(zone)
                 modify_content.append(P_load)
@@ -1117,18 +1140,16 @@ if bpa_file:					#If the file opened successfully
 
     end = 10000
 
-    # readFile('win')
+    readFile('win')
 
-    GetPCard(bpa_file, bpa_str_ar)
-
-    app.PrintInfo(modify_name[0])
+    # GetPCard(bpa_file, bpa_str_ar)
 
     # GetBCard(bpa_file, bpa_str_ar)
 
     # GetLCard(bpa_file, bpa_str_ar)
 
-    # WriteFile('win')
-
     # GetTCard(bpa_file, bpa_str_ar)
 
-    # changeName()
+    # WriteFile('win')
+
+    changeName()
