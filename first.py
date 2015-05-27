@@ -813,7 +813,9 @@ def GetTCard(bpa_file, bpa_str_ar):
     Zones = Zoness[0]
     # app.PrintInfo(Zones)
 
-    for line in bpa_str_ar:
+    for i in range(0, len(bpa_str_ar)):
+        line = bpa_str_ar[i]
+        app.PrintInfo(i)
         line = line.rstrip('\n')
         line = line[0:80]
         line = line + ' '*(80-len(line))
@@ -983,7 +985,7 @@ if bpa_file:					#If the file opened successfully
     transformers_name_cn = []
     transformers_name = []
 
-    end = 68
+    end = 10000
 
     readFile('win')
 
@@ -991,9 +993,10 @@ if bpa_file:					#If the file opened successfully
 
     # GetBCard(bpa_file, bpa_str_ar)
 
+    # GetLCard(bpa_file, bpa_str_ar)
 
     # WriteFile('win')
 
-    # GetTCard(bpa_file, bpa_str_ar[0:end])
+    GetTCard(bpa_file, bpa_str_ar)
 
     # changeName()
