@@ -30,8 +30,8 @@
 \contentsline {chapter}{\numberline {3}开题报告}{44}
 \contentsline {section}{\numberline {3.1}项目研究目的}{44}
 \contentsline {section}{\numberline {3.2}研究内容和研究步骤}{44}
-\contentsline {section}{\numberline {3.3}程序的大体思路}{45}
-\contentsline {section}{\numberline {3.4}论文的主要内容和进度安排}{46}
+\contentsline {section}{\numberline {3.3}程序运行流程}{45}
+\contentsline {section}{\numberline {3.4}论文的进度安排}{46}
 \contentsline {chapter}{致谢}{47}
 \contentsline {chapter}{参考文献}{47}
 \contentsline {chapter}{附录}{48}
