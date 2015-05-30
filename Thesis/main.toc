@@ -1,0 +1,38 @@
+\contentsline {chapter}{目录}{I}
+\contentsline {chapter}{\numberline {1}文献综述}{1}
+\contentsline {section}{\numberline {1.1}概述}{1}
+\contentsline {subsection}{\numberline {1.1.1}项目研究背景}{1}
+\contentsline {subsection}{\numberline {1.1.2}项目发展历史、现状和趋势}{2}
+\contentsline {section}{\numberline {1.2}项目的研究意义}{3}
+\contentsline {section}{\numberline {1.3}该项目的国内进展情况}{4}
+\contentsline {section}{\numberline {1.4}项目研究的主要内容}{4}
+\contentsline {chapter}{\numberline {2}外文文献翻译}{7}
+\contentsline {section}{\numberline {2.1}外文文献原稿}{7}
+\contentsline {section}{\numberline {2.2}中文翻译译稿}{25}
+\contentsline {subsection}{\numberline {2.2.1}导言}{25}
+\contentsline {subsection}{\numberline {2.2.2}MMC拓扑}{26}
+\contentsline {subsection}{\numberline {2.2.3}MMC的模块化、设计、控制和建模}{28}
+\contentsline {subsubsection}{\numberline {2.2.3.1}模块化技术}{28}
+\contentsline {subsubsection}{\numberline {2.2.3.2}SM电容电压平衡}{32}
+\contentsline {subsubsection}{\numberline {2.2.3.3}数学模型}{34}
+\contentsline {subsubsection}{\numberline {2.2.3.4}MMC设计限制}{37}
+\contentsline {subsubsection}{\numberline {2.2.3.5}环路电流控制}{38}
+\contentsline {subsubsection}{\numberline {2.2.3.6}SM电容电压震荡消除技术}{38}
+\contentsline {subsubsection}{\numberline {2.2.3.7}SM电容预充电和启动过程}{39}
+\contentsline {subsection}{\numberline {2.2.4}特殊情况下MMC的运行}{39}
+\contentsline {subsubsection}{\numberline {2.2.4.1}非平衡电网条件}{39}
+\contentsline {subsubsection}{\numberline {2.2.4.2}容错运行}{39}
+\contentsline {subsection}{\numberline {2.2.5}应用}{40}
+\contentsline {subsubsection}{\numberline {2.2.5.1}HVDC系统}{40}
+\contentsline {subsubsection}{\numberline {2.2.5.2}变速伺服}{41}
+\contentsline {subsubsection}{\numberline {2.2.5.3}动态制动斩波器}{41}
+\contentsline {subsection}{\numberline {2.2.6}结论}{42}
+\contentsline {chapter}{\numberline {3}开题报告}{44}
+\contentsline {section}{\numberline {3.1}项目研究目的}{44}
+\contentsline {section}{\numberline {3.2}研究内容和研究步骤}{44}
+\contentsline {section}{\numberline {3.3}程序的大体思路}{45}
+\contentsline {section}{\numberline {3.4}论文的主要内容和进度安排}{46}
+\contentsline {chapter}{致谢}{47}
+\contentsline {chapter}{参考文献}{47}
+\contentsline {chapter}{附录}{48}
+\contentsfinish 
