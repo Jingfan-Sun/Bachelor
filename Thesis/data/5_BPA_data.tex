@@ -87,13 +87,128 @@
 
 如上表所示，第21-30列为描述恒定负荷所需要的有功、无功信息，在DIgSILENT中对应的是负载模型。
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=1.0\textwidth]{images/Paper_Fig_19.png}
+\setcaptionwidth{\linewidth}
+\caption{DIgSILENT普通负载模型}
+\end{figure}
+
+DIgSILENT中采用的负荷模型是一种动态负荷、静态负荷与用户自定义“特殊”负荷的综合，在DIgSILENT中负载模型描述如图5.3.
+
+通常情况下选择为3项平衡负载，切数据输入模式（Input Mode）选择为Default模式。在平衡负载情况之下，负载的潮流分析可不用专门将其专门设为单相或双相负载。其潮流模型如下：
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.4\textwidth]{images/Paper_Fig_20.png}
+\setcaptionwidth{\linewidth}
+\caption{DIgSILENT平衡负载的潮流模型}
+\end{figure}
+
+负荷电压依赖性可以如下述方程建模：
+$$P = P_0\left[aP*(\frac{v}{v_0})^{e\_ap} + bP*(\frac{v}{v_0})^{e\_bp} + cP*(\frac{v}{v_0})^{e\_cp}\right] \eqno{(5.1)}$$
+其中
+$$1 - aP - bP = cP \eqno{(5.2)}$$
+$$Q = Q_0\left[aP*(\frac{v}Q{v_0})^{e\_aQ} + bQ*(\frac{v}{v_0})^{e\_bQ} + cQ*(\frac{v}{v_0})^{e\_cQ}\right] \eqno{(5.3)}$$
+其中
+$$1 - aQ - bQ = cQ \eqno{(5.4)}$$
+
+\begin{center}
+\begin{table}[h]
+\centering
+\begin{tabular}{p{0.2\columnwidth}p{0.2\columnwidth}}
+\toprule
+指数 & 常量\\
+\midrule
+ 0 & 功率\\
+ 1 & 电流\\
+ 2 & 电阻\\
+\bottomrule
+\end{tabular}
+\caption{为实现不同负载功效的指数选取}
+\end{table}
+\end{center}
+
+
+通过对上述公式的几项指数经行赋值，就可以对固有的负载建模。表5.4提供了分别实现恒功率，恒电流以及恒定电阻特性的负载模型所需要的指数参数。但是相应的每个系数（$aP, bP, cP, aQ, bQ, cQ$）则可以任意定义如图：
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{images/Paper_Fig_21.png}
+\setcaptionwidth{\linewidth}
+\caption{不同功能负载实现的系数表格图}
+\end{figure}
+
+如图5.5所示，以有功功率为例，图中的参数使得有功负载的最后方程形式为$P = P_0\left[aP*(\frac{v}{v_0})^0 + bP*(\frac{v}{v_0})^1 + cP*(\frac{v}{v_0})^2\right]$，可见负载有功不仅与恒定功率$P_0$有关，还与负载电压平方有关，而且负载功率受电压控制，这正好与$P = \frac{U^2}{R}$公式一致，所以当取$aP = bP = aQ = bQ = 0$，$cP = cQ = 1$时可以表示为一恒阻抗负荷，即可以作为一个阻抗使用。
+
+同理，当取$aP = aQ = 1$，$bP = bQ = 0$，$cP = cQ = 0$时，则是恒功率负载。
+
+通过负荷调节因子，负载可以单独被放大或者缩小如下：
+
+$$P = scale * P_0 \eqno{(5.5)}$$
+$$Q = scale * Q_0 \eqno{(5.6)}$$
+$$P = scale * P_0\left[aP*(\frac{v}{v_0})^{e\_ap} + bP*(\frac{v}{v_0})^{e\_bp} + cP*(\frac{v}{v_0})^{e\_cp}\right] \eqno{(5.7)}$$
+$$Q = scale * Q_0\left[aP*(\frac{v}Q{v_0})^{e\_aQ} + bQ*(\frac{v}{v_0})^{e\_bQ} + cQ*(\frac{v}{v_0})^{e\_cQ}\right] \eqno{(5.8)}$$
+
+公式5.7和5.8是考虑到有电压依赖的情况下的特性。
+当考虑到馈线负荷调节过程中的负载，则在DIgSILENT的\emph{ElmLod}数据卡中需要选定\emph{“Adjusted by Load Scaling”}，这种情况下潮流计算时数据卡中本身的范围因素将不被使用而是被feeder-scaling因素给替换，如图5.6显示了负荷调节因子用以维持feeder设置的方式。
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{images/Paper_Fig_22.png}
+\setcaptionwidth{\linewidth}
+\caption{负荷调节因子用以维持feeder设置的方式}
+\end{figure}
+
+以上是DIgSILENT负载潮流特性的参数介绍，对于数据的转换由于BPA只给出了负载的有功和无功所以最主要的是将有功和无功分别准确的转化DIgSILENT有功无功的输入项$P_0, Q_0$。对应的DIgsILENT数据位置如图5.7所示。
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{images/Paper_Fig_23.png}
+\setcaptionwidth{\linewidth}
+\caption{负载有功，无功的转换}
+\end{figure}
+
+\subsection{DIgSILENT电抗器模型介绍及数据转换}
 
 \begin{spacing}{1.0}
 \begin{longtable}[h]{llp{0.8\columnwidth}}
 \toprule
 列 & 格式 & 内容\\
  \midrule
-31-38 & 2F4.0 & 以MW和Mvar表示的、在基准电压下的节点并联导纳负荷,无功:(+)=容性,(-)=感性。注意:对于BX节点,此 项忽略\\
+31-38 & 2F4.0 & 以MW和Mvar表示的、在基准电压下的节点并联导纳负荷,无功:(+)=容性,(-)=感性。注意:对于BX节点,此项忽略\\
+\bottomrule
+\end{longtable}
+\end{spacing}
+
+R-L型电抗器：此种电抗器是电阻与电感串联构成的。为了定义电感以及电阻需要两种输入模式：
+
+\begin{description}
+\item[-] 设计参数：参数通过额定无功功率，额定电流和品质因数确定。
+\item[-] 布线参数：参数通过感抗和电阻确定。
+\end{description}
+
+式5.9给出了电感L与感抗的一般关系：
+$$L_{rea} = \frac{X_{rea}}{2 \pi f_{nom}} \cdot 1000 \eqno{(5.9)}$$
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{images/Paper_Fig_24.png}
+\setcaptionwidth{\linewidth}
+\caption{\emph{3PH-'YN'，3PH-'Y'}技术模型}
+\end{figure}
+
+如图5.8所示为\emph{3PH-'YN'，3PH-'Y'}技术，如果内部接地阻抗星型点已经\emph{'connected'}，可以将星型接法的接线点连接到中性线路（建立方式：\emph{External Star Point）}来建立\emph{'connected'}（如图2-12的二图情况）。对于中心点连接的情况，接地电阻和接地感抗需要考虑（如图2-12的一图情况），对于\emph{'disconnected'}情况，接地电阻和感抗可以忽略。
+
+$X_{rea}, R_{rea}, Q_{rea}$的关系如式5.10和5.11所示，其中$qf_{rea}$是额定频率下的品质因数。
+$$X_{rea} = \frac{U_{nom}^2}{Q_{rea}} \eqno{(5.10)}$$
+$$R_{rea} = \frac{X_{nom}}{qf_{rea}} \eqno{(5.11)}$$
+
+\begin{spacing}{1.0}
+\begin{longtable}[h]{llp{0.8\columnwidth}}
+\toprule
+列 & 格式 & 内容\\
+ \midrule
 39-42 & F4.0 & $P_{max}$:最大有功出力(MW)\\
 43-47 & F5.0 & $P_{gen}$:实际有功出力(MW)\\
 48-52 & F5.0 & 对于PQ节点(即B、BC、BT、BV节点)此项填所安排 的无功出力值QSCHED(Mvar);对于其它节点此项填无功出力 最大值$Q_{max}$(Mvar):(+)=容性,(-)=感性\\

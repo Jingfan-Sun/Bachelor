@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.11.20)  30 MAY 2015 19:25
+This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.11.20)  30 MAY 2015 21:24
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -1923,20 +1923,50 @@ Overfull \hbox (19.8408pt too wide) in alignment at lines 102--112
 Underfull \vbox (badness 10000) detected at line 112
  []
 
+File: images/Paper_Fig_19.png Graphic file (type QTm)
+<use  "images/Paper_Fig_19.png" > [55]
+File: images/Paper_Fig_20.png Graphic file (type QTm)
+ <use  "images/Paper_Fig_20.png" >
+File: images/Paper_Fig_21.png Graphic file (type QTm)
 
-Overfull \hbox (16.8408pt too wide) in alignment at lines 119--135
+<use  "images/Paper_Fig_21.png" > [56] [57]
+File: images/Paper_Fig_22.png Graphic file (type QTm)
+ <use  "images/Paper_Fig_22.png" >
+File: images/Paper_Fig_23.png Graphic file (type QTm)
+
+<use  "images/Paper_Fig_23.png" >
+Overfull \hbox (5.17479pt too wide) in alignment at lines 203--210
  [] [] [] 
  []
 
 
-Underfull \vbox (badness 10000) detected at line 135
+Underfull \vbox (badness 10000) detected at line 210
  []
 
-) [55]
+[58]
+File: images/Paper_Fig_24.png Graphic file (type QTm)
+ <use  "images/Paper_Fig_24.png" >
+Overfull \hbox (6.87126pt too wide) in paragraph at lines 230--231
+[]\EU1/SimSun(0)/m/it/12 如 图 \EU1/TimesNewRoman(0)/m/n/12 5.8 \EU1/SimSun(0)/m/
+it/12 所 示 为 \EU1/TimesNewRoman(0)/m/it/12 3PH-'YN'\EU1/SimSun(0)/m/it/12 ，| \EU
+1/TimesNewRoman(0)/m/it/12 3PH-'Y' \EU1/SimSun(0)/m/it/12 技 术，|  如 果 内 部 接 地 阻 
+抗 星 型 点 已 经\EU1/TimesNewRoman(0)/m/it/12 'connected'\EU1/SimSun(0)/m/it/12 ，|
+ []
+
+[59]
+Overfull \hbox (16.8408pt too wide) in alignment at lines 237--251
+ [] [] [] 
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 251
+ []
+
+) [60]
 No file main.bbl.
 \openout2 = `data/thanks.aux'.
 
-(./data/thanks.tex) [56
+(./data/thanks.tex) [61
 
 
 
@@ -1944,7 +1974,7 @@ No file main.bbl.
 ]
 \openout2 = `data/appe.aux'.
 
- (./data/appe.tex) [57
+ (./data/appe.tex) [62
 
 
 
@@ -2014,14 +2044,14 @@ BoldSlantedFont={*}].
 . * 'sl/' with NFSS spec.:
 . <->"STFangsong/ICU:"
 .................................................
-) [58
+) [63
 
 
 
 ]
 \openout2 = `data/eval.aux'.
 
- (./data/eval.tex) [59
+ (./data/eval.tex) [64
 
 
 
@@ -2030,12 +2060,12 @@ BoldSlantedFont={*}].
 (./data/4_Python_API.aux) (./data/5_BPA_data.aux) (./data/thanks.aux)
 (./data/appe.aux) (./data/task.aux) (./data/eval.aux)) ) 
 Here is how much of TeX's memory you used:
- 22875 strings out of 493938
- 471168 string characters out of 6148856
- 495636 words of memory out of 5000000
- 25644 multiletter control sequences out of 15000+600000
+ 22930 strings out of 493938
+ 473063 string characters out of 6148856
+ 495686 words of memory out of 5000000
+ 25693 multiletter control sequences out of 15000+600000
  14429 words of font info for 122 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
  53i,18n,66p,771b,484s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.pdf (67 pages).
+Output written on main.pdf (72 pages).

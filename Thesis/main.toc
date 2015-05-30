@@ -43,7 +43,8 @@
 \contentsline {section}{\numberline {5.1}BPA数据卡片的分类}{53}
 \contentsline {section}{\numberline {5.2}B卡}{54}
 \contentsline {subsection}{\numberline {5.2.1}DIgSILENT负载模型介绍及数据转换}{55}
-\contentsline {chapter}{致谢}{56}
-\contentsline {chapter}{参考文献}{56}
-\contentsline {chapter}{附录}{57}
+\contentsline {subsection}{\numberline {5.2.2}DIgSILENT电抗器模型介绍及数据转换}{58}
+\contentsline {chapter}{致谢}{61}
+\contentsline {chapter}{参考文献}{61}
+\contentsline {chapter}{附录}{62}
 \contentsfinish 
