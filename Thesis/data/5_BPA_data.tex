@@ -204,6 +204,85 @@ $X_{rea}, R_{rea}, Q_{rea}$的关系如式5.10和5.11所示，其中$qf_{rea}$�
 $$X_{rea} = \frac{U_{nom}^2}{Q_{rea}} \eqno{(5.10)}$$
 $$R_{rea} = \frac{X_{nom}}{qf_{rea}} \eqno{(5.11)}$$
 
+电抗器无功功率与额定电流关系如下：
+$$Q_{rea} = \frac{I_{rea}\cdot \sqrt{3}\cdot U_{nom}}{1000} \eqno{(5.12)}$$
+$$\Delta S = \Delta P + j\Delta Q = 3I^2(R + jX) = \frac{P^2 + Q^2}{U^2_j}(R + jX) \eqno{(5.13)}$$
+
+另一种电抗器是C型电抗器：此种电抗器是纯电容型的。有两种模式可以定义C型电容器：
+
+\begin{description}
+\item[-] 设计参数：参数通过额定电容功率，额定电流。
+\item[-] 布线参数：参数通过容抗和电容确定。
+\end{description}
+
+电容和电抗的关系如式5.14所示：
+$$C_{rea} = \frac{B_{rea}}{2 \cdot \pi \cdot f_{rea}} \eqno{(5.14)}$$
+
+如图5.9所示，在\emph{ABC-'YN'，ABC-'Y'}技术中，如果内部接地阻抗星型点已经\emph{'connected'}，可以将星型接法的接线点连接到中性线路（建立方式：\emph{External Star Point}）来建立\emph{'connected'}（如图2-13的二图情况）。对于中心点连接的情况，接地电阻和接地感抗需要考虑（如图2-13的一图情况），对于\emph{'disconnected'}情况，接地电阻和感抗可以忽略。
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{images/Paper_Fig_25.png}
+\setcaptionwidth{\linewidth}
+\caption{\emph{ABC-'YN'，ABC-'Y'}技术模型}
+\end{figure}
+
+$B_{cap}$和$Q_{cap}$的关系以及$Q_{cap}$和$I_{cap}$的关系分别如式5.15和5.16所示：
+$$B_{cap} = \frac{Q_{cap}}{U_{nom}^2} \cdot 10^6 \eqno{(5.15)}$$
+$$Q_{cap} = \frac{I_{cap} \cdot \sqrt{3} \cdot U_{nom}}{1000} \eqno{(5.16)}$$
+
+R-L-C型电抗器：它由感抗，电阻，容抗串联构成。为了定义其感抗，电阻以及容抗，有两种输入模式：
+
+\begin{description}
+\item[-] a）设计参数：参数通过额定有功功率（L-C），额定电流（L-C），电感等级或共振频率或者调谐顺序以及额定频率下的品质因数或者共振频率下的品质因数。
+\item[-] 布线参数：参数通过感抗或者电感，容抗或者电容大小以及电阻确定。
+\end{description}
+
+容抗$B_{cap}$和电容$C_{cap}$的关系如式5.17所示。
+$$C_{cap} = \frac{B_{cap}}{2 \cdot \pi \cdot f_{nom}} \eqno{(5.17)}$$
+
+感抗$X_{rea}$和电感$L_{rea}$的关系如式5.18所示。
+$$L_{rea} = \frac{X_{rea}}{2\cdot \pi \cdot f_{nom}} \cdot 1000 \eqno{(5.18)}$$
+
+电感等级，共振频率以及调谐顺序关系如下式所示，其中$P_{grad}$是电感度。
+$$f_{res} = \frac{f_{nom}}{\sqrt{P_{grad} / 100}} \eqno{(5.19)}$$
+$$n_{res} = \frac{f_{res}}{f_{nom}} \eqno{(5.20)}$$
+
+如式5.21所示为额定频率下的品质因数与共振频率下品质因数的关系。
+$$g_{reaf_{0}} = g_{rea} \cdot n_{res} = g_{rea} \cdot \frac{f_{res}}{f_{nom}} \eqno{(5.21)}$$
+
+$g_{rea}$为额定频率下的品质因数，$g_{reaf_{0}}$为共振频率下的品质因数。
+
+电容额定功率和额定无功功率，$L-C Q_{tot}$之间的关系如下：
+$$Q_{cap} = Q_{tot} \cdot (1 - P_{grad} / 100) = Q_{tot} \cdot \left(1 - \left(\frac{f_{nom}}{f_{res}}\right)^2\right) \eqno{(5.22)}$$
+
+$Q_{cap}$为额定电容功率，$Q_{tot}$为额定无功功率。
+
+额定电感功率与额定无功功率，$L-C Q_{tot}$之间的关系如下：
+$$Q_{cap} = Q_{tot} \cdot (100 / P_{grad} - 1) = Q_{tot} \cdot (n^2 - 1) = Q_{tot} \cdot \left(\left(\frac{f_{nom}}{f_{res}}\right)^2 - 1 \right) \eqno{(5.23)}$$
+
+共振频率$f_{res}$由下式给出：
+$$f_{res} = \frac{1}{2\pi \sqrt{L_{rea} \cdot 10^{-3} \cdot C_{cap} \cdot 10^{-6}}} \eqno{(5.24)}$$
+
+电感，共振频率及电感之间的关系如下：
+$$L_{rea} = \frac{10^3}{(2\pi f_{res}) \cdot C_{cap} \cdot 10^{-6}} \eqno{(5.25)}$$
+
+$Q_{cap}$和$B_{cap}$之间的关系以及$X_{rea}, R_{rea}, Q_{rea}$三者之间的关系如下：
+$$B_{cap} = \frac{Q_{cap}}{U_{nom}^2}\cdot 10^6 \eqno{(5.26)}$$
+$$X_{rea} = \frac{U_{nom}^2}{Q_{rea}} \eqno{(5.27)}$$
+$$R_{rea} = \frac{X_{rea}}{qf_{rea}} \eqno{(5.28)}$$
+
+其中$qf_{rea}$是电阻设定为零的零的品质因数的品质因数。
+
+以上就是对于DigSILENT中电抗器的介绍，但是上述的关键信息$qf_{rea}$在B卡中并没有给出，因此需要通过下述方法求出$qf_{rea}$。
+$$I_{rea} = \frac{Q_[rea]}{\sqrt{2} \cdot U_{nom}} \cdot 1000 \eqno{(5.29)}$$
+$$R_{rea} = \frac{P_{rea}}{I_{rea}^2} \cdot 1000 \eqno{(5.30)}$$
+$$qf_{rea} = \frac{X_{rea}}{R_{rea}} \eqno{(5.31)}$$
+
+而且由于B卡只提供了电抗器的无功及有功功率，无法判别其到底是R-L还是R-L-C模型，所以一般情况下只区分B卡的电抗器是C还是R-L型。（另外值得注意的是，软件中的电压都是线电压）
+
+\subsection{DIgSILENT同步发电机模型介绍及数据转换}
+
 \begin{spacing}{1.0}
 \begin{longtable}[h]{llp{0.8\columnwidth}}
 \toprule
@@ -217,10 +296,18 @@ $$R_{rea} = \frac{X_{nom}}{qf_{rea}} \eqno{(5.11)}$$
 62-65 & F4.3 & 所安排的$V_{min}$值(标么值),对于Vθ(即BS型)节 点,此项填角度值,注意此时省缺的格式为F4.1,单位度\\
 66-77 & A8,F4.0  & 对于BG和BX节点有用,填写其所要控制的节点名(66- 73)和基准电压(74-77)。要控制的电压值填在被控节点记录卡 58-61列\\
 78-80 & F3.0 & 发电机在对远方节点作电压控制时,提供的无功功率的百分数\\
- 
 \bottomrule
 \end{longtable}
 \end{spacing}
 
+对于上面的39-65列，他们都实际上是DIgSILENT中ElmSym同步电机的数据，以下是对DIgSILENT同步电机模型的介绍。
 
+通常情况下有两种典型的同步发电机：
+\begin{description}
+\item[-] 轮转子发电机以及涡轮转子发电机
+\item[-] 突轴转子发电机
+\end{description}
 
+轮转子发电机模型使用在转轴以接近1500~3000转每分钟旋转。这种类型发电机通常运用于热电厂以及核电厂。转速在60到750转每分钟的低转速的同步发电机通常使用突轴转子发电机的模式，这种发电机通常使用在柴油和水能发电站。
+
+下面两图是这两种模式发电机的截面图。这两图同时也展现了d轴和q轴的方向。

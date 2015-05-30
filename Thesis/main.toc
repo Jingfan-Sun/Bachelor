@@ -44,7 +44,8 @@
 \contentsline {section}{\numberline {5.2}B卡}{54}
 \contentsline {subsection}{\numberline {5.2.1}DIgSILENT负载模型介绍及数据转换}{55}
 \contentsline {subsection}{\numberline {5.2.2}DIgSILENT电抗器模型介绍及数据转换}{58}
-\contentsline {chapter}{致谢}{61}
-\contentsline {chapter}{参考文献}{61}
-\contentsline {chapter}{附录}{62}
+\contentsline {subsection}{\numberline {5.2.3}DIgSILENT同步发电机模型介绍及数据转换}{63}
+\contentsline {chapter}{致谢}{65}
+\contentsline {chapter}{参考文献}{65}
+\contentsline {chapter}{附录}{66}
 \contentsfinish 
