@@ -1,0 +1,111 @@
+\chapter{BPA数据读取}
+
+\section{BPA数据卡片的分类}
+
+主要的数据卡片可分为四类,分别为区域控制、节点数据、支路数据及节点数据修改卡。
+
+\begin{table}[h]
+\centering
+\begin{tabular}{ll}
+\toprule
+卡片分类 & 卡片描述\\
+\midrule
+ 区域控制数据卡 & AC、A，指定参与区域功率交换的分区及安排交换功率量 \\ 
+ & AO，按区域分类输出 \\ 
+ & I，指定区域交换功率 \\ 
+ \midrule
+ 节点数据卡 & B，交流节点卡\\
+ & BD，两端直流节点卡\\
+ & BM，多端直流节点卡\\
+ & +，延续节点卡\\
+ & X，可切换电抗、电容器卡\\
+ \midrule
+ 支路数据卡 & L，对称线路卡\\
+ & LD，两端直流线路卡\\
+ & LM，多端直流线路卡\\
+ & T，变压器和移相器卡\\
+ & R，带负荷调压变压器调节数据卡\\
+ & E，不对称等值支路卡\\
+ & RZ，可快速调整的线路串补数据卡\\
+ \midrule
+ 数据修改卡 & P，系统中发电出力和负荷按百分数修改卡\\
+ & Z，分区重新命名卡\\
+ & DZ，分区删除卡\\
+\bottomrule
+\end{tabular}
+\caption{主要数据卡片分类}
+\end{table}
+
+在BPA到DIgSILENT的数据转换程序中，我们需要处理的主要是一下这些卡片：B，交流节点卡；L，对称线路卡；T，变压器和移相器卡；P，系统中发电出力和负荷按百分数修改卡。下面来详细介绍各个卡片的数据格式和模型。
+
+\section{B卡}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1.05\textwidth]{images/Paper_Fig_17.png}
+\setcaptionwidth{\linewidth}
+\caption{B卡数据}
+\end{figure}
+
+\begin{spacing}{1.0}
+\begin{longtable}[h]{llp{0.85\columnwidth}}
+\toprule
+列 & 格式 & 内容\\
+ \midrule
+1 & A1 & 卡片类型－B\\
+ & A1 & 卡片子型-各子型如下： \\ 
+ & & 空白－PQ节点\\ & &T－PQ节点，但节点电压受带负荷调压变压器控制\\ & &C－PQ节点，但节点电压受某发电机控制\\ & &V－PQ节点，但节点电压有限制值：$V_{min}<V<V_{max}$，当电压越界时，自动转换为PV节点，这时Q起变化，以保证电压在限制值内，由此产生的未安排	无功，将由程序自动装上电容器（电抗器）来平衡 \\ & &E－PV节点，无功出力没有限制，但为达到控制电压，无功出力超过上下限时，超过部分无功称为未安排无功，程序自动装上电容器或电抗器 \\ & &Q－PV节点，但节点无功功率有限制值：$Q_{min}<Q<Q_{max}$，当越界时，自动转换为PQ节点 \\ & &G－PV节点（其为发电机节点），缺省电压在0.95～1.15之间变化，并去控制BC节点的电压。其无功Q也有限制，当Q越限时，中止电压控制。被控节点不可以是Vθ节点、BG节点或者其它已处于被控状态下的节点 \\ & &F－在计算中先作为PV节点，待有功功率P收敛后再自动转换为B（PQ）节点 \\ & &S－Vθ节点，为交流同步网的缓冲机 \\ & &J－在采用改进的牛顿-拉夫逊法时作为BS节点，当解法转化为牛顿-拉夫逊法以后，该节点自动转换为B（PQ）节点 \\ & &K－在采用改进的牛顿-拉夫逊法时作为BS节点，当解法转化为牛顿-拉夫逊法以后，该节点自动转换为BE（PV）节点 \\ & &L－在采用改进的牛顿-拉夫逊法时作为BS节点，当解法转为牛顿-拉夫逊法以后，该节点自动转换为BQ（PV节点，$Q_{min}\leqslant Q\leqslantQ_{max}$）节点 \\ & &X－在该节点装有电抗器或者电容器，由程序自动控制投切电抗器或者电容器，以维持该节点或者其它节点的电压为给定值。\\
+ 
+\bottomrule
+\end{longtable}
+\end{spacing}
+
+其中S节点的判断比较重要，需要特殊处理。需在同步电机卡中选定为reference machine，如图5.1所示。
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{images/Paper_Fig_18.png}
+\setcaptionwidth{\linewidth}
+\caption{reference machine选择}
+\end{figure}
+
+\subsection{DIgSILENT负载模型介绍及数据转换}
+
+\begin{spacing}{1.0}
+\begin{longtable}[h]{llp{0.8\columnwidth}}
+\toprule
+列 & 格式 & 内容\\
+ \midrule
+2 & A1 & 修改码，在程序中不做处理\\
+4-6 & A3 & 所有者代码－用于确定区域功率交换中联络线的测点和输出表中按所有者分类的分析报告，可不填，当不填时在DIgSILENT中选取为0号owner。 \\ 
+7-18 & A8, F4.0 & 节点名称（7-14），此节点名称直接设这为DIgSILENT节点ElmTerm项的NAME，而基准电压（kV）（15-18）则直接设定为DIgSILENT的Nominal Voltage（标准电压）。\\
+19-20 & A2 & 节点所在的分区名称，在区域功率交换中用于确定区域的分区，在系统合并和按分区分类输出时也有用。在转换到DIgSILENT的过程中作为网络数据的大框架，使所有节点，线路，变压器等元器件都转换在这项之下。\\
+\textbf{21-30} & \textbf{2F5.0} & \textbf{以MW和Mvar表示的恒定负荷，无功正值为感性、负值为容性。这两项数据正是该节点负载的数据信息。}\\
+\bottomrule
+\end{longtable}
+\end{spacing}
+
+如上表所示，第21-30列为描述恒定负荷所需要的有功、无功信息，在DIgSILENT中对应的是负载模型。
+
+
+\begin{spacing}{1.0}
+\begin{longtable}[h]{llp{0.8\columnwidth}}
+\toprule
+列 & 格式 & 内容\\
+ \midrule
+31-38 & 2F4.0 & 以MW和Mvar表示的、在基准电压下的节点并联导纳负荷,无功:(+)=容性,(-)=感性。注意:对于BX节点,此 项忽略\\
+39-42 & F4.0 & $P_{max}$:最大有功出力(MW)\\
+43-47 & F5.0 & $P_{gen}$:实际有功出力(MW)\\
+48-52 & F5.0 & 对于PQ节点(即B、BC、BT、BV节点)此项填所安排 的无功出力值QSCHED(Mvar);对于其它节点此项填无功出力 最大值$Q_{max}$(Mvar):(+)=容性,(-)=感性\\
+53-57 & F5.0 & 无功出力最小值$Q_{min}$(Mvar)\\
+58-61 & F4.3 & 所安排的电压值或者$V_{max}$(标么值)\\
+62-65 & F4.3 & 所安排的$V_{min}$值(标么值),对于Vθ(即BS型)节 点,此项填角度值,注意此时省缺的格式为F4.1,单位度\\
+66-77 & A8,F4.0  & 对于BG和BX节点有用,填写其所要控制的节点名(66- 73)和基准电压(74-77)。要控制的电压值填在被控节点记录卡 58-61列\\
+78-80 & F3.0 & 发电机在对远方节点作电压控制时,提供的无功功率的百分数\\
+ 
+\bottomrule
+\end{longtable}
+\end{spacing}
+
+
+
