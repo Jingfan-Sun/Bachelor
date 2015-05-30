@@ -12,6 +12,12 @@
 \captionsetup{font={scriptsize}}
 \setcounter{tocdepth}{2} %设置目录级数到subsection
 
+\usepackage{pythonhighlight}
+\usepackage{minted}
+\usepackage{xcolor}
+
+
+
 %一些全局工具的定义
 \DeclareMathOperator*{\argmin}{arg\,min}
 \DeclareMathOperator*{\argmax}{arg\,max}
@@ -19,6 +25,7 @@
 %==============================================================
 %==============================================================
 \begin{document}
+
 %==============================================================
 %==============================================================
 %这部分是论文封面、题名页需要的信息，请根据《研究生学位论文编写规则》自行修改
@@ -72,6 +79,9 @@
   \include{data/3_Thesis_Translation}
   %开题报告
   \include{data/2_Thesis_proposal}
+  
+  %Python
+  \include{data/4_Python_API}
 
 %==============================================================
 %这也是个不需要自己修改的部分。

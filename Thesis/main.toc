@@ -1,4 +1,4 @@
-\contentsline {chapter}{目录}{I}
+\contentsline {chapter}{目录}{II}
 \contentsline {chapter}{\numberline {1}文献综述}{1}
 \contentsline {section}{\numberline {1.1}概述}{1}
 \contentsline {subsection}{\numberline {1.1.1}项目研究背景}{1}
@@ -32,7 +32,14 @@
 \contentsline {section}{\numberline {3.2}研究内容和研究步骤}{44}
 \contentsline {section}{\numberline {3.3}程序运行流程}{45}
 \contentsline {section}{\numberline {3.4}论文的进度安排}{46}
-\contentsline {chapter}{致谢}{47}
-\contentsline {chapter}{参考文献}{47}
-\contentsline {chapter}{附录}{48}
+\contentsline {chapter}{\numberline {4}DIgSILENT的Python接口简介}{47}
+\contentsline {section}{\numberline {4.1}Python脚本语言的优势}{47}
+\contentsline {section}{\numberline {4.2}\emph {PowerFactory}中的Python模块}{48}
+\contentsline {section}{\numberline {4.3}Python命令行对象(\emph {ComPython})}{49}
+\contentsline {section}{\numberline {4.4}调试Python脚本}{50}
+\contentsline {subsection}{\numberline {4.4.1}准备条件}{50}
+\contentsline {subsection}{\numberline {4.4.2}为\emph {PowerFactory}调试Python脚本}{51}
+\contentsline {chapter}{致谢}{52}
+\contentsline {chapter}{参考文献}{52}
+\contentsline {chapter}{附录}{53}
 \contentsfinish 
