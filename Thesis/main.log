@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.11.20)  30 MAY 2015 08:50
+This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.11.20)  30 MAY 2015 10:28
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1481,12 +1481,15 @@ Chapter 1.
 [1
 
 
-] [2] [3] [4] [5]) [6
+] [2] [3]
+File: images/Paper_Fig_11.png Graphic file (type QTm)
+ <use  "images/Paper_Fig_11.png" > [4] [5]) [6
 
 ]
 \openout2 = `data/3_Thesis_Translation.aux'.
 
- (./data/3_Thesis_Translation.tex
+
+(./data/3_Thesis_Translation.tex
 Chapter 2.
 [7
 
@@ -1814,10 +1817,10 @@ BoldSlantedFont={*}].
 (./data/3_Thesis_Translation.aux) (./data/2_Thesis_proposal.aux)
 (./data/thanks.aux) (./data/appe.aux) (./data/task.aux) (./data/eval.aux)) ) 
 Here is how much of TeX's memory you used:
- 20450 strings out of 493938
- 435085 string characters out of 6148856
- 444300 words of memory out of 5000000
- 23304 multiletter control sequences out of 15000+600000
+ 20457 strings out of 493938
+ 435320 string characters out of 6148856
+ 443300 words of memory out of 5000000
+ 23310 multiletter control sequences out of 15000+600000
  14381 words of font info for 116 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
  53i,18n,66p,771b,454s stack positions out of 5000i,500n,10000p,200000b,80000s
