@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.11.20)  31 MAY 2015 00:26
+This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.11.20)  31 MAY 2015 00:39
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -1956,19 +1956,24 @@ it/12 所 示 为 \EU1/TimesNewRoman(0)/m/it/12 3PH-'YN'\EU1/SimSun(0)/m/it/12 �
 [59]
 File: images/Paper_Fig_25.png Graphic file (type QTm)
  <use  "images/Paper_Fig_25.png" > [60] [61] [62]
-Overfull \hbox (16.8408pt too wide) in alignment at lines 316--330
+Overfull \hbox (16.8408pt too wide) in alignment at lines 316--329
  [] [] [] 
  []
 
 
-Underfull \vbox (badness 10000) detected at line 330
+Underfull \vbox (badness 10000) detected at line 329
  []
 
-[63]) [64]
+[63]
+File: images/Paper_Fig_26.png Graphic file (type QTm)
+ <use  "images/Paper_Fig_26.png" >
+File: images/Paper_Fig_27.png Graphic file (type QTm)
+ <use  "images/Paper_Fig_27.png" >
+[64]) [65]
 No file main.bbl.
 \openout2 = `data/thanks.aux'.
 
-(./data/thanks.tex) [65
+(./data/thanks.tex) [66
 
 
 
@@ -1976,7 +1981,7 @@ No file main.bbl.
 ]
 \openout2 = `data/appe.aux'.
 
- (./data/appe.tex) [66
+ (./data/appe.tex) [67
 
 
 
@@ -2046,14 +2051,14 @@ BoldSlantedFont={*}].
 . * 'sl/' with NFSS spec.:
 . <->"STFangsong/ICU:"
 .................................................
-) [67
+) [68
 
 
 
 ]
 \openout2 = `data/eval.aux'.
 
- (./data/eval.tex) [68
+ (./data/eval.tex) [69
 
 
 
@@ -2062,12 +2067,12 @@ BoldSlantedFont={*}].
 (./data/4_Python_API.aux) (./data/5_BPA_data.aux) (./data/thanks.aux)
 (./data/appe.aux) (./data/task.aux) (./data/eval.aux)) ) 
 Here is how much of TeX's memory you used:
- 22933 strings out of 493938
- 473140 string characters out of 6148856
- 495686 words of memory out of 5000000
- 25695 multiletter control sequences out of 15000+600000
+ 22947 strings out of 493938
+ 473619 string characters out of 6148856
+ 495691 words of memory out of 5000000
+ 25707 multiletter control sequences out of 15000+600000
  14429 words of font info for 122 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
  53i,18n,66p,771b,484s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.pdf (76 pages).
+Output written on main.pdf (77 pages).
