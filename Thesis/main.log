@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.11.20)  31 MAY 2015 00:39
+This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.11.20)  31 MAY 2015 20:51
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -1346,26 +1346,26 @@ Package: CJKfntef 2012/05/07 4.8.3
 (./data/eval.aux))
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for EU1/lmr/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for T3/cmr/m/n on input line 29.
-LaTeX Font Info:    Try loading font information for T3+cmr on input line 29.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for EU1/lmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for T3/cmr/m/n on input line 35.
+LaTeX Font Info:    Try loading font information for T3+cmr on input line 35.
  (/usr/local/texlive/2013/texmf-dist/tex/latex/tipa/t3cmr.fd
 File: t3cmr.fd 2001/12/31 TIPA font definitions
 )
-LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    ... okay on input line 35.
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
 *geometry* verbose mode - [ preamble ] result:
@@ -1407,71 +1407,71 @@ LaTeX Font Info:    ... okay on input line 29.
 .................................................
 \symlegacymaths=\mathgroup7
 LaTeX Font Info:    Overwriting symbol font `legacymaths' in version `bold'
-(Font)                  OT1/cmr/m/n --> OT1/cmr/bx/n on input line 29.
-LaTeX Font Info:    Redeclaring math accent \acute on input line 29.
-LaTeX Font Info:    Redeclaring math accent \grave on input line 29.
-LaTeX Font Info:    Redeclaring math accent \ddot on input line 29.
-LaTeX Font Info:    Redeclaring math accent \tilde on input line 29.
-LaTeX Font Info:    Redeclaring math accent \bar on input line 29.
-LaTeX Font Info:    Redeclaring math accent \breve on input line 29.
-LaTeX Font Info:    Redeclaring math accent \check on input line 29.
-LaTeX Font Info:    Redeclaring math accent \hat on input line 29.
-LaTeX Font Info:    Redeclaring math accent \dot on input line 29.
-LaTeX Font Info:    Redeclaring math accent \mathring on input line 29.
-LaTeX Font Info:    Redeclaring math symbol \Gamma on input line 29.
-LaTeX Font Info:    Redeclaring math symbol \Delta on input line 29.
-LaTeX Font Info:    Redeclaring math symbol \Theta on input line 29.
-LaTeX Font Info:    Redeclaring math symbol \Lambda on input line 29.
-LaTeX Font Info:    Redeclaring math symbol \Xi on input line 29.
-LaTeX Font Info:    Redeclaring math symbol \Pi on input line 29.
-LaTeX Font Info:    Redeclaring math symbol \Sigma on input line 29.
-LaTeX Font Info:    Redeclaring math symbol \Upsilon on input line 29.
-LaTeX Font Info:    Redeclaring math symbol \Phi on input line 29.
-LaTeX Font Info:    Redeclaring math symbol \Psi on input line 29.
-LaTeX Font Info:    Redeclaring math symbol \Omega on input line 29.
-LaTeX Font Info:    Redeclaring math symbol \mathdollar on input line 29.
-LaTeX Font Info:    Redeclaring symbol font `operators' on input line 29.
+(Font)                  OT1/cmr/m/n --> OT1/cmr/bx/n on input line 35.
+LaTeX Font Info:    Redeclaring math accent \acute on input line 35.
+LaTeX Font Info:    Redeclaring math accent \grave on input line 35.
+LaTeX Font Info:    Redeclaring math accent \ddot on input line 35.
+LaTeX Font Info:    Redeclaring math accent \tilde on input line 35.
+LaTeX Font Info:    Redeclaring math accent \bar on input line 35.
+LaTeX Font Info:    Redeclaring math accent \breve on input line 35.
+LaTeX Font Info:    Redeclaring math accent \check on input line 35.
+LaTeX Font Info:    Redeclaring math accent \hat on input line 35.
+LaTeX Font Info:    Redeclaring math accent \dot on input line 35.
+LaTeX Font Info:    Redeclaring math accent \mathring on input line 35.
+LaTeX Font Info:    Redeclaring math symbol \Gamma on input line 35.
+LaTeX Font Info:    Redeclaring math symbol \Delta on input line 35.
+LaTeX Font Info:    Redeclaring math symbol \Theta on input line 35.
+LaTeX Font Info:    Redeclaring math symbol \Lambda on input line 35.
+LaTeX Font Info:    Redeclaring math symbol \Xi on input line 35.
+LaTeX Font Info:    Redeclaring math symbol \Pi on input line 35.
+LaTeX Font Info:    Redeclaring math symbol \Sigma on input line 35.
+LaTeX Font Info:    Redeclaring math symbol \Upsilon on input line 35.
+LaTeX Font Info:    Redeclaring math symbol \Phi on input line 35.
+LaTeX Font Info:    Redeclaring math symbol \Psi on input line 35.
+LaTeX Font Info:    Redeclaring math symbol \Omega on input line 35.
+LaTeX Font Info:    Redeclaring math symbol \mathdollar on input line 35.
+LaTeX Font Info:    Redeclaring symbol font `operators' on input line 35.
 LaTeX Font Info:    Encoding `OT1' has changed to `EU1' for symbol font
-(Font)              `operators' in the math version `normal' on input line 29.
+(Font)              `operators' in the math version `normal' on input line 35.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
 (Font)                  OT1/cmr/m/n --> EU1/TimesNewRoman(0)/m/n on input line 
-29.
+35.
 LaTeX Font Info:    Encoding `OT1' has changed to `EU1' for symbol font
-(Font)              `operators' in the math version `bold' on input line 29.
+(Font)              `operators' in the math version `bold' on input line 35.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
 (Font)                  OT1/cmr/bx/n --> EU1/TimesNewRoman(0)/m/n on input line
- 29.
+ 35.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
 (Font)                  EU1/TimesNewRoman(0)/m/n --> EU1/TimesNewRoman(0)/m/n o
-n input line 29.
+n input line 35.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
 (Font)                  EU1/TimesNewRoman(0)/m/n --> EU1/TimesNewRoman(0)/m/n o
-n input line 29.
+n input line 35.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
 (Font)                  OT1/cmr/m/it --> EU1/TimesNewRoman(0)/m/it on input lin
-e 29.
+e 35.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
 (Font)                  OT1/cmr/bx/n --> EU1/TimesNewRoman(0)/bx/n on input lin
-e 29.
+e 35.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/cmss/m/n --> EU1/Arial(0)/m/n on input line 29.
+(Font)                  OT1/cmss/m/n --> EU1/Arial(0)/m/n on input line 35.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtt/m/n --> EU1/CourierNew(0)/m/n on input line 29
+(Font)                  OT1/cmtt/m/n --> EU1/CourierNew(0)/m/n on input line 35
 .
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
 (Font)                  EU1/TimesNewRoman(0)/m/n --> EU1/TimesNewRoman(0)/bx/n 
-on input line 29.
+on input line 35.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `bold'
 (Font)                  EU1/TimesNewRoman(0)/m/n --> EU1/TimesNewRoman(0)/bx/n 
-on input line 29.
+on input line 35.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
 (Font)                  OT1/cmr/bx/it --> EU1/TimesNewRoman(0)/bx/it on input l
-ine 29.
+ine 35.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> EU1/Arial(0)/bx/n on input line 29.
+(Font)                  OT1/cmss/bx/n --> EU1/Arial(0)/bx/n on input line 35.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> EU1/CourierNew(0)/bx/n on input line 2
-9.
+(Font)                  OT1/cmtt/m/n --> EU1/CourierNew(0)/bx/n on input line 3
+5.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
 (./zjuthesis.cfg
@@ -1956,12 +1956,12 @@ it/12 所 示 为 \EU1/TimesNewRoman(0)/m/it/12 3PH-'YN'\EU1/SimSun(0)/m/it/12 �
 [59]
 File: images/Paper_Fig_25.png Graphic file (type QTm)
  <use  "images/Paper_Fig_25.png" > [60] [61] [62]
-Overfull \hbox (16.8408pt too wide) in alignment at lines 316--329
+Overfull \hbox (1.50096pt too wide) in alignment at lines 316--327
  [] [] [] 
  []
 
 
-Underfull \vbox (badness 10000) detected at line 329
+Underfull \vbox (badness 10000) detected at line 327
  []
 
 [63]
@@ -1969,11 +1969,166 @@ File: images/Paper_Fig_26.png Graphic file (type QTm)
  <use  "images/Paper_Fig_26.png" >
 File: images/Paper_Fig_27.png Graphic file (type QTm)
  <use  "images/Paper_Fig_27.png" >
-[64]) [65]
+[64]
+File: images/Paper_Fig_28.png Graphic file (type QTm)
+ <use  "images/Paper_Fig_28.png" > [65]
+File: images/Paper_Fig_29.png Graphic file (type QTm)
+ <use  "images/Paper_Fig_29.png" >
+File: images/Paper_Fig_30.png Graphic file (type QTm)
+
+<use  "images/Paper_Fig_30.png" > [66]
+File: images/Paper_Fig_31.png Graphic file (type QTm)
+ <use  "images/Paper_Fig_31.png" >
+File: images/Paper_Fig_32.png Graphic file (type QTm)
+
+<use  "images/Paper_Fig_32.png" > [67]
+Overfull \hbox (16.8408pt too wide) in alignment at lines 451--458
+ [] [] [] 
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 458
+ []
+
+Missing character: There is no ＝ in font Times New Roman/OT:script=latn;languag
+e=DFLT;!
+File: images/Paper_Fig_33.png Graphic file (type QTm)
+<use  "images/Paper_Fig_33.png" >
+Overfull \hbox (21.62543pt too wide) in paragraph at lines 469--471
+ [][] 
+ []
+
+Missing character: There is no （ in font Times New Roman/OT:script=latn;languag
+e=DFLT;!
+Missing character: There is no ） in font Times New Roman/OT:script=latn;languag
+e=DFLT;!
+Missing character: There is no ， in font Times New Roman/OT:script=latn;languag
+e=DFLT;!
+Missing character: There is no （ in font Times New Roman/OT:script=latn;languag
+e=DFLT;!
+Missing character: There is no ） in font Times New Roman/OT:script=latn;languag
+e=DFLT;!
+Missing character: There is no （ in font Times New Roman/OT:script=latn;languag
+e=DFLT;!
+Missing character: There is no ） in font Times New Roman/OT:script=latn;languag
+e=DFLT;!
+Missing character: There is no ， in font Times New Roman/OT:script=latn;languag
+e=DFLT;!
+Missing character: There is no （ in font Times New Roman/OT:script=latn;languag
+e=DFLT;!
+Missing character: There is no ） in font Times New Roman/OT:script=latn;languag
+e=DFLT;!
+
+Underfull \hbox (badness 1158) in paragraph at lines 498--500
+[]|\EU1/SimSun(0)/m/it/12 线 路 对 地 导 纳 标 么 值  |（对 称 支 路 只 需 填 一 侧 值）：| $\OML/cmm
+/m/it/12 G\OT1/cmr/m/n/12 /2[]51 \OMS/cmsy/m/n/12 ^^@
+ []
+
+
+Overfull \hbox (19.8408pt too wide) in alignment at lines 475--502
+ [] [] [] 
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 502
+ []
+
+
+Overfull \hbox (19.8408pt too wide) in alignment at lines 502--506
+ [] [] [] 
+ []
+
+[68]
+File: images/Paper_Fig_34.png Graphic file (type QTm)
+ <use  "images/Paper_Fig_34.png" >
+Overfull \hbox (21.62543pt too wide) in paragraph at lines 511--513
+ [][] 
+ []
+
+Missing character: There is no （ in font Times New Roman/OT:script=latn;languag
+e=DFLT;!
+Missing character: There is no ） in font Times New Roman/OT:script=latn;languag
+e=DFLT;!
+Missing character: There is no ， in font Times New Roman/OT:script=latn;languag
+e=DFLT;!
+Missing character: There is no （ in font Times New Roman/OT:script=latn;languag
+e=DFLT;!
+Missing character: There is no ） in font Times New Roman/OT:script=latn;languag
+e=DFLT;!
+Missing character: There is no （ in font Times New Roman/OT:script=latn;languag
+e=DFLT;!
+Missing character: There is no ） in font Times New Roman/OT:script=latn;languag
+e=DFLT;!
+Missing character: There is no ， in font Times New Roman/OT:script=latn;languag
+e=DFLT;!
+Missing character: There is no （ in font Times New Roman/OT:script=latn;languag
+e=DFLT;!
+Missing character: There is no ） in font Times New Roman/OT:script=latn;languag
+e=DFLT;!
+
+Underfull \hbox (badness 1158) in paragraph at lines 534--536
+[]|\EU1/SimSun(0)/m/it/12 线 路 对 地 导 纳 标 么 值  |（对 称 支 路 只 需 填 一 侧 值）：| $\OML/cmm
+/m/it/12 G\OT1/cmr/m/n/12 /2[]51 \OMS/cmsy/m/n/12 ^^@
+ []
+
+Missing character: There is no － in font Times New Roman/OT:script=latn;languag
+e=DFLT;!
+Missing character: There is no ， in font Times New Roman/OT:script=latn;languag
+e=DFLT;!
+Missing character: There is no － in font Times New Roman/OT:script=latn;languag
+e=DFLT;!
+
+Overfull \hbox (19.8408pt too wide) in alignment at lines 517--542
+ [] [] [] 
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 542
+ []
+
+[69]
+File: images/Paper_Fig_35.png Graphic file (type QTm)
+ <use  "images/Paper_Fig_35.png" > [70]
+File: images/Paper_Fig_36.png Graphic file (type QTm)
+ <use  "images/Paper_Fig_36.png" >
+Missing character: There is no ， in font Times New Roman/OT:script=latn;languag
+e=DFLT;!
+Missing character: There is no ， in font Times New Roman/OT:script=latn;languag
+e=DFLT;!
+File: images/Paper_Fig_37.png Graphic file (type QTm)
+
+<use  "images/Paper_Fig_37.png" > [71]
+File: images/Paper_Fig_38.png Graphic file (type QTm)
+ <use  "images/Paper_Fig_38.png" >
+Missing character: There is no ， in font Times New Roman/OT:script=latn;languag
+e=DFLT;!
+Missing character: There is no ， in font Times New Roman/OT:script=latn;languag
+e=DFLT;!
+Missing character: There is no ， in font Times New Roman/OT:script=latn;languag
+e=DFLT;!
+Missing character: There is no ， in font Times New Roman/OT:script=latn;languag
+e=DFLT;!
+
+[72]
+File: images/Paper_Fig_39.png Graphic file (type QTm)
+ <use  "images/Paper_Fig_39.png" > [73]
+File: images/Paper_Fig_40.png Graphic file (type QTm)
+ <use  "images/Paper_Fig_40.png" >
+File: images/Paper_Fig_41.png Graphic file (type QTm)
+
+<use  "images/Paper_Fig_41.png" >
+File: images/Paper_Fig_42.png Graphic file (type QTm)
+ <use  "images/Paper_Fig_42.png" > [74]
+File: images/Paper_Fig_43.png Graphic file (type QTm)
+
+<use  "images/Paper_Fig_43.png" >
+File: images/Paper_Fig_44.png Graphic file (type QTm)
+ <use  "images/Paper_Fig_44.png" > [75])
+[76]
 No file main.bbl.
 \openout2 = `data/thanks.aux'.
 
-(./data/thanks.tex) [66
+(./data/thanks.tex) [77
 
 
 
@@ -1981,7 +2136,7 @@ No file main.bbl.
 ]
 \openout2 = `data/appe.aux'.
 
- (./data/appe.tex) [67
+ (./data/appe.tex) [78
 
 
 
@@ -2051,14 +2206,14 @@ BoldSlantedFont={*}].
 . * 'sl/' with NFSS spec.:
 . <->"STFangsong/ICU:"
 .................................................
-) [68
+) [79
 
 
 
 ]
 \openout2 = `data/eval.aux'.
 
- (./data/eval.tex) [69
+ (./data/eval.tex) [80
 
 
 
@@ -2067,12 +2222,12 @@ BoldSlantedFont={*}].
 (./data/4_Python_API.aux) (./data/5_BPA_data.aux) (./data/thanks.aux)
 (./data/appe.aux) (./data/task.aux) (./data/eval.aux)) ) 
 Here is how much of TeX's memory you used:
- 22947 strings out of 493938
- 473619 string characters out of 6148856
- 495691 words of memory out of 5000000
- 25707 multiletter control sequences out of 15000+600000
+ 23001 strings out of 493938
+ 474957 string characters out of 6148856
+ 495860 words of memory out of 5000000
+ 25744 multiletter control sequences out of 15000+600000
  14429 words of font info for 122 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
  53i,18n,66p,771b,484s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.pdf (77 pages).
+Output written on main.pdf (88 pages).
