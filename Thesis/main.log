@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.11.20)  31 MAY 2015 21:00
+This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.11.20)  1 JUN 2015 01:34
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -2140,11 +2140,68 @@ Overfull \hbox (19.8408pt too wide) in alignment at lines 749--763
 Underfull \vbox (badness 10000) detected at line 763
  []
 
-[76]) [77]
+[76]
+File: images/Paper_Fig_46.png Graphic file (type QTm)
+ <use  "images/Paper_Fig_46.png" >
+Overfull \hbox (21.62543pt too wide) in paragraph at lines 774--776
+ [][] 
+ []
+
+
+Overfull \hbox (19.8408pt too wide) in alignment at lines 780--801
+ [] [] [] 
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 801
+ []
+
+[77]
+File: images/Paper_Fig_47.png Graphic file (type QTm)
+ <use  "images/Paper_Fig_47.png" >
+File: images/Paper_Fig_48.png Graphic file (type QTm)
+ <use  "images/Paper_Fig_48.png" >
+[78]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+Missing character: There is no ， in font Times New Roman/OT:script=latn;languag
+e=DFLT;!
+Missing character: There is no ， in font Times New Roman/OT:script=latn;languag
+e=DFLT;!
+Missing character: There is no ， in font Times New Roman/OT:script=latn;languag
+e=DFLT;!
+Missing character: There is no ， in font Times New Roman/OT:script=latn;languag
+e=DFLT;!
+Missing character: There is no ， in font Times New Roman/OT:script=latn;languag
+e=DFLT;!
+Missing character: There is no ， in font Times New Roman/OT:script=latn;languag
+e=DFLT;!
+File: images/Paper_Fig_49.png Graphic file (type QTm)
+<use  "images/Paper_Fig_49.png" > [79]
+File: images/Paper_Fig_50.png Graphic file (type QTm)
+ <use  "images/Paper_Fig_50.png" >
+[80]
+Missing character: There is no ， in font Times New Roman/OT:script=latn;languag
+e=DFLT;!
+Missing character: There is no ， in font Times New Roman/OT:script=latn;languag
+e=DFLT;!
+Missing character: There is no ， in font Times New Roman/OT:script=latn;languag
+e=DFLT;!
+File: images/Paper_Fig_51.png Graphic file (type QTm)
+ <use  "images/Paper_Fig_51.png" >
+File: images/Paper_Fig_52.png Graphic file (type QTm)
+ <use  "images/Paper_Fig_52.png" >
+[81]
+File: images/Paper_Fig_53.png Graphic file (type QTm)
+ <use  "images/Paper_Fig_53.png" > [82]) [83]
 No file main.bbl.
 \openout2 = `data/thanks.aux'.
 
-(./data/thanks.tex) [78
+(./data/thanks.tex) [84
 
 
 
@@ -2152,7 +2209,7 @@ No file main.bbl.
 ]
 \openout2 = `data/appe.aux'.
 
- (./data/appe.tex) [79
+ (./data/appe.tex) [85
 
 
 
@@ -2222,14 +2279,14 @@ BoldSlantedFont={*}].
 . * 'sl/' with NFSS spec.:
 . <->"STFangsong/ICU:"
 .................................................
-) [80
+) [86
 
 
 
 ]
 \openout2 = `data/eval.aux'.
 
- (./data/eval.tex) [81
+ (./data/eval.tex) [87
 
 
 
@@ -2238,12 +2295,12 @@ BoldSlantedFont={*}].
 (./data/4_Python_API.aux) (./data/5_BPA_data.aux) (./data/thanks.aux)
 (./data/appe.aux) (./data/task.aux) (./data/eval.aux)) ) 
 Here is how much of TeX's memory you used:
- 23004 strings out of 493938
- 475003 string characters out of 6148856
- 495910 words of memory out of 5000000
- 25746 multiletter control sequences out of 15000+600000
- 14429 words of font info for 122 fonts, out of 8000000 for 9000
+ 23029 strings out of 493938
+ 475449 string characters out of 6148856
+ 495960 words of memory out of 5000000
+ 25760 multiletter control sequences out of 15000+600000
+ 15246 words of font info for 127 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
  53i,18n,66p,771b,484s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.pdf (89 pages).
+Output written on main.pdf (95 pages).

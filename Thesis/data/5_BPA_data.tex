@@ -696,4 +696,158 @@ r2\_pu\_ji, x2\_pu\_ji & $'j-i'$负序阻抗 & $''p.u.$\\
 而L+卡的目的实际上就是为了模拟超高电压下的电抗器，起到抵消电容效应的作用。而DIgSILENT电抗器在前文有详细介绍，这里就不赘述了。
 
 \subsection{T卡}
-
+\begin{figure}[H]
+\centering
+\includegraphics[width=1.05\textwidth]{images/Paper_Fig_46.png}
+\setcaptionwidth{\linewidth}
+\caption{L+卡数据}
+\end{figure}
+
+\begin{spacing}{1.0}
+\begin{longtable}[h]{llp{0.8\columnwidth}}
+\toprule
+列 & 格式 & 内容\\
+ \midrule
+1 & A1 & 卡片类型－T\\
+2 & A1 & 空白\\ 3 & A1 & 修改码 \\4-6 & A3 & 所有者代码 \\7-18 & A8, F4.0 & 节点名1（7-14）和基准电压（kV）（15-18） \\
+19 & I1 & 区域联络线测点（作区域联络线功率控制时有用），其填写规则见L卡第19列的说明 \\20-31& A8, F4.0 & 节点名2（20-27）和基准电压（kV）（28-31）\\ 32 & A1 & 并联线路的回路标志，即回路号。 \\34-37	& F4.0 & 变压器额定容量（MVA），供过负荷检查用 \\38	 	 &I1 & 并联变压器组的台数，仅作信息用 \\39-50 	 &2F6.5& $R$—由铜损引起的等效电阻（标么值）（39-44），$X$—漏抗（标么值）（45-50） \\51-62	 &2F6.5 &$G$—由铁损引起的等效电导（标么值）（51-56），B—激磁电纳（标么值）（57-62） \\63-67	 &F5.2  &节点1的分接头位置（kV）。或者为移相器的固定移相角（度），该角度表示节点1相对节点2 的角度 \\68-72	& F5.2  &节点2的分接头位置（kV），对移相器此项空白 \\75-77	& A1，I2&  投运日期，详见L卡，可不填 \\78-80 	& A1，I2  &停运日期，详见L卡，可不填\\\bottomrule
+\end{longtable}
+\end{spacing}
+
+本卡模拟的是两绕组变压器和移相器。三绕组变压器先按常规方法化为三台两绕组变压器后再用此卡模拟。 变压器和移相器抽头可以是固定的，也可以是可调的。如为可调的，则要附加填写 R卡。
+由于BPA的T卡只有两项变压器，所以对于DIgSILENT也只需要考虑两项变压器模型，以下就是对DIgSILENT变压器的介绍。
+
+\subsubsection{DIgSILENT变压器模型介绍及数据转换}
+
+双绕组变压器模型可以用于网络变压器，块变压器，移位器或者电压控制器。这个模型也考虑了自动变压器。
+
+如图5.31所示为变压器的有名值和标幺值模型。
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{images/Paper_Fig_47.png}
+\setcaptionwidth{\linewidth}
+\caption{双绕组变压器有名值模型}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{images/Paper_Fig_48.png}
+\setcaptionwidth{\linewidth}
+\caption{双绕组变压器标幺值模型}
+\end{figure}
+
+标幺值模型中有一个比较复杂的变比，变比模值是1:1，$e_{j\phi}$则反应了绕组产生的相位移动。
+以下是电路模型与DIgSILENT参数卡片之间的数学关系：
+$$Z_{r, HV} = \frac{U^2_{r, HV}}{S_r} \eqno{(5.51)}$$
+$$Z_{r, LV} = \frac{U^2_{r, LV}}{S_r} \eqno{(5.52)}$$
+$$z_{SC} = \frac{u_{SC}}{100} \eqno{(5.53)}$$
+$$r_{SC} = \frac{P_{Cu}/1000}{S_r} \eqno{(5.54)}$$
+$$x_{SC} = \sqrt{z^2_{SC} - r^2_{SC}} \eqno{(5.55)}$$
+$$r_{Cu, HV} = \gamma_{R, HV, 1} \cdot r_{SC} \eqno{(5.56)}$$
+$$r_{Cu, LV} = (1 - \gamma_{R, HV, 1}) \cdot r_{SC} \eqno{(5.57)}$$
+$$x_{\sigma, HV} = \gamma_{x, HV, 1} \cdot x_{SC} \eqno{(5.58)}$$$$x_{\sigma, LV} = (1 - \gamma_{x, HV, 1}) \cdot x_{SC} \eqno{(5.59)}$$
+$$z_{M} = \frac{1}{i_0/100} \eqno{(5.60)}$$
+$$r_{Fe} = \frac{S_r}{P_{Fe} / 1000} \eqno{(5.61)}$$
+$$x_M = \frac{1}{\sqrt{\frac{1}{z^2_M} - \frac{1}{r^2_{Fe}}}} \eqno{(5.62)}$$
+
+这些数据的含义如表5.14所示，而DIgSILENT的数据库中提供了如表5.15所示的数据。
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lll}
+\toprule
+DIgSILENT参数 & 对应电机参数 & 单位\\
+ \midrule
+$Z_{r, HV}$ & 高压侧额定阻抗 & $\omega$\\
+$Z_{r, LV}$ & 低压侧额定阻抗 & $\omega$\\
+$U_{r, HV}$ & 高压/低压侧额定电压 & $kV$\\
+$S_r$ & 额定功率 & $MVA$\\
+$P_{Cu}$ & 铜耗 & $kW$ \\
+$U_{SC}$ & 相对短路电压 & $\%$ \\
+$z_{SC}$ & 短路阻抗 & $p.u.$ \\
+$r_{SC}$ & 短路电阻 & $p.u.$ \\
+$x_{SC}$ & 短路电感 & $p.u.$\\
+$P_{Fe}$ & 空载损耗 & $kW$\\
+\bottomrule
+\end{tabular}
+\caption{模型公式中各个参数的意义}
+\end{table}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lll}
+\toprule
+DIgSILENT参数 & 对应电机参数 & 单位\\
+ \midrule
+utrn\_h & 高压侧 & $kV$\\
+utrn\_l & 低压侧 & $kV$\\
+uktr & 短路电压uk & $\%$\\
+pcutr & 铜耗 & $kW$\\
+uk0tr & 绝对值uk0 & $\%$ \\
+ur0tr & 电阻部分ukr0& $\%$ \\
+curmg & 空载电流 & $\%$ \\
+pfe & 空载损耗 & $kW$ \\
+\bottomrule
+\end{tabular}
+\caption{DIgSILENT数据中所提供的参数}
+\end{table}
+
+可见通过$utrn_h，utrn_l，uktr，pcutr，curmg，pfe$就可以得到变压器的所有需要的参数，所以只要正确的通过BPA数据转换出这几项数据就可以了。对于$utrn_h，utrn_l$的确定很简单，通过T卡63-72的数据就可以确定高压及低压数据，转换结果如图5.33所示：
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{images/Paper_Fig_49.png}
+\setcaptionwidth{\linewidth}
+\caption{高低电压转换}
+\end{figure}
+
+对于uktr，pcutr，curmg，pfe的转换则要根据BPA模型构成来确定。BPA变压器模型如图5.34所示
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{images/Paper_Fig_50.png}
+\setcaptionwidth{\linewidth}
+\caption{BPA变压器模型}
+\end{figure}
+
+$$Z_T = Z_R + jZ_x = \frac{P_k}{1000S_B} \cdot \frac{S_B}{S_N} + j\frac{U_k\%}{100} \cdot \frac{S_B}{S_N} \eqno{(5.63)}$$
+$$Y_M = Y_G + jY_B = \frac{1}{2} \cdot (\frac{P_0}{1000S_B} - j\frac{I_0\%}{100}\cdot \frac{S_N}{S_B}) \eqno{(5.64)}$$
+
+其中$Z_R, Z_x, Y_G, Y_B$分别对应T卡39-62列数据。
+
+$S_B$和$S_N$分别是系统基准容量和变压器额定容量（对应T卡34-37列）。
+ $P_k, U_k\%, P_0, I_0\%$分别对应$pcutr，uktr， pfe，curmg$即铜耗，短路电压，铁耗，断路电流，通过上面的公式可以轻松得到这几项关键数据的求法，如下：
+ $$P_k = \frac{1000\cdot Z_R\cdot S_N^2}{S_B} \eqno{(5.65)}$$
+ $$U_k\% = \frac{100\cdot Z_x \cdot S_N}{S_B} \eqno{(5.66)}$$
+ $$P_0 = 2\cdot 1000 \cdot S_B \cdot Y_G \eqno{(5.67)}$$
+ $$I_0\% = \frac{2\cdot 100 \cdot |Y_B|\cdot S_B}{S|N} \eqno{(5.68)}$$
+ 
+ 转换后结果如图5.35所示。
+ 
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{images/Paper_Fig_51.png}
+\includegraphics[width=0.6\textwidth]{images/Paper_Fig_52.png}
+\setcaptionwidth{\linewidth}
+\caption{$P_k, U_k\%, P_0, I_0\%$的转换}
+\end{figure}
+
+但是这样转换会存在一个问题，DIgSILENT中，$Z_M$是整个励磁导纳的的阻抗标幺值，而在常规的电力系统建模中$\frac{1}{i_0/100}$求的应该是励磁导纳的电纳，所以直接向上面的方法转换是错误的。通过查阅文献发现，DIgSILENT的变压器模型和韩祯祥院士《电力系统分析》中的模型是一样的，如下图。
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{images/Paper_Fig_53.png}
+\setcaptionwidth{\linewidth}
+\caption{电力系统中常用变压器模型}
+\end{figure}
+
+图5.36中：
+$$G_m = \frac{P_0}{U^2_{1N}} \cdot 10^{-3} \cdot \frac{U^2_{1N}}{S_r} \eqno{(5.69)}$$
+$$B_m = \frac{I_0^2}{100} \cdot \frac{S_N}{U^2_{1N}} \cdot \frac{U^2_{1N}}{S_r} \eqno{(5.70)}$$
+
+那么通过下面的方法，可以得到DIgSILENT模型中需要的$I_0\%$。
+$$Y_m = G_m - jB_m \eqno{(5.71)}$$
+$$|Y_m| = \sqrt{G^2_m + B_m^2}G_m + B_m \eqno{(5.72)}$$
+$$Z_M = \frac{1}{|Y_M|} \eqno{(5.73)}$$
+$$I_0\% = \frac{100}{Z_M} \eqno{(5.74)}$$
