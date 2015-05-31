@@ -675,5 +675,25 @@ r2\_pu\_ji, x2\_pu\_ji & $'j-i'$负序阻抗 & $''p.u.$\\
 
 \subsection{L+卡}
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=1.05\textwidth]{images/Paper_Fig_45.png}
+\setcaptionwidth{\linewidth}
+\caption{L+卡数据}
+\end{figure}
 
+\begin{spacing}{1.0}
+\begin{longtable}[h]{llp{0.8\columnwidth}}
+\toprule
+列 & 格式 & 内容\\
+ \midrule
+1 & A1 & 卡片类型－L\\
+2 & A1 & 空白\\ 3 & A1 & 修改码 \\4-6 & A3 & 所有者代码 \\7-18 & A8, F4.0 & 节点名1（7-14）和基准电压（kV）（15-18） \\20-31& A8, F4.0 & 节点名2（20-27）和基准电压（kV）（28-31）\\ 32 & A1 & 并联线路的回路标志，即回路号。 \\34-38 &F5.0 & 线路前侧高抗容量（Mvar，填正值） \\44-48 &F5.0 & 线路后侧高抗容量（Mvar，填正值）\\\bottomrule
+\end{longtable}
+\end{spacing}
 
+我国电力系统正在向大容量、远距离、超（特）高的方向发展。超高压输电压系统由于其电压等级提高，可传输更大的容量，更远的距离，但是线路的电容效应限制了传输容量，降低了系统静态和动态稳性，增加了工频过电压幅值，所以超高压输电线路往装设并联高压电抗器（下文简称高抗）解决无功平衡和过电压问题。
+而L+卡的目的实际上就是为了模拟超高电压下的电抗器，起到抵消电容效应的作用。而DIgSILENT电抗器在前文有详细介绍，这里就不赘述了。
+
+\subsection{T卡}
+
