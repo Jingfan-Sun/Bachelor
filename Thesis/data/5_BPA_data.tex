@@ -673,7 +673,7 @@ r2\_pu\_ji, x2\_pu\_ji & $'j-i'$负序阻抗 & $''p.u.$\\
 
 由于正序网络结构的各元件参数与正常运行的等值网络相同。因此只需要将元件转换好的有名电阻直接转换到上述正负序项中即可。
 
-\subsection{L+卡}
+\section{L+卡}
 
 \begin{figure}[H]
 \centering
@@ -695,7 +695,7 @@ r2\_pu\_ji, x2\_pu\_ji & $'j-i'$负序阻抗 & $''p.u.$\\
 我国电力系统正在向大容量、远距离、超（特）高的方向发展。超高压输电压系统由于其电压等级提高，可传输更大的容量，更远的距离，但是线路的电容效应限制了传输容量，降低了系统静态和动态稳性，增加了工频过电压幅值，所以超高压输电线路往装设并联高压电抗器（下文简称高抗）解决无功平衡和过电压问题。
 而L+卡的目的实际上就是为了模拟超高电压下的电抗器，起到抵消电容效应的作用。而DIgSILENT电抗器在前文有详细介绍，这里就不赘述了。
 
-\subsection{T卡}
+\section{T卡}
 \begin{figure}[H]
 \centering
 \includegraphics[width=1.05\textwidth]{images/Paper_Fig_46.png}
@@ -717,7 +717,7 @@ r2\_pu\_ji, x2\_pu\_ji & $'j-i'$负序阻抗 & $''p.u.$\\
 本卡模拟的是两绕组变压器和移相器。三绕组变压器先按常规方法化为三台两绕组变压器后再用此卡模拟。 变压器和移相器抽头可以是固定的，也可以是可调的。如为可调的，则要附加填写 R卡。
 由于BPA的T卡只有两项变压器，所以对于DIgSILENT也只需要考虑两项变压器模型，以下就是对DIgSILENT变压器的介绍。
 
-\subsubsection{DIgSILENT变压器模型介绍及数据转换}
+\subsection{DIgSILENT变压器模型介绍及数据转换}
 
 双绕组变压器模型可以用于网络变压器，块变压器，移位器或者电压控制器。这个模型也考虑了自动变压器。
 
@@ -851,3 +851,66 @@ $$Y_m = G_m - jB_m \eqno{(5.71)}$$
 $$|Y_m| = \sqrt{G^2_m + B_m^2}G_m + B_m \eqno{(5.72)}$$
 $$Z_M = \frac{1}{|Y_M|} \eqno{(5.73)}$$
 $$I_0\% = \frac{100}{Z_M} \eqno{(5.74)}$$
+
+\section{P卡}
+
+%\begin{table}[h]
+%\centering
+%\begin{tabular}{cccc}
+%\toprule
+%元件类型 & BPA & DIgSILENT & 转换公式\\
+%\midrule
+%& & 通过制定母线相 & \\
+% 母线 & 定义了13种类型母线 & 连元素的特性确 &  \\ 
+%& & 定母线的属性 & \\ 
+% \midrule
+%& $R_{BPA}$ & $R_{DIg}$ & $R_{DIg} = R_{BPA} \times (U^2_B)/S_B$\\
+%线路 & $X_{BPA}$ & $X_{DIg}$ & $X_{DIg} = X_{BPA} \times (U^2_B)/S_B$\\
+%& $B_{BPA}$ & $B_{DIg}$ & $B_{DIg} = 2 \times B_{BPA} \times (U^2_B)/S_B$\\
+% \midrule
+%& $R_{T}$ & $P_k$ & $P_k = \frac{1000S_{NT}^2 R_T}{U_{NT}^2} \times \frac{U_B^2}{S_B}$\\
+%变压器 & $X_{T}$ & $U_k\%$ & $U_k\% = \frac{100S_{NT} X_T}{U_{NT}^2} \times \frac{U_B^2}{S_B}$\\
+%& $B_{T}$ & $I_0\%$ & $I_0\% = \frac{100B_{T} U_{NT}^2}{S_{NT}} \times \frac{S_B}{U_B^2}$\\
+%& $G_{T}$ & $P_0$ & $P_0 = 1000G_T U_{NT}^2 \times \frac{S_B}{U_B^2}$\\
+% \midrule
+% 发电机 & $M$ & $T$ & $T = M/S_{NG}$\\
+%& $X_{BPA}$ & $X_{DIg}$ & $X_{DIg} = X_{BPA} \times S_B/ S_{NG}$\\
+%\midrule
+%负荷、电抗 & 填写在B卡和+卡上 & 专门的负荷和电抗元件 & \\
+%\bottomrule
+%\end{tabular}
+%\caption{主要数据卡片分类}
+%\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1.05\textwidth]{images/Paper_Fig_54.png}
+\setcaptionwidth{\linewidth}
+\caption{PZ卡数据}
+\end{figure}
+
+\begin{spacing}{1.0}
+\begin{longtable}[h]{llp{0.8\columnwidth}}
+\toprule
+列 & 格式 & 内容\\
+ \midrule
+1 & A1 & 卡片类型－P\\
+2 & A1 & 卡片子型-共有6种\\ 
+ & & A:对全网作修改\\
+ & & Z:按分区修改\\
+ & & Z:按分区修改\\
+ & & C:按分区修改恒定阻抗,恒定电流负荷\\
+ & & C:按分区修改恒定阻抗,恒定电流负荷\\3 & A1 & 修改码 \\4-5 & A2 & 分区代码 \\10-14 & F5.0&负荷P修改因子\\
+ 16-20 & F5.0 & 负荷Q修改因子\\
+ 22-26 & F5.0 & 发电出力P修改因子\\
+ 28-32 & F5.0 & 发电出力Q修改因子\\\bottomrule
+\end{longtable}
+\end{spacing}
+
+发电有功和无功、负荷有功和无功可取不同的百分数做修改。当修改因子对应位置为空格,程序将采用缺省值。
+
+有功负荷和出力的修改因子如果为空格,缺省为1.0；无功负荷的修改因子如果为空格，其修改因子等于有功负荷修改因子；无功出力的修改因子为空格，其修改因子等于有功出力修改因子。
+
+例如，有功负荷不修改,而无功负荷修改为原来的 95\%，则有功负荷因子部分可以填写 1.0 或者空格，无功负荷因子应填写 0.95；如果有功出力和无功出力都不修改，则对应的修改因子可以填写 1.0 或者空格。
+
+
