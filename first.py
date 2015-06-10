@@ -139,7 +139,13 @@ def myFloat(inputStr, defalt, num):
 
     if inputStr.strip() == '': 
         return defalt
-    elif float(inputStr) < 0 or float(inputStr) == 0: 
+    elif float(inputStr) < 0 and defalt == 0: 
+        return defalt
+    elif float(inputStr) < 0 and defalt > 0: 
+        return defalt
+    elif float(inputStr) < 0 and defalt < 0: 
+        return float(inputStr)/pow(10,num)
+    elif float(inputStr) == 0: 
         return defalt
     elif inputStr.strip() == '.': 
         return defalt
@@ -155,6 +161,18 @@ def isfloat(inputStr):
     try:
         float(inputStr)
         return True         #Returns true if the string is a floating point number
+    except (ValueError, TypeError):
+        return False            #Returns false otherwise
+
+# ----------------------------------------------------------------------------------------------------
+def isfloatNotZero(inputStr):
+    """Checks if the string is a floating point number."""
+
+    try:
+        if float(inputStr) > 0 or float(inputStr) < 0:
+            return True         #Returns true if the string is a floating point number
+        else:
+            return False
     except (ValueError, TypeError):
         return False            #Returns false otherwise
 
@@ -295,6 +313,8 @@ def changeName():
 def GetBCard(bpa_file, bpa_str_ar):
     #B卡 
     global MVABASE
+    global c
+    global a
 
     global bus_name_cn
     global bus_name
@@ -383,12 +403,12 @@ def GetBCard(bpa_file, bpa_str_ar):
                 P_load_m = float(modify_content[4 * modify_name.index(zone.loc_name)])
                 Q_load_m = float(modify_content[4 * modify_name.index(zone.loc_name) + 1])
                 P_generator_m = float(modify_content[4 * modify_name.index(zone.loc_name) + 2])
-                P_generator_m = float(modify_content[4 * modify_name.index(zone.loc_name) + 3])
+                Q_generator_m = float(modify_content[4 * modify_name.index(zone.loc_name) + 3])
             else:
                 P_load_m = 1
                 Q_load_m = 1
                 P_generator_m = 1
-                P_generator_m = 1
+                Q_generator_m = 1
             
             if line[1] == ' ' or line[1] == 'T' or line[1] == 'C' or line[1] == 'V' or line[1] == 'F' or line[1] == 'J' or line [1] == 'X':
                 #The bus type code for a PQ bus
@@ -407,7 +427,7 @@ def GetBCard(bpa_file, bpa_str_ar):
                 
                 load = line[20-chinese_count:25-chinese_count]
                 # app.PrintInfo(load+'1')
-                if isfloat(load):
+                if isfloatNotZero(load):
                     load_index = load_index + 1
                     name_load = 'Load_' + Variable_name
                     load_name_cn.append(name_load)
@@ -435,10 +455,33 @@ def GetBCard(bpa_file, bpa_str_ar):
                     TypLod.aQ = 1
                     load.bus1 = cubic
                     load.typ_id = TypLod
-					
+
+                if isfloatNotZero(line[30-chinese_count:34-chinese_count]):
+                    shunt_index = shunt_index + 1
+                    shunt_name_cn.append('Shunt_' + Variable_name)
+                    shunt_name.append('shunt' + str(shunt_index))
+                    shunt = Net.SearchObject('shunt' + str(shunt_index))
+                    shunt = shunt[0]
+                    if shunt == None:
+                        shunt = Net.CreateObject('ElmShnt', 'shunt' + str(shunt_index))
+                        shunt = shunt[0]
+                    shunt.qtotn = float(line[30-chinese_count:34-chinese_count].strip().rstrip('.'))
+                    cubic = bus.SearchObject('Cubic_shunt' + str(shunt_index))
+                    cubic = cubic[0]
+                    if cubic == None:
+                        cubic = bus.CreateObject('StaCubic', 'Cubic_shunt' + str(shunt_index))
+                        cubic = cubic[0]
+                    shunt.bus1 = cubic
+                    shunt.ushnm = base
+                    shunt.shtype = 2
+                    shunt.bcap = 0
+                    shunt.gparac = 378.072
+
                 shunt = line[34-chinese_count:38-chinese_count]
                 # app.PrintInfo(load+'1')
-                if isfloat(shunt):
+                if isfloatNotZero(shunt):
+                    # app.PrintPlain(line.encode('GBK'))
+                    c = c + 1
                     shunt_index = shunt_index + 1
                     shunt_name_cn.append('Shunt_' + Variable_name)
                     shunt_name.append('shunt' + str(shunt_index))
@@ -461,8 +504,38 @@ def GetBCard(bpa_file, bpa_str_ar):
                         shunt.qcapn = value
                     else:
                         shunt.shtype = 1
-                        shunt.qrean = value
+                        shunt.qrean = value * (-1)
 
+                if isfloat(line[47-chinese_count:52-chinese_count]) and isfloat(line[42-chinese_count:47-chinese_count]):
+                    # Generator
+                    a = a + 1
+                    generator_index = generator_index + 1
+                    app.PrintPlain(generator_index)
+                    generator = Net.SearchObject('generator' + str(generator_index))
+                    generator = generator[0]
+                    if generator == None:
+                        generator = Net.CreateObject('ElmSym', 'generator' + str(generator_index))
+                        generator = generator[0]
+                        cubic = bus.CreateObject('StaCubic', 'Cubic_generator' + str(generator_index))
+                        cubic = cubic[0]
+                        Typgen = Library.CreateObject('TypSym', 'TypeGenerator' + str(generator_index))
+                        Typgen = Typgen[0]
+                    cubic = bus.SearchObject('Cubic_generator' + str(generator_index))
+                    cubic = cubic[0]
+                    Typgen = Library.SearchObject('TypeGenerator' + str(generator_index))
+                    Typgen = Typgen[0]
+                    generator_name_cn.append('Generator_' + Variable_name)
+                    generator_name.append('generator' + str(generator_index))
+                    Typgen.sgn = MVABASE
+                    Typgen.ugn = base
+                    Typgen.cosn = 1
+
+                    generator.bus1 = cubic
+                    generator.typ_id = Typgen
+                    generator.ip_ctrl = 0;  #PV
+                    generator.iv_mode = 0;
+                    generator.qgini = myFloat(line[47-chinese_count:52-chinese_count], 0, 0) * Q_generator_m
+                    generator.pgini = float(line[42-chinese_count:47-chinese_count]) * P_generator_m
                 
             elif line[1] == 'E' or line[1] == 'Q' or line[1] == 'G' or line[1] == 'K' or line[1] == 'L':
                 #The bus type code for a PV bus
@@ -503,12 +576,13 @@ def GetBCard(bpa_file, bpa_str_ar):
                 generator.iv_mode = 1;
                 generator.Pmax_uc = float(line[38-chinese_count:42-chinese_count])
                 generator.pgini = float(line[42-chinese_count:47-chinese_count]) * P_generator_m
-                generator.q_max = myFloat(line[47-chinese_count:52-chinese_count], 99999, 0) / MVABASE  #无功出力最大值
-                generator.q_min = myFloat(line[52-chinese_count:57-chinese_count], -99999, 0) / MVABASE  #无功出力最小值
+                generator.cQ_max = myFloat(line[47-chinese_count:52-chinese_count], 99999, 0)   #无功出力最大值
+                generator.cQ_min = myFloat(line[52-chinese_count:57-chinese_count], -99999, 0)   #无功出力最小值
                 generator.usetp = float(line[57-chinese_count:61-chinese_count])
+                generator.pmaxratf = generator.Pmax_uc / MVABASE
 
                 #load
-                if isfloat(line[20-chinese_count:25-chinese_count]):
+                if isfloatNotZero(line[20-chinese_count:25-chinese_count]):
                     name_load = 'Load_' + Variable_name
                     load_name_cn.append(name_load)
                     load_name.append('load_generator' + str(generator_index))
@@ -535,6 +609,33 @@ def GetBCard(bpa_file, bpa_str_ar):
                     TypLod.aQ = 1
                     load.bus1 = cubic
                     load.typ_id = TypLod
+
+                #Shunt
+                shunt = line[34-chinese_count:38-chinese_count]
+                # app.PrintInfo(load+'1')
+                if isfloatNotZero(shunt):
+                    shunt_name_cn.append('Shunt_' + Variable_name)
+                    shunt_name.append('shunt_generator' + str(generator_index))
+                    shunt = Net.SearchObject('shunt_generator' + str(generator_index))
+                    shunt = shunt[0]
+                    if shunt == None:
+                        shunt = Net.CreateObject('ElmShnt', 'shunt_generator' + str(generator_index))
+                        shunt = shunt[0]
+                    shunt.qtotn = float(line[34-chinese_count:38-chinese_count].strip().rstrip('.'))
+                    cubic = g_bus.SearchObject('Cubic_shunt_generator' + str(shunt_index))
+                    cubic = cubic[0]
+                    if cubic == None:
+                        cubic = g_bus.CreateObject('StaCubic', 'Cubic_shunt_generator' + str(shunt_index))
+                        cubic = cubic[0]
+                    shunt.bus1 = cubic
+                    shunt.ushnm = base
+                    value = float(line[34-chinese_count:38-chinese_count].strip().rstrip('.'))
+                    if value > 0:
+                        shunt.shtype = 2
+                        shunt.qcapn = value
+                    else:
+                        shunt.shtype = 1
+                        shunt.qrean = 1296 / (-1) / value
                 
             elif line[1] == 'S':    #SL
                 generator_index = generator_index + 1
@@ -572,8 +673,11 @@ def GetBCard(bpa_file, bpa_str_ar):
                 generator.ip_ctrl = 1; #reference
                 generator.iv_mode = 1;
                 generator.pgini = 0
-                generator.q_max = float(line[47-chinese_count:52-chinese_count]) / MVABASE
+                generator.cQ_max = float(line[47-chinese_count:52-chinese_count])
+                generator.cQ_min = 0
+                generator.Pmax_uc = float(line[38-chinese_count:42-chinese_count])
                 generator.usetp = float(line[57-chinese_count:61-chinese_count])
+                generator.pmaxratf = generator.Pmax_uc / MVABASE
                 
 # ----------------------------------------------------------------------------------------------------
 def GetLCard(bpa_file, bpa_str_ar):
@@ -736,6 +840,43 @@ def GetLCard(bpa_file, bpa_str_ar):
                     TypLne.bline = 2 * pow(10, 6) * MVABASE / base_from / base_from / (MileToKm * transLineLength) * B_pu
 
                     transLine.typ_id = TypLne
+
+                    if myFloat(line[50-chinese_count_from-chinese_count_to:56-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0, 0) > 0:
+                        shunt_name_cn.append('Shunt_' + name_from + '_' + name_to + '_')
+                        shunt_name.append('shunt_line_' + str(transLine_index) + ' 1')
+                        shunt = Net.SearchObject('shunt_line_' + str(transLine_index) + ' 1')
+                        shunt = shunt[0]
+                        if shunt == None:
+                            shunt = Net.CreateObject('ElmShnt', 'shunt_line_' + str(transLine_index) + ' 1')
+                            shunt = shunt[0]
+                        cubic = bus_from.SearchObject('Cubic_' + 'line_shunt' + str(transLine_index) + ' 1')
+                        cubic = cubic[0]
+                        if cubic == None:
+                            cubic = bus_from.CreateObject('StaCubic', 'Cubic_' + 'line_shunt' + str(transLine_index) + ' 1')
+                            cubic = cubic[0]
+                        shunt.bus1 = cubic
+                        shunt.ushnm = base_from
+                        shunt.shtype = 2
+                        shunt.bcap = 0
+                        shunt.gparac = getfloatvalue(line[50-chinese_count_from-chinese_count_to:56-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0) * 0.0189035714285714
+
+                        shunt_name_cn.append('Shunt_' + name_to + '_' + name_from + '_')
+                        shunt_name.append('shunt_line_' + str(transLine_index) + ' 2')
+                        shunt = Net.SearchObject('shunt_line_' + str(transLine_index) + ' 2')
+                        shunt = shunt[0]
+                        if shunt == None:
+                            shunt = Net.CreateObject('ElmShnt', 'shunt_line_' + str(transLine_index) + ' 2')
+                            shunt = shunt[0]
+                        cubic = bus_to.SearchObject('Cubic_' + 'line_shunt' + str(transLine_index) + ' 2')
+                        cubic = cubic[0]
+                        if cubic == None:
+                            cubic = bus_to.CreateObject('StaCubic', 'Cubic_' + 'line_shunt' + str(transLine_index) + ' 2')
+                            cubic = cubic[0]
+                        shunt.bus1 = cubic
+                        shunt.ushnm = base_to
+                        shunt.shtype = 2
+                        shunt.bcap = 0
+                        shunt.gparac = getfloatvalue(line[50-chinese_count_from-chinese_count_to:56-chinese_count_from-chinese_count_to].strip().rstrip('.'), 0) * 0.0189035714285714
                 else:
                     #Scap
                     transLine_index = transLine_index + 1
@@ -759,6 +900,7 @@ def GetLCard(bpa_file, bpa_str_ar):
                     scap.bus2 = cubic
 
                     scap.ucn = base_from
+                    scap.xcap = 29.5194
 
                     name_scap = 'Scap_' + name_from + '_' + name_to + '_' + line[31-chinese_count_from-chinese_count_to: 32-chinese_count_from-chinese_count_to]
                     scap_name_cn.append(name_scap)
@@ -961,6 +1103,37 @@ def GetTCard(bpa_file, bpa_str_ar):
 
             transformers.typ_id = TypTr
 
+            if isfloatNotZero(line[56-chinese_count_from-chinese_count_to:62-chinese_count_from-chinese_count_to]):
+                if getfloatvalue(line[56-chinese_count_from-chinese_count_to:62-chinese_count_from-chinese_count_to].strip().rstrip('.'), 5) > 0:
+                    shunt_name_cn.append('Shunt_' + name_from + '_' + name_to + '_' + line[31-chinese_count_from-chinese_count_to: 32-chinese_count_from-chinese_count_to])
+                    shunt_name.append('shunt_transfoemers_' + str(transformers_index))
+                    shunt = Net.SearchObject('shunt_transfoemers_' + str(transformers_index))
+                    shunt = shunt[0]
+                    if shunt == None:
+                        shunt = Net.CreateObject('ElmShnt', 'shunt_transfoemers_' + str(transformers_index))
+                        shunt = shunt[0]
+                    bus_from = bus_name[bus_name_cn.index('Bus_' + name_from)]
+                    # app.PrintPlain(bus_hv)
+                    bus_from = Net.SearchObject(bus_from)
+                    bus_from = bus_from[0]
+                    cubic = bus_from.SearchObject('Cubic_' + 'transformers_shunt' + str(transformers_index))
+                    cubic = cubic[0]
+                    if cubic == None:
+                        cubic = bus_from.CreateObject('StaCubic', 'Cubic_' + 'transformers_shunt' + str(transformers_index))
+                        cubic = cubic[0]
+                    shunt.bus1 = cubic
+                    shunt.ushnm = base_from
+                    value = getfloatvalue(line[56-chinese_count_from-chinese_count_to:62-chinese_count_from-chinese_count_to].strip().rstrip('.'), 5)
+                    # if value > 0:
+                    shunt.shtype = 2
+                    shunt.qcapn = value * 100
+                    shunt.tandc = getfloatvalue(line[50-chinese_count_from-chinese_count_to:56-chinese_count_from-chinese_count_to].strip().rstrip('.'), 5) / value
+                    # else:
+                    #     shunt.shtype = 1
+                    #     shunt.qrean = value
+                    #     shunt.grea = 0
+                
+
 # ----------------------------------------------------------------------------------------------------
 def GetPCard(bpa_file, bpa_str_ar):
     #T卡
@@ -1060,22 +1233,35 @@ if bpa_file:					#If the file opened successfully
     
     global MVABASE
     global MileToKm
+    global c
+    global a
 
     MVABASE = 100
-    MileToKm = 1.609344
+    MileToKm = 1
+    a = 0
 
     bpa_str = bpa_file.read()            #The string containing the text file, to use the find() function
     bpa_file.seek(0)        #To position back at the beginning
     bpa_str_ar = bpa_file.readlines()        #The array that is containing all the lines of the BPA file
     
     count = 0
+    c = 0
     for line in bpa_str_ar: 
         count = count + 1
         if line[0:2] == "/M": 
             MVABASE = float(line[line.find("=")+1:line.find("\\")].lstrip())            #To continue if it is a blank line
             break
         # if not(line[0] == 'B' or line[0] == 'L' or line[0] == 'T' or line[0] == '.' or line[0] == ' '):
-        #     app.PrintInfo(line[0:2] + '       ' + str(count))
+        # if line[0:2] == 'B ':
+        #     chinese_count = 0
+        #     #判断中文的个数
+        #     for i in range (6,14):
+        #         if line[i] >= u'\u4e00' and line[i] <= u'\u9fa5':
+        #             chinese_count = chinese_count + 1
+            # if isfloatNotZero(line[34-chinese_count:38-chinese_count]):
+            #     c = c+ 1
+            #     app.PrintInfo(line[0:80].encode('GBK'))
+    app.PrintPlain(c)
 
     # for i in range(0, len(bpa_str_ar)):
     #     bpa_str_ar[i] = bpa_str_ar[i][0:80]
@@ -1145,6 +1331,7 @@ if bpa_file:					#If the file opened successfully
     # GetPCard(bpa_file, bpa_str_ar)
 
     # GetBCard(bpa_file, bpa_str_ar)
+    # app.PrintPlain(a)
 
     # GetLCard(bpa_file, bpa_str_ar)
 
