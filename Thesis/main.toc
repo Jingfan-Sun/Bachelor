@@ -15,53 +15,53 @@
 \contentsline {subsection}{\numberline {2.2.2}MMC拓扑}{26}
 \contentsline {subsection}{\numberline {2.2.3}MMC的模块化、设计、控制和建模}{28}
 \contentsline {subsubsection}{\numberline {2.2.3.1}模块化技术}{28}
-\contentsline {subsubsection}{\numberline {2.2.3.2}SM电容电压平衡}{31}
-\contentsline {subsubsection}{\numberline {2.2.3.3}数学模型}{33}
-\contentsline {subsubsection}{\numberline {2.2.3.4}MMC设计限制}{36}
-\contentsline {subsubsection}{\numberline {2.2.3.5}环路电流控制}{37}
-\contentsline {subsubsection}{\numberline {2.2.3.6}SM电容电压震荡消除技术}{38}
-\contentsline {subsubsection}{\numberline {2.2.3.7}SM电容预充电和启动过程}{38}
-\contentsline {subsection}{\numberline {2.2.4}特殊情况下MMC的运行}{38}
-\contentsline {subsubsection}{\numberline {2.2.4.1}非平衡电网条件}{38}
-\contentsline {subsubsection}{\numberline {2.2.4.2}容错运行}{39}
-\contentsline {subsection}{\numberline {2.2.5}应用}{39}
-\contentsline {subsubsection}{\numberline {2.2.5.1}HVDC系统}{40}
-\contentsline {subsubsection}{\numberline {2.2.5.2}变速伺服}{40}
-\contentsline {subsubsection}{\numberline {2.2.5.3}动态制动斩波器}{41}
-\contentsline {subsection}{\numberline {2.2.6}结论}{42}
-\contentsline {chapter}{\numberline {3}开题报告}{45}
-\contentsline {section}{\numberline {3.1}项目研究目的}{45}
-\contentsline {section}{\numberline {3.2}研究内容和研究步骤}{45}
-\contentsline {section}{\numberline {3.3}程序运行流程}{46}
-\contentsline {section}{\numberline {3.4}论文的进度安排}{47}
-\contentsline {chapter}{\numberline {4}DIgSILENT的Python接口简介}{48}
-\contentsline {section}{\numberline {4.1}Python脚本语言的优势}{48}
-\contentsline {section}{\numberline {4.2}\emph {PowerFactory}中的Python模块}{49}
-\contentsline {section}{\numberline {4.3}Python命令行对象(\emph {ComPython})}{50}
-\contentsline {section}{\numberline {4.4}调试Python脚本}{51}
-\contentsline {subsection}{\numberline {4.4.1}准备条件}{51}
-\contentsline {subsection}{\numberline {4.4.2}为\emph {PowerFactory}调试Python脚本}{52}
-\contentsline {chapter}{\numberline {5}BPA数据读取与转换}{53}
-\contentsline {section}{\numberline {5.1}BPA数据卡片的分类}{53}
-\contentsline {section}{\numberline {5.2}B卡}{54}
-\contentsline {subsection}{\numberline {5.2.1}DIgSILENT负载模型介绍及数据转换}{55}
-\contentsline {subsection}{\numberline {5.2.2}DIgSILENT电抗器模型介绍及数据转换}{58}
-\contentsline {subsection}{\numberline {5.2.3}DIgSILENT同步发电机模型介绍及数据转换}{63}
-\contentsline {section}{\numberline {5.3}L卡，E卡}{68}
-\contentsline {subsection}{\numberline {5.3.1}DIgSILENT线路模型介绍及数据转换}{70}
-\contentsline {subsubsection}{\numberline {5.3.1.1}架空线路模型}{70}
-\contentsline {subsubsection}{\numberline {5.3.1.2}线路数据转换}{75}
-\contentsline {section}{\numberline {5.4}L+卡}{76}
-\contentsline {section}{\numberline {5.5}T卡}{77}
-\contentsline {subsection}{\numberline {5.5.1}DIgSILENT变压器模型介绍及数据转换}{78}
-\contentsline {section}{\numberline {5.6}P卡}{83}
-\contentsline {chapter}{\numberline {6}转换结果分析}{84}
-\contentsline {section}{\numberline {6.1}IEEE9网络}{84}
-\contentsline {section}{\numberline {6.2}IEEE39网络}{85}
-\contentsline {chapter}{\numberline {7}结论}{88}
-\contentsline {section}{\numberline {7.1}本论文研究总结}{88}
-\contentsline {section}{\numberline {7.2}前景展望}{89}
-\contentsline {chapter}{致谢}{90}
-\contentsline {chapter}{参考文献}{90}
-\contentsline {chapter}{附录}{91}
+\contentsline {subsubsection}{\numberline {2.2.3.2}SM电容电压平衡}{32}
+\contentsline {subsubsection}{\numberline {2.2.3.3}数学模型}{34}
+\contentsline {subsubsection}{\numberline {2.2.3.4}MMC设计限制}{37}
+\contentsline {subsubsection}{\numberline {2.2.3.5}环路电流控制}{38}
+\contentsline {subsubsection}{\numberline {2.2.3.6}SM电容电压震荡消除技术}{39}
+\contentsline {subsubsection}{\numberline {2.2.3.7}SM电容预充电和启动过程}{39}
+\contentsline {subsection}{\numberline {2.2.4}特殊情况下MMC的运行}{39}
+\contentsline {subsubsection}{\numberline {2.2.4.1}非平衡电网条件}{39}
+\contentsline {subsubsection}{\numberline {2.2.4.2}容错运行}{40}
+\contentsline {subsection}{\numberline {2.2.5}应用}{40}
+\contentsline {subsubsection}{\numberline {2.2.5.1}HVDC系统}{41}
+\contentsline {subsubsection}{\numberline {2.2.5.2}变速伺服}{41}
+\contentsline {subsubsection}{\numberline {2.2.5.3}动态制动斩波器}{42}
+\contentsline {subsection}{\numberline {2.2.6}结论}{43}
+\contentsline {chapter}{\numberline {3}开题报告}{44}
+\contentsline {section}{\numberline {3.1}项目研究目的}{44}
+\contentsline {section}{\numberline {3.2}研究内容和研究步骤}{44}
+\contentsline {section}{\numberline {3.3}程序运行流程}{45}
+\contentsline {section}{\numberline {3.4}论文的进度安排}{46}
+\contentsline {chapter}{\numberline {4}DIgSILENT的Python接口简介}{47}
+\contentsline {section}{\numberline {4.1}Python脚本语言的优势}{47}
+\contentsline {section}{\numberline {4.2}\emph {PowerFactory}中的Python模块}{48}
+\contentsline {section}{\numberline {4.3}Python命令行对象(\emph {ComPython})}{49}
+\contentsline {section}{\numberline {4.4}调试Python脚本}{50}
+\contentsline {subsection}{\numberline {4.4.1}准备条件}{50}
+\contentsline {subsection}{\numberline {4.4.2}为\emph {PowerFactory}调试Python脚本}{51}
+\contentsline {chapter}{\numberline {5}BPA数据读取与转换}{52}
+\contentsline {section}{\numberline {5.1}BPA数据卡片的分类}{52}
+\contentsline {section}{\numberline {5.2}B卡}{53}
+\contentsline {subsection}{\numberline {5.2.1}DIgSILENT负载模型介绍及数据转换}{54}
+\contentsline {subsection}{\numberline {5.2.2}DIgSILENT电抗器模型介绍及数据转换}{57}
+\contentsline {subsection}{\numberline {5.2.3}DIgSILENT同步发电机模型介绍及数据转换}{62}
+\contentsline {section}{\numberline {5.3}L卡，E卡}{67}
+\contentsline {subsection}{\numberline {5.3.1}DIgSILENT线路模型介绍及数据转换}{69}
+\contentsline {subsubsection}{\numberline {5.3.1.1}架空线路模型}{69}
+\contentsline {subsubsection}{\numberline {5.3.1.2}线路数据转换}{74}
+\contentsline {section}{\numberline {5.4}L+卡}{75}
+\contentsline {section}{\numberline {5.5}T卡}{76}
+\contentsline {subsection}{\numberline {5.5.1}DIgSILENT变压器模型介绍及数据转换}{77}
+\contentsline {section}{\numberline {5.6}P卡}{82}
+\contentsline {chapter}{\numberline {6}转换结果分析}{83}
+\contentsline {section}{\numberline {6.1}IEEE9网络}{83}
+\contentsline {section}{\numberline {6.2}IEEE39网络}{84}
+\contentsline {chapter}{\numberline {7}结论}{87}
+\contentsline {section}{\numberline {7.1}本论文研究总结}{87}
+\contentsline {section}{\numberline {7.2}前景展望}{88}
+\contentsline {chapter}{致谢}{89}
+\contentsline {chapter}{参考文献}{89}
+\contentsline {chapter}{附录}{90}
 \contentsfinish 

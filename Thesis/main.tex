@@ -60,7 +60,10 @@
   %封面
   \input{data/cover}
   %诚信承诺书
-  \input{data/announce}
+%  \input{data/announce}
+  \includepdf[pages={1}]{data/内容检查表.pdf}
+  \includepdf[pages={1}]{data/诚信承诺书.pdf}
+  \includepdf[pages={1}]{data/任务书.pdf}
 
   \frontmatter   
   \pagenumbering{Roman}
@@ -121,7 +124,9 @@
   %任务书
 %  \include{data/task}
   %考核
-  \include{data/eval}
+%  \include{data/eval}
+  \includepdf{data/教师评阅表.pdf}
+  \includepdf{data/答辩记录表.pdf}
 
 %==============================================================
 %==============================================================

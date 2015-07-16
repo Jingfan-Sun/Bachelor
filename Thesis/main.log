@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.11.20)  2 JUN 2015 12:46
+This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.11.20)  3 JUN 2015 12:25
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -1354,7 +1354,7 @@ Package: CJKfntef 2012/05/07 4.8.3
 (./data/1_Literature_review.aux) (./data/3_Thesis_Translation.aux)
 (./data/2_Thesis_proposal.aux) (./data/4_Python_API.aux) (./data/5_BPA_data.aux
 ) (./data/result.aux) (./data/conclusion.aux) (./data/thanks.aux)
-(./data/appe.aux) (./data/eval.aux))
+(./data/appe.aux))
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 37.
@@ -1373,12 +1373,10 @@ LaTeX Font Info:    Checking defaults for EU1/lmr/m/n on input line 37.
 LaTeX Font Info:    ... okay on input line 37.
 LaTeX Font Info:    Checking defaults for T3/cmr/m/n on input line 37.
 LaTeX Font Info:    Try loading font information for T3+cmr on input line 37.
-
-(/usr/local/texlive/2013/texmf-dist/tex/latex/tipa/t3cmr.fd
+ (/usr/local/texlive/2013/texmf-dist/tex/latex/tipa/t3cmr.fd
 File: t3cmr.fd 2001/12/31 TIPA font definitions
 )
 LaTeX Font Info:    ... okay on input line 37.
-
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
 *geometry* verbose mode - [ preamble ] result:
@@ -1551,7 +1549,49 @@ Overfull \hbox (34.00786pt too wide) in paragraph at lines 60--60
 []|   [] 
  []
 
-[3]) (./data/announce.tex [4]
+[3]) [4]
+File: data/内容检查表.pdf Graphic file (type QTm)
+ <use  "data/内容检查表.pdf"  page1>
+File: data/内容检查表.pdf Graphic file (type QTm)
+ <use  "data/内容检查表.pdf"  page1>
+File: data/内容检查表.pdf Graphic file (type QTm)
+
+<use  "data/内容检查表.pdf"  page1>
+File: data/内容检查表.pdf Graphic file (type QTm)
+ <use  "data/内容检查表.pdf"  page1>
+File: data/内容检查表.pdf Graphic file (type QTm)
+
+<use  "data/内容检查表.pdf"  page1> [5]
+File: data/诚信承诺书.pdf Graphic file (type QTm)
+ <use  "data/诚信承诺书.pdf"  page1>
+File: data/诚信承诺书.pdf Graphic file (type QTm)
+
+<use  "data/诚信承诺书.pdf"  page1>
+File: data/诚信承诺书.pdf Graphic file (type QTm)
+ <use  "data/诚信承诺书.pdf"  page1>
+File: data/诚信承诺书.pdf Graphic file (type QTm)
+
+<use  "data/诚信承诺书.pdf"  page1>
+File: data/诚信承诺书.pdf Graphic file (type QTm)
+ <use  "data/诚信承诺书.pdf"  page1> [6]
+File: data/任务书.pdf Graphic file (type QTm)
+
+<use  "data/任务书.pdf"  page1>
+File: data/任务书.pdf Graphic file (type QTm)
+ <use  "data/任务书.pdf"  page1>
+File: data/任务书.pdf Graphic file (type QTm)
+
+<use  "data/任务书.pdf"  page1>
+File: data/任务书.pdf Graphic file (type QTm)
+ <use  "data/任务书.pdf"  page1>
+File: data/任务书.pdf Graphic file (type QTm)
+
+<use  "data/任务书.pdf"  page1> [7] [8
+
+]
+\openout2 = `data/absc.aux'.
+
+ (./data/absc.tex
 \g_fontspec_family_SimHei_int=\count188
 .................................................
 . fontspec info: "defining-font"
@@ -1580,12 +1620,7 @@ BoldSlantedFont={*}].
 . * 'sl/' with NFSS spec.:
 . <->"SimHei/ICU:script=hani;language=DFLT;"
 .................................................
-LaTeX Font Info:    Calculating math sizes for size <14> on input line 23.
- [5]) [6]
-\openout2 = `data/absc.aux'.
-
- (./data/absc.tex) [1
-
+) [1
 
 
 ]
@@ -1798,32 +1833,25 @@ Underfull \hbox (badness 10000) in paragraph at lines 81--90
 
  []
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[28] [29]
+[28] [29] [30]
 Overfull \hbox (18.47046pt too wide) in paragraph at lines 126--136
  [] 
  []
 
-[30]
 File: images/Paper_Fig_5.png Graphic file (type QTm)
- <use  "images/Paper_Fig_5.png" >
+<use  "images/Paper_Fig_5.png" >
 Overfull \hbox (21.62543pt too wide) in paragraph at lines 145--147
  [][] 
  []
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[31]
+[31] [32]
 File: images/Paper_Fig_6.png Graphic file (type QTm)
  <use  "images/Paper_Fig_6.png" >
 Overfull \hbox (21.62543pt too wide) in paragraph at lines 166--168
  [][] 
  []
 
-[32] [33] [34] [35] [36] [37] [38]
+[33] [34] [35] [36] [37] [38] [39]
 File: images/Paper_Fig_7.png Graphic file (type QTm)
  <use  "images/Paper_Fig_7.png" >
 Overfull \hbox (15.02266pt too wide) in paragraph at lines 297--299
@@ -1836,7 +1864,7 @@ Overfull \hbox (15.02266pt too wide) in paragraph at lines 303--305
  [][] 
  []
 
-[39] [40]
+[40] [41]
 File: images/Paper_Fig_9.png Graphic file (type QTm)
  <use  "images/Paper_Fig_9.png" >
 Overfull \hbox (15.02266pt too wide) in paragraph at lines 336--338
@@ -1849,12 +1877,12 @@ Overfull \hbox (15.02266pt too wide) in paragraph at lines 342--344
  [][] 
  []
 
-[41]) [42] [43] [44]
+[42]) [43]
 \openout2 = `data/2_Thesis_proposal.aux'.
 
  (./data/2_Thesis_proposal.tex
 Chapter 3.
-[45
+[44
 
 
 
@@ -1865,12 +1893,12 @@ Overfull \hbox (21.62543pt too wide) in paragraph at lines 29--31
  [][] 
  []
 
-[46]) [47]
+[45]) [46]
 \openout2 = `data/4_Python_API.aux'.
 
  (./data/4_Python_API.tex
 Chapter 4.
-[48
+[47
 
 
 
@@ -1881,7 +1909,7 @@ Overfull \hbox (21.62543pt too wide) in paragraph at lines 48--50
  [][] 
  []
 
-[49]
+[48]
 File: images/Paper_Fig_15.png Graphic file (type QTm)
  <use  "images/Paper_Fig_15.png" >
 Overfull \hbox (21.62543pt too wide) in paragraph at lines 70--72
@@ -1894,7 +1922,7 @@ Overfull \hbox (21.62543pt too wide) in paragraph at lines 81--83
  [][] 
  []
 
-[50] [51]
+[49] [50]
 \openout4 = `main.pyg'.
 
 runsystem(pygmentize -l python -f latex -F tokenmerge             -P "verboptio
@@ -1916,7 +1944,7 @@ runsystem(rm main.out.pyg)...executed.
 
 runsystem(rm main.pyg)...executed.
 
-) [52]
+) [51]
 \openout2 = `data/5_BPA_data.aux'.
 
  (./data/5_BPA_data.tex
@@ -1927,7 +1955,7 @@ Overfull \hbox (21.62543pt too wide) in paragraph at lines 45--47
  [][] 
  []
 
-[53
+[52
 
 
 
@@ -1941,7 +1969,7 @@ Underfull \vbox (badness 10000) detected at line 87
  []
 
 File: images/Paper_Fig_18.png Graphic file (type QTm)
-<use  "images/Paper_Fig_18.png" > [54]
+<use  "images/Paper_Fig_18.png" > [53]
 Overfull \hbox (19.8408pt too wide) in alignment at lines 102--112
  [] [] [] 
  []
@@ -1951,12 +1979,12 @@ Underfull \vbox (badness 10000) detected at line 112
  []
 
 File: images/Paper_Fig_19.png Graphic file (type QTm)
-<use  "images/Paper_Fig_19.png" > [55]
+<use  "images/Paper_Fig_19.png" > [54]
 File: images/Paper_Fig_20.png Graphic file (type QTm)
  <use  "images/Paper_Fig_20.png" >
 File: images/Paper_Fig_21.png Graphic file (type QTm)
 
-<use  "images/Paper_Fig_21.png" > [56] [57]
+<use  "images/Paper_Fig_21.png" > [55] [56]
 File: images/Paper_Fig_22.png Graphic file (type QTm)
  <use  "images/Paper_Fig_22.png" >
 File: images/Paper_Fig_23.png Graphic file (type QTm)
@@ -1970,7 +1998,7 @@ Overfull \hbox (5.17479pt too wide) in alignment at lines 203--210
 Underfull \vbox (badness 10000) detected at line 210
  []
 
-[58]
+[57]
 File: images/Paper_Fig_24.png Graphic file (type QTm)
  <use  "images/Paper_Fig_24.png" >
 Overfull \hbox (6.87126pt too wide) in paragraph at lines 230--231
@@ -1980,9 +2008,9 @@ it/12 所 示 为 \EU1/TimesNewRoman(0)/m/it/12 3PH-'YN'\EU1/SimSun(0)/m/it/12 �
 抗 星 型 点 已 经\EU1/TimesNewRoman(0)/m/it/12 'connected'\EU1/SimSun(0)/m/it/12 ，|
  []
 
-[59]
+[58]
 File: images/Paper_Fig_25.png Graphic file (type QTm)
- <use  "images/Paper_Fig_25.png" > [60] [61] [62]
+ <use  "images/Paper_Fig_25.png" > [59] [60] [61]
 Overfull \hbox (1.50096pt too wide) in alignment at lines 316--327
  [] [] [] 
  []
@@ -1991,24 +2019,24 @@ Overfull \hbox (1.50096pt too wide) in alignment at lines 316--327
 Underfull \vbox (badness 10000) detected at line 327
  []
 
-[63]
+[62]
 File: images/Paper_Fig_26.png Graphic file (type QTm)
  <use  "images/Paper_Fig_26.png" >
 File: images/Paper_Fig_27.png Graphic file (type QTm)
  <use  "images/Paper_Fig_27.png" >
-[64]
+[63]
 File: images/Paper_Fig_28.png Graphic file (type QTm)
- <use  "images/Paper_Fig_28.png" > [65]
+ <use  "images/Paper_Fig_28.png" > [64]
 File: images/Paper_Fig_29.png Graphic file (type QTm)
  <use  "images/Paper_Fig_29.png" >
 File: images/Paper_Fig_30.png Graphic file (type QTm)
 
-<use  "images/Paper_Fig_30.png" > [66]
+<use  "images/Paper_Fig_30.png" > [65]
 File: images/Paper_Fig_31.png Graphic file (type QTm)
  <use  "images/Paper_Fig_31.png" >
 File: images/Paper_Fig_32.png Graphic file (type QTm)
 
-<use  "images/Paper_Fig_32.png" > [67]
+<use  "images/Paper_Fig_32.png" > [66]
 Overfull \hbox (16.8408pt too wide) in alignment at lines 451--458
  [] [] [] 
  []
@@ -2065,7 +2093,7 @@ Overfull \hbox (19.8408pt too wide) in alignment at lines 502--506
  [] [] [] 
  []
 
-[68]
+[67]
 File: images/Paper_Fig_34.png Graphic file (type QTm)
  <use  "images/Paper_Fig_34.png" >
 Overfull \hbox (21.62543pt too wide) in paragraph at lines 511--513
@@ -2113,9 +2141,9 @@ Overfull \hbox (19.8408pt too wide) in alignment at lines 517--542
 Underfull \vbox (badness 10000) detected at line 542
  []
 
-[69]
+[68]
 File: images/Paper_Fig_35.png Graphic file (type QTm)
- <use  "images/Paper_Fig_35.png" > [70]
+ <use  "images/Paper_Fig_35.png" > [69]
 File: images/Paper_Fig_36.png Graphic file (type QTm)
  <use  "images/Paper_Fig_36.png" >
 Missing character: There is no ， in font Times New Roman/OT:script=latn;languag
@@ -2124,7 +2152,7 @@ Missing character: There is no ， in font Times New Roman/OT:script=latn;langua
 e=DFLT;!
 File: images/Paper_Fig_37.png Graphic file (type QTm)
 
-<use  "images/Paper_Fig_37.png" > [71]
+<use  "images/Paper_Fig_37.png" > [70]
 File: images/Paper_Fig_38.png Graphic file (type QTm)
  <use  "images/Paper_Fig_38.png" >
 Missing character: There is no ， in font Times New Roman/OT:script=latn;languag
@@ -2136,21 +2164,21 @@ e=DFLT;!
 Missing character: There is no ， in font Times New Roman/OT:script=latn;languag
 e=DFLT;!
 
-[72]
+[71]
 File: images/Paper_Fig_39.png Graphic file (type QTm)
- <use  "images/Paper_Fig_39.png" > [73]
+ <use  "images/Paper_Fig_39.png" > [72]
 File: images/Paper_Fig_40.png Graphic file (type QTm)
  <use  "images/Paper_Fig_40.png" >
 File: images/Paper_Fig_41.png Graphic file (type QTm)
 
 <use  "images/Paper_Fig_41.png" >
 File: images/Paper_Fig_42.png Graphic file (type QTm)
- <use  "images/Paper_Fig_42.png" > [74]
+ <use  "images/Paper_Fig_42.png" > [73]
 File: images/Paper_Fig_43.png Graphic file (type QTm)
 
 <use  "images/Paper_Fig_43.png" >
 File: images/Paper_Fig_44.png Graphic file (type QTm)
- <use  "images/Paper_Fig_44.png" > [75]
+ <use  "images/Paper_Fig_44.png" > [74]
 File: images/Paper_Fig_45.png Graphic file (type QTm)
 
 <use  "images/Paper_Fig_45.png" >
@@ -2167,7 +2195,7 @@ Overfull \hbox (19.8408pt too wide) in alignment at lines 749--763
 Underfull \vbox (badness 10000) detected at line 763
  []
 
-[76]
+[75]
 File: images/Paper_Fig_46.png Graphic file (type QTm)
  <use  "images/Paper_Fig_46.png" >
 Overfull \hbox (21.62543pt too wide) in paragraph at lines 774--776
@@ -2183,12 +2211,12 @@ Overfull \hbox (19.8408pt too wide) in alignment at lines 780--801
 Underfull \vbox (badness 10000) detected at line 801
  []
 
-[77]
+[76]
 File: images/Paper_Fig_47.png Graphic file (type QTm)
  <use  "images/Paper_Fig_47.png" >
 File: images/Paper_Fig_48.png Graphic file (type QTm)
  <use  "images/Paper_Fig_48.png" >
-[78]
+[77]
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
@@ -2208,10 +2236,10 @@ e=DFLT;!
 Missing character: There is no ， in font Times New Roman/OT:script=latn;languag
 e=DFLT;!
 File: images/Paper_Fig_49.png Graphic file (type QTm)
-<use  "images/Paper_Fig_49.png" > [79]
+<use  "images/Paper_Fig_49.png" > [78]
 File: images/Paper_Fig_50.png Graphic file (type QTm)
  <use  "images/Paper_Fig_50.png" >
-[80]
+[79]
 Missing character: There is no ， in font Times New Roman/OT:script=latn;languag
 e=DFLT;!
 Missing character: There is no ， in font Times New Roman/OT:script=latn;languag
@@ -2222,9 +2250,9 @@ File: images/Paper_Fig_51.png Graphic file (type QTm)
  <use  "images/Paper_Fig_51.png" >
 File: images/Paper_Fig_52.png Graphic file (type QTm)
  <use  "images/Paper_Fig_52.png" >
-[81]
+[80]
 File: images/Paper_Fig_53.png Graphic file (type QTm)
- <use  "images/Paper_Fig_53.png" > [82]
+ <use  "images/Paper_Fig_53.png" > [81]
 File: images/Paper_Fig_54.png Graphic file (type QTm)
  <use  "images/Paper_Fig_54.png" >
 Overfull \hbox (21.62543pt too wide) in paragraph at lines 978--980
@@ -2240,7 +2268,7 @@ Overfull \hbox (1.50096pt too wide) in alignment at lines 984--1002
 Underfull \vbox (badness 10000) detected at line 1002
  []
 
-) [83]
+) [82]
 \openout2 = `data/result.aux'.
 
  (./data/result.tex
@@ -2252,7 +2280,7 @@ Overfull \hbox (21.62543pt too wide) in paragraph at lines 7--9
  []
 
 File: images/Paper_Fig_56.png Graphic file (type QTm)
-<use  "images/Paper_Fig_56.png" > [84
+<use  "images/Paper_Fig_56.png" > [83
 
 
 
@@ -2261,23 +2289,23 @@ File: images/Paper_Fig_57.png Graphic file (type QTm)
  <use  "images/Paper_Fig_57.png" >
 File: images/Paper_Fig_58.png Graphic file (type QTm)
 
-<use  "images/Paper_Fig_58.png" > [85]
+<use  "images/Paper_Fig_58.png" > [84]
 File: images/Paper_Fig_59.png Graphic file (type QTm)
  <use  "images/Paper_Fig_59.png" >
-[86]) [87]
+[85]) [86]
 \openout2 = `data/conclusion.aux'.
 
  (./data/conclusion.tex
 Chapter 7.
-[88
+[87
 
 
 
-]) [89]
+]) [88]
 No file main.bbl.
 \openout2 = `data/thanks.aux'.
 
-(./data/thanks.tex) [90
+(./data/thanks.tex) [89
 
 
 
@@ -2290,67 +2318,53 @@ runsystem(pygmentize -l python -f latex -F tokenmerge             -P "verboptio
 ns= ,fontsize=\tiny ,frame=lines,framesep=1mm,baselinestretch=0.6" -o main.out.
 pyg first.py)...executed.
 
- (./main.out.pyg [91
+ (./main.out.pyg [90
 
 
 
-] [92] [93]
-[94] [95] [96] [97] [98] [99])
+] [91] [92]
+[93] [94] [95] [96] [97] [98])
 runsystem(rm main.out.pyg)...executed.
 
-) [100]
-\openout2 = `data/eval.aux'.
+) [99]
+File: data/教师评阅表.pdf Graphic file (type QTm)
+ <use  "data/教师评阅表.pdf"  page1>
+File: data/教师评阅表.pdf Graphic file (type QTm)
 
- (./data/eval.tex
-*************************************************
-* fontspec warning: "script-not-exist"
-* 
-* Font 'STFangsong' does not contain script 'CJK'.
-*************************************************
-\g_fontspec_family_STFangsong_int=\count189
-.................................................
-. fontspec info: "defining-font"
-. 
-. Font family 'STFangsong(0)' created for font 'STFangsong' with options
-. [Script={CJK},BoldFont={*},ItalicFont={*},BoldItalicFont={*},SlantedFont={*},
-BoldSlantedFont={*}].
-. 
-. This font family consists of the following shapes:
-. 
-. * 'normal' with NFSS spec.:
-. <->"STFangsong/ICU:"
-. 
-. * 'bold' with NFSS spec.:
-. <->"STFangsong/ICU:"
-. 
-. * 'italic' with NFSS spec.:
-. <->"STFangsong/ICU:"
-. 
-. * 'sl/' with NFSS spec.:
-. <->"STFangsong/ICU:"
-. 
-. * 'bold italic' with NFSS spec.:
-. <->"STFangsong/ICU:"
-. 
-. * 'sl/' with NFSS spec.:
-. <->"STFangsong/ICU:"
-.................................................
-) [101
+<use  "data/教师评阅表.pdf"  page1>
+File: data/教师评阅表.pdf Graphic file (type QTm)
+ <use  "data/教师评阅表.pdf"  page1>
+File: data/教师评阅表.pdf Graphic file (type QTm)
 
+<use  "data/教师评阅表.pdf"  page1>
+File: data/教师评阅表.pdf Graphic file (type QTm)
+ <use  "data/教师评阅表.pdf"  page1> [100
 
+]
+File: data/答辩记录表.pdf Graphic file (type QTm)
 
-] (./main.aux (./data/absc.aux) (./data/abse.aux)
-(./data/1_Literature_review.aux) (./data/3_Thesis_Translation.aux)
-(./data/2_Thesis_proposal.aux) (./data/4_Python_API.aux) (./data/5_BPA_data.aux
-) (./data/result.aux) (./data/conclusion.aux) (./data/thanks.aux)
-(./data/appe.aux) (./data/eval.aux)) ) 
+<use  "data/答辩记录表.pdf"  page1>
+File: data/答辩记录表.pdf Graphic file (type QTm)
+ <use  "data/答辩记录表.pdf"  page1>
+File: data/答辩记录表.pdf Graphic file (type QTm)
+
+<use  "data/答辩记录表.pdf"  page1>
+File: data/答辩记录表.pdf Graphic file (type QTm)
+ <use  "data/答辩记录表.pdf"  page1>
+File: data/答辩记录表.pdf Graphic file (type QTm)
+
+<use  "data/答辩记录表.pdf"  page1> [101] (./main.aux (./data/absc.aux)
+(./data/abse.aux) (./data/1_Literature_review.aux)
+(./data/3_Thesis_Translation.aux) (./data/2_Thesis_proposal.aux)
+(./data/4_Python_API.aux) (./data/5_BPA_data.aux) (./data/result.aux)
+(./data/conclusion.aux) (./data/thanks.aux) (./data/appe.aux)) ) 
 Here is how much of TeX's memory you used:
- 23078 strings out of 493938
- 475294 string characters out of 6148856
- 519165 words of memory out of 5000000
- 25776 multiletter control sequences out of 15000+600000
- 15262 words of font info for 129 fonts, out of 8000000 for 9000
+ 22952 strings out of 493938
+ 471042 string characters out of 6148856
+ 518337 words of memory out of 5000000
+ 25661 multiletter control sequences out of 15000+600000
+ 11879 words of font info for 106 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
- 53i,18n,66p,1075b,559s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 53i,18n,65p,1075b,561s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.pdf (111 pages).
+Output written on main.pdf (113 pages).
